@@ -14,7 +14,7 @@ To really commit to SVN:
 
     $ git svn dcommit
 
-The 'dcommit' command does a 'rebase', so we should force a push to git:
+AFTER the 'dcommit', push the changes go Git (this way te rebase made by dcommit doesn't breaks history):
 
-    $ git push origin +master:master
+    $ git push origin
 
