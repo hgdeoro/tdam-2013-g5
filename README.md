@@ -10,6 +10,11 @@ To see what is going to be committed one can choose the following options.
     $ git log remotes/git-svn.. --oneline
     $ git svn dcommit --dry-run
 
-To really commit
+To really commit to SVN:
 
     $ git svn dcommit
+
+The 'dcommit' command does a 'rebase', so we should force a push to git:
+
+    $ git push origin +master:master
+
