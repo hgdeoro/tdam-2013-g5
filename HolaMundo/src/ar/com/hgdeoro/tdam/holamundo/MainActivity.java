@@ -15,21 +15,31 @@ public class MainActivity extends MyBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Button button = (Button) findViewById(R.id.wasteMoreMemoryButton);
-		button.setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.btWasteMemory))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				EditText text = (EditText) findViewById(R.id.status);
-				StringBuffer sb = new StringBuffer();
-				for (int i = 0; i < 1000; i++)
-					sb.append("Jo jo jo! Feliz festivus! ");
-				text.setText(text.getText() + sb.toString());
-				Log.i(this.getClass().getName(), "Add: " + sb.length()
-						+ " bytes?");
-			}
+					@Override
+					public void onClick(View v) {
+						EditText text = (EditText) findViewById(R.id.status);
+						StringBuffer sb = new StringBuffer();
+						for (int i = 0; i < 1000; i++)
+							sb.append("Jo jo jo! Feliz festivus! ");
+						text.setText(text.getText() + sb.toString());
+						Log.i(this.getClass().getName(), "Add: " + sb.length()
+								+ " bytes?");
+					}
 
-		});
+				});
+
+		((Button) findViewById(R.id.btClean))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						((EditText) findViewById(R.id.status)).setText("");
+					}
+
+				});
 
 	}
 

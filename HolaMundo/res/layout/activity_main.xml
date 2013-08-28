@@ -31,16 +31,28 @@
         android:ems="10"
         android:gravity="top"
         android:inputType="textMultiLine"
-        android:textSize="10dp" >
+        android:textSize="12sp" >
 
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/wasteMoreMemoryButton"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="@string/wasteMoreMemoryButtonLabel" />
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btWasteMemory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wasteMoreMemoryButtonLabel" />
+
+        <Button
+            android:id="@+id/btClean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btCleanLabel" />
+    </LinearLayout>
 
 </LinearLayout>
