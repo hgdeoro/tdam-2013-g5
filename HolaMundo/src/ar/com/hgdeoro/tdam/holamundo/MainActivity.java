@@ -102,6 +102,7 @@ public class MainActivity extends MyBaseActivity {
                 values.put(Phone.LABEL, "Some Contact");
                 Uri dataUri = getContentResolver()
                         .insert(ContactsContract.Data.CONTENT_URI, values);
+                addStatus("dataUri: " + dataUri);
             }
 
         });
