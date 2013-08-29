@@ -10,24 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <Button
+        android:id="@+id/btArriba"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:layout_weight="0"
-        android:text="@string/textview" />
+        android:text="@string/btArriba" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editText"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:ems="10"
         android:gravity="top|left"
@@ -39,28 +35,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_weight="0" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btAbajoIzq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="top|center_horizontal"
-            android:text="@string/button1" />
+            android:text="@string/btAbajoIzq" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btAbajoDer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="top|center_horizontal"
-            android:text="@string/button2" />
+            android:text="@string/btAbajoDer" />
 
     </LinearLayout>
 

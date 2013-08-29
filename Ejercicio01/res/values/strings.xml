@@ -5,7 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="textview">Este texto puede ser lo suficientemente largo como para utilizar más de una línea</string>
-    <string name="button1">Botón 1</string>
-    <string name="button2">Botón 2 con más texto... mucho texto...</string>
+    <string name="btArriba">Mostrar texto 1</string>
+    <string name="btAbajoIzq">Mostrar texto 2</string>
+    <string name="btAbajoDer">Mostrar texto 3</string>
 
 </resources>
