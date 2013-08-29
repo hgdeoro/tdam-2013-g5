@@ -1,5 +1,8 @@
 package ar.com.hgdeoro.tdam.holamundo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,13 +15,33 @@ import android.provider.ContactsContract.Contacts.Data;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends MyBaseActivity {
 
     private static final int PICK_CONTACT = 1;
+
+    private static final List<Class<? extends Activity>> extraActivityClasses;
+    private static final String[] extraActivities;
+
+    static {
+        List<Class<? extends Activity>> _extraActivityClasses = new ArrayList<Class<? extends Activity>>();
+        _extraActivityClasses.add(null);
+        _extraActivityClasses.add(ListViewTestActivity.class);
+        _extraActivityClasses.add(ProgressBarActivity.class);
+        extraActivityClasses = _extraActivityClasses;
+
+        String[] _extraActivities = new String[_extraActivityClasses.size()];
+        _extraActivities[0] = "";
+        for (int i = 1; i < _extraActivities.length; i++) {
+            _extraActivities[i] = _extraActivityClasses.get(i).getSimpleName();
+        }
+        extraActivities = _extraActivities;
+    }
 
     private void addStatus(String status) {
         EditText text = (EditText) findViewById(R.id.status);
@@ -33,7 +56,7 @@ public class MainActivity extends MyBaseActivity {
         addStatus("1. Abrir pagina web");
         addStatus("2. Seleccionar contacto");
         addStatus("3. Insertar contacto");
-        addStatus("4. List View");
+        addStatus("4. Inicia Activity seleccionada");
     }
 
     @Override
@@ -115,14 +138,21 @@ public class MainActivity extends MyBaseActivity {
          * Intent 4
          */
         final Context ctx = this;
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ((Button) findViewById(R.id.btIntent4)).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ctx, ListViewTestActivity.class));
+                if (spinner.getSelectedItemPosition() > 0) {
+                    startActivity(new Intent(ctx, extraActivityClasses.get(spinner
+                            .getSelectedItemPosition())));
+                }
             }
 
         });
+
+        spinner.setAdapter(new ArrayAdapter<String>(this, R.layout.list_activity_item,
+                R.id.labelListActivityItem, extraActivities));
 
     }
 
