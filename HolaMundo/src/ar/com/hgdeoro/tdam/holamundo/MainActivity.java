@@ -2,6 +2,7 @@ package ar.com.hgdeoro.tdam.holamundo;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -113,11 +114,12 @@ public class MainActivity extends MyBaseActivity {
         /*
          * Intent 4
          */
+        final Context ctx = this;
         ((Button) findViewById(R.id.btIntent4)).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(ctx, ListViewTestActivity.class));
             }
 
         });
