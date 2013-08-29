@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends MyBaseActivity {
 
@@ -45,6 +46,7 @@ public class MainActivity extends MyBaseActivity {
             public void onClick(View v) {
                 cleanStatus();
                 setHelp();
+                Toast.makeText(getBaseContext(), "Mostrando ayuda", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -54,6 +56,7 @@ public class MainActivity extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 cleanStatus();
+                Toast.makeText(getBaseContext(), "Limpiado", Toast.LENGTH_SHORT).show();
             }
 
         });
