@@ -33,7 +33,7 @@ public class MainActivity extends MyBaseActivity {
         addStatus("1. Abrir pagina web");
         addStatus("2. Seleccionar contacto");
         addStatus("3. Insertar contacto");
-        addStatus("4. ");
+        addStatus("4. List View");
     }
 
     @Override

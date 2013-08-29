@@ -27,6 +27,8 @@
         </activity>
         <activity android:name="ar.com.hgdeoro.tdam.holamundo.ListViewTestActivity" >
         </activity>
+        <activity android:name="ar.com.hgdeoro.tdam.holamundo.ProgressBarActivity" >
+        </activity>
     </application>
 
 </manifest>
