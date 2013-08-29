@@ -7,31 +7,50 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+    /**
+     * Metodo utilitario para setear texto en componente central.
+     * 
+     * @param newText
+     */
     private void setText(CharSequence newText) {
         ((EditText) findViewById(R.id.editText)).setText(newText);
     }
 
+    /**
+     * Al crear la Activity seteamos listeners
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OnClickListener onClickListener = new OnClickListener() {
+        //
+        // Creamos listener reutilizable
+        //
 
+        OnClickListener onClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setText(((Button) v).getText());
             }
         };
 
+        //
+        // Seteamos listener
+        //
+
         ((Button) findViewById(R.id.btArriba)).setOnClickListener(onClickListener);
         ((Button) findViewById(R.id.btAbajoIzq)).setOnClickListener(onClickListener);
         ((Button) findViewById(R.id.btAbajoDer)).setOnClickListener(onClickListener);
     }
 
+    /**
+     * On resume borramos el contenido del EditText
+     */
     @Override
     protected void onResume() {
         super.onResume();
