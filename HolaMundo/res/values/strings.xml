@@ -9,5 +9,7 @@
     <string name="btIntent2Label">I2</string>
     <string name="btIntent3Label">I3</string>
     <string name="btIntent4Label">I4</string>
+    <string name="btMas">Mas</string>
+    <string name="btMenos">Menos</string>
 
 </resources>
