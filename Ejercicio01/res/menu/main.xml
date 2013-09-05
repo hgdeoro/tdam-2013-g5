@@ -7,5 +7,6 @@
     <item
         android:id="@+id/action_toast_2"
         android:title="@string/menu_toast_2"/>
+    <item android:id="@+id/action_limpiar" android:title="@string/menu_limpiar"></item>
 
 </menu>

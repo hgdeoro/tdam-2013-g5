@@ -103,6 +103,9 @@ public class MainActivity extends Activity {
         } else if (item.getItemId() == R.id.action_toast_2) {
             Toast.makeText(getBaseContext(), R.string.menu_toast_2, Toast.LENGTH_SHORT).show();
             return true;
+        } else if (item.getItemId() == R.id.action_limpiar) {
+            setText("");
+            return true;
         } else {
             return super.onMenuItemSelected(featureId, item);
         }

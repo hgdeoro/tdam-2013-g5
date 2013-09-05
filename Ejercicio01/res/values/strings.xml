@@ -7,7 +7,8 @@
     <!-- Menu -->
     <string name="menu_toast_1">Opcion 1</string>
     <string name="menu_toast_2">Opcion 2</string>
-
+    <string name="menu_limpiar">Limpiar</string>
+    
     <!-- Demás... -->
     <string name="hello_world">Hello world!</string>
     <string name="textview">Este texto puede ser lo suficientemente largo como para utilizar más de una línea</string>
