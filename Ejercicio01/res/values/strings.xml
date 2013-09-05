@@ -8,5 +8,8 @@
     <string name="btArriba">Mostrar texto 1</string>
     <string name="btAbajoIzq">Mostrar texto 2</string>
     <string name="btAbajoDer">Mostrar texto 3</string>
+    <string name="labelOk">Ok</string>
+    <string name="labelFunciono">Funcionó!</string>
+    <string name="dialogTitle">Pts! Hey!</string>
 
 </resources>

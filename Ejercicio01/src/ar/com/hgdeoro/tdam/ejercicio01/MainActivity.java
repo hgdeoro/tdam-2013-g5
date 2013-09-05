@@ -59,8 +59,9 @@ public class MainActivity extends Activity {
     @Override
     protected Dialog onCreateDialog(int id) {
         // .setIcon(R.drawable.icon)
-        Dialog dialog = new AlertDialog.Builder(this).setTitle("Pts! Hey!")
-                .setPositiveButton("OK", null).setMessage("Funcionó!").create();
+        Dialog dialog = new AlertDialog.Builder(this).setTitle(R.string.dialogTitle)
+                .setPositiveButton(R.string.labelOk, null).setMessage(R.string.labelFunciono)
+                .create();
         return dialog;
     }
 
