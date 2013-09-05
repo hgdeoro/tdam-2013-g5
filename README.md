@@ -18,3 +18,7 @@ AFTER the 'dcommit', push the changes go Git (this way te rebase made by dcommit
 
     $ git push origin
 
+## Login to SVN
+
+The password to use is shown at https://code.google.com/hosting/settings
+
