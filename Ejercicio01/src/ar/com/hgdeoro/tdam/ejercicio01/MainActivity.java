@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -93,4 +95,16 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (item.getItemId() == R.id.action_toast_1) {
+            Toast.makeText(getBaseContext(), R.string.menu_toast_1, Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item.getItemId() == R.id.action_toast_2) {
+            Toast.makeText(getBaseContext(), R.string.menu_toast_2, Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onMenuItemSelected(featureId, item);
+        }
+    }
 }

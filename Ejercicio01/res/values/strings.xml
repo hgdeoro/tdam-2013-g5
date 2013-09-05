@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Globals -->
     <string name="app_name">Ejercicio01</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Menu -->
+    <string name="menu_toast_1">Opcion 1</string>
+    <string name="menu_toast_2">Opcion 2</string>
+
+    <!-- Demás... -->
     <string name="hello_world">Hello world!</string>
     <string name="textview">Este texto puede ser lo suficientemente largo como para utilizar más de una línea</string>
     <string name="btArriba">Mostrar texto 1</string>
