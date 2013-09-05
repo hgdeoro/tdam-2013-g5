@@ -1,13 +1,14 @@
 package ar.com.hgdeoro.tdam.ejercicio01;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -43,9 +44,24 @@ public class MainActivity extends Activity {
         // Seteamos listener
         //
 
-        ((Button) findViewById(R.id.btArriba)).setOnClickListener(onClickListener);
+        ((Button) findViewById(R.id.btArriba)).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.showDialog(0);
+            }
+
+        });
         ((Button) findViewById(R.id.btAbajoIzq)).setOnClickListener(onClickListener);
         ((Button) findViewById(R.id.btAbajoDer)).setOnClickListener(onClickListener);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // .setIcon(R.drawable.icon)
+        Dialog dialog = new AlertDialog.Builder(this).setTitle("Pts! Hey!")
+                .setPositiveButton("OK", null).setMessage("Funcionó!").create();
+        return dialog;
     }
 
     /**
