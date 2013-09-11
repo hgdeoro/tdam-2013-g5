@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         new InitialData(db).insertInitialData();
 
-        // FIXME: hace falta 'db.close();'
+        // FIXME: hace falta 'db.close();'?
     }
 
     @Override
