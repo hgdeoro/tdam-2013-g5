@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
                 Bundle bundle = data.getExtras();
                 String text = bundle.getString(TEXT_STRING);
                 if (text == null) {
-                    text = "**********************************";
+                    text = new DBHelper(this).obtenerTextoById(bundle.getLong(TEXT_ID));
                 }
                 setTextFromDb(bundle.getLong(TEXT_ID), text);
             } else {

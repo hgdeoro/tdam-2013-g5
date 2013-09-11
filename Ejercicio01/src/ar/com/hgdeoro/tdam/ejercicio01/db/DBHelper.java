@@ -41,15 +41,35 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor obtenerTextos() {
-        // SQLiteDatabase db = this.getWritableDatabase();
-        // Cursor cur = db.rawQuery("Select * from " + employeeTable, null);
-        // int x = cur.getCount();
-        // cur.close();
-        // return x;
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.query(TEXTOS_TABLE_NAME, new String[] { TEXTOS_COL_ID, TEXTOS_COL_TEXTO },
                 null, null, null, null, null);
         return cur;
+    }
+
+    /**
+     * Devuelve texto por id, o null si no se encontro.
+     * 
+     * @param id
+     * @return
+     */
+    public String obtenerTextoById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String where = "" + TEXTOS_COL_TEXTO + " = ?";
+
+        Cursor cur = db.query(TEXTOS_TABLE_NAME, new String[] { TEXTOS_COL_ID, TEXTOS_COL_TEXTO },
+                where, new String[] { Long.toString(id) }, null, null, null);
+
+        try {
+            if (!cur.moveToFirst())
+                return null;
+            if (cur.moveToNext())
+                throw new RuntimeException("Se obtuvo mas de un resultado al buscar por ID");
+
+            return cur.getString(cur.getColumnIndexOrThrow(TEXTOS_COL_TEXTO));
+        } finally {
+            cur.close();
+        }
     }
 
 }

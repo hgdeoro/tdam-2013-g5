@@ -62,11 +62,7 @@ public class ListTextsActivity extends ListActivity {
         if (usarDb) {
 
             Intent intent = this.getIntent();
-
-            /* SEGURO?!?!?!?!?!??!?! (la linea siguiente) */
-            intent.putExtra(MainActivity.TEXT_ID, this.getSelectedItemId());
-
-            /* SEGURO?!?!?!?!?!??!?! (la linea siguiente) */
+            intent.putExtra(MainActivity.TEXT_ID, Long.valueOf(id));
             intent.putExtra(MainActivity.TEXT_STRING, (String) null);
 
             this.setResult(RESULT_OK, intent);
