@@ -37,17 +37,8 @@ public class MainActivity extends Activity {
      * 
      * @param newText
      */
-    private void _setText(CharSequence newText) {
-        ((EditText) findViewById(R.id.editText)).setText(newText);
-    }
-
-    /**
-     * Metodo utilitario para setear texto en componente central. Resetea textId
-     * 
-     * @param newText
-     */
     private void cleanTextAndId() {
-        _setText("");
+        ((EditText) findViewById(R.id.editText)).setText("");
         this.textId = -1;
         Log.i("cleanText()", "");
     }
@@ -57,11 +48,11 @@ public class MainActivity extends Activity {
      * 
      * @param newText
      */
-    private void setTextFromDb(long textId, String text) {
+    private void setTextoYId(long textId, String text) {
         Log.i("setTextFromDb()", "id: " + textId + " - texto: '" + text + "'");
-        cleanTextAndId();
+        cleanTextAndId(); // mmm... redundante, no?
         this.textId = textId;
-        _setText(text);
+        ((EditText) findViewById(R.id.editText)).setText(text);
     }
 
     /**
@@ -79,18 +70,6 @@ public class MainActivity extends Activity {
         new DBHelper(this);
 
         //
-        // Creamos listener reutilizable
-        //
-
-        OnClickListener onClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cleanTextAndId();
-                _setText(((Button) v).getText());
-            }
-        };
-
-        //
         // Seteamos listener
         //
 
@@ -103,8 +82,22 @@ public class MainActivity extends Activity {
             }
 
         });
-        ((Button) findViewById(R.id.btAbajoIzq)).setOnClickListener(onClickListener);
-        ((Button) findViewById(R.id.btAbajoDer)).setOnClickListener(onClickListener);
+
+        ((Button) findViewById(R.id.btGuardar)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String texto = ((EditText) findViewById(R.id.editText)).getText().toString();
+                new DBHelper(MainActivity.this).guardarTexto(textId, texto);
+                // TODO: reload this!
+            }
+        });
+
+        ((Button) findViewById(R.id.btLimpiar)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleanTextAndId();
+            }
+        });
     }
 
     @SuppressWarnings("deprecation")
@@ -175,6 +168,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void cargarTextoById(long id) {
+        if (id <= 0)
+            throw new RuntimeException("El 'id' recibido no es valido: " + id);
+
+        String text = new DBHelper(this).obtenerTextoById(id);
+        if (text == null)
+            Log.w("cargarTextoById()", "DBHelper.obtenerTextoById(" + id + ") ha devuelto null");
+
+        setTextoYId(id, text);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // super.onActivityResult(requestCode, resultCode, data);
@@ -182,21 +186,9 @@ public class MainActivity extends Activity {
                 + " - data: " + data);
         if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
             if (resultCode == Activity.RESULT_OK) {
-                Bundle bundle = data.getExtras();
-                final long id = bundle.getLong(TEXT_ID);
+                final long id = data.getExtras().getLong(TEXT_ID);
                 Log.i("onActivityResult()", "id recibido: " + id);
-                if (id <= 0) {
-                    throw new RuntimeException("El 'id' recibido de la Activity no es valido");
-                }
-                String text = bundle.getString(TEXT_STRING);
-                if (text == null) {
-                    text = new DBHelper(this).obtenerTextoById(id);
-                    if (text == null)
-                        Log.w("onActivityResult()",
-                                "DBHelper.obtenerTextoById(" + bundle.getLong(TEXT_ID)
-                                        + ") ha devuelto null");
-                }
-                setTextFromDb(bundle.getLong(TEXT_ID), text);
+                this.cargarTextoById(id);
             } else {
                 Log.e("onActivityResult()", "resultCode != RESULT_OK");
             }

@@ -38,22 +38,22 @@
         android:layout_weight="0" >
 
         <Button
-            android:id="@+id/btAbajoIzq"
+            android:id="@+id/btGuardar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="top|center_horizontal"
-            android:text="@string/btAbajoIzq" />
+            android:text="@string/btGuardar" />
 
         <Button
-            android:id="@+id/btAbajoDer"
+            android:id="@+id/btLimpiar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="top|center_horizontal"
-            android:text="@string/btAbajoDer" />
+            android:text="@string/btLimpiar" />
 
     </LinearLayout>
 
