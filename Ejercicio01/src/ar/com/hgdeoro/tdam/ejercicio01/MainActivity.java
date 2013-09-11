@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ar.com.hgdeoro.tdam.ejercicio01.db.DBHelper;
 
 public class MainActivity extends Activity {
 
@@ -70,6 +71,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //
+        // Instanciamos DBHelper para crear BD
+        //
+
+        new DBHelper(this);
 
         //
         // Creamos listener reutilizable
