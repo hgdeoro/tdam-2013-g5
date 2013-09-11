@@ -87,6 +87,11 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String texto = ((EditText) findViewById(R.id.editText)).getText().toString();
+                if (texto.trim().length() == 0) {
+                    Toast.makeText(getBaseContext(), R.string.no_hay_mensaje_que_guardar, Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 if (textId == -1) {
                     long newId = new DBHelper(MainActivity.this).guardarTexto(textId, texto);
                     MainActivity.this.cargarTextoById(newId);
