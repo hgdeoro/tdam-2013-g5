@@ -1,5 +1,6 @@
 package ar.com.hgdeoro.tdam.ejercicio01.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -80,6 +81,28 @@ public class DBHelper extends SQLiteOpenHelper {
         } finally {
             cur.close();
         }
+    }
+
+    /**
+     * Inserta o actualiza texto
+     * 
+     * @param id
+     * @param texto
+     */
+    public void guardarTexto(long id, String texto) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.TEXTOS_COL_TEXTO, texto);
+        if (id == -1) {
+            db.insert(DBHelper.TEXTOS_TABLE_NAME, DBHelper.TEXTOS_COL_ID, cv);
+            // TODO: assert count == 1
+        } else {
+            final String where = "" + TEXTOS_COL_ID + " = ?";
+            int count = db.update(DBHelper.TEXTOS_TABLE_NAME, cv, where,
+                    new String[] { Long.toString(id) });
+            // TODO: assert count == 1
+        }
+
     }
 
 }
