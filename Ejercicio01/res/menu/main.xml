@@ -8,5 +8,6 @@
         android:id="@+id/action_toast_2"
         android:title="@string/menu_toast_2"/>
     <item android:id="@+id/action_limpiar" android:title="@string/menu_limpiar"></item>
+    <item android:id="@+id/action_load_text" android:title="@string/menu_load_text"></item>
 
 </menu>

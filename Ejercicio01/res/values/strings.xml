@@ -3,11 +3,14 @@
 
     <!-- Globals -->
     <string name="app_name">Ejercicio01</string>
-
+    <string name="list_texts_activity">Lista de textos</string>
+    
     <!-- Menu -->
     <string name="menu_toast_1">Opcion 1</string>
     <string name="menu_toast_2">Opcion 2</string>
     <string name="menu_limpiar">Limpiar</string>
+    <string name="menu_load_text">Cargar texto</string>
+    
     
     <!-- Demás... -->
     <string name="hello_world">Hello world!</string>

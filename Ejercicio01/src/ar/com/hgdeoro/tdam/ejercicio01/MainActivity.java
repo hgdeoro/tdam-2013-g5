@@ -3,7 +3,9 @@ package ar.com.hgdeoro.tdam.ejercicio01;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,6 +54,7 @@ public class MainActivity extends Activity {
 
         ((Button) findViewById(R.id.btArriba)).setOnClickListener(new OnClickListener() {
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 MainActivity.this.showDialog(DEFAULT_DIALOG);
@@ -62,6 +65,7 @@ public class MainActivity extends Activity {
         ((Button) findViewById(R.id.btAbajoDer)).setOnClickListener(onClickListener);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DEFAULT_DIALOG) {
@@ -105,6 +109,12 @@ public class MainActivity extends Activity {
             return true;
         } else if (item.getItemId() == R.id.action_limpiar) {
             setText("");
+            return true;
+        } else if (item.getItemId() == R.id.action_load_text) {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(this,
+                    "ar.com.hgdeoro.tdam.ejercicio01.ListTextsActivity"));
+            this.startActivity(intent);
             return true;
         } else {
             return super.onMenuItemSelected(featureId, item);
