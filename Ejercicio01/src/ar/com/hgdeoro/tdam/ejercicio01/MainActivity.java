@@ -183,7 +183,11 @@ public class MainActivity extends Activity {
         if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                setTextFromDb(bundle.getLong(TEXT_ID), bundle.getString(TEXT_STRING));
+                String text = bundle.getString(TEXT_STRING);
+                if (text == null) {
+                    text = "**********************************";
+                }
+                setTextFromDb(bundle.getLong(TEXT_ID), text);
             } else {
                 Log.e("onActivityResult()", "resultCode != RESULT_OK");
             }
