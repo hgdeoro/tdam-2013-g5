@@ -20,5 +20,7 @@
     <string name="labelOk">Ok</string>
     <string name="labelFunciono">Funcionó!</string>
     <string name="dialogTitle">Pts! Hey!</string>
+    <string name="text_inserted_ok">El texto fue guardado</string>
+    <string name="text_updated_ok">El texto fue actualizado</string>
     
 </resources>

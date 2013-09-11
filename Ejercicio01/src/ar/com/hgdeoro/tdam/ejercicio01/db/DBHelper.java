@@ -84,23 +84,23 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Inserta o actualiza texto
+     * Inserta o actualiza texto. Insert -> devuelve ID.
      * 
      * @param id
      * @param texto
      */
-    public void guardarTexto(long id, String texto) {
+    public long guardarTexto(long id, String texto) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.TEXTOS_COL_TEXTO, texto);
         if (id == -1) {
-            db.insert(DBHelper.TEXTOS_TABLE_NAME, DBHelper.TEXTOS_COL_ID, cv);
-            // TODO: assert count == 1
+            return db.insert(DBHelper.TEXTOS_TABLE_NAME, DBHelper.TEXTOS_COL_ID, cv);
         } else {
             final String where = "" + TEXTOS_COL_ID + " = ?";
             int count = db.update(DBHelper.TEXTOS_TABLE_NAME, cv, where,
                     new String[] { Long.toString(id) });
-            // TODO: assert count == 1
+            // assert count== 1
+            return -1;
         }
 
     }

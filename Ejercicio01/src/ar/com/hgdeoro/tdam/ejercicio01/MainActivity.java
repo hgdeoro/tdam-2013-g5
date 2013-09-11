@@ -87,8 +87,17 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String texto = ((EditText) findViewById(R.id.editText)).getText().toString();
-                new DBHelper(MainActivity.this).guardarTexto(textId, texto);
-                // TODO: reload this!
+                if (textId == -1) {
+                    long newId = new DBHelper(MainActivity.this).guardarTexto(textId, texto);
+                    MainActivity.this.cargarTextoById(newId);
+                    Toast.makeText(getBaseContext(), R.string.text_inserted_ok, Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    new DBHelper(MainActivity.this).guardarTexto(textId, texto);
+                    MainActivity.this.cargarTextoById(textId);
+                    Toast.makeText(getBaseContext(), R.string.text_updated_ok, Toast.LENGTH_SHORT)
+                            .show();
+                }
             }
         });
 
