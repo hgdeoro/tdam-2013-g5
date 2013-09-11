@@ -183,9 +183,18 @@ public class MainActivity extends Activity {
         if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
+                final long id = bundle.getLong(TEXT_ID);
+                Log.i("onActivityResult()", "id recibido: " + id);
+                if (id <= 0) {
+                    throw new RuntimeException("El 'id' recibido de la Activity no es valido");
+                }
                 String text = bundle.getString(TEXT_STRING);
                 if (text == null) {
-                    text = new DBHelper(this).obtenerTextoById(bundle.getLong(TEXT_ID));
+                    text = new DBHelper(this).obtenerTextoById(id);
+                    if (text == null)
+                        Log.w("onActivityResult()",
+                                "DBHelper.obtenerTextoById(" + bundle.getLong(TEXT_ID)
+                                        + ") ha devuelto null");
                 }
                 setTextFromDb(bundle.getLong(TEXT_ID), text);
             } else {

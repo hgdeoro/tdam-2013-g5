@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -55,16 +56,25 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public String obtenerTextoById(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        final String where = "" + TEXTOS_COL_TEXTO + " = ?";
+        final String where = "" + TEXTOS_COL_ID + " = ?";
 
         Cursor cur = db.query(TEXTOS_TABLE_NAME, new String[] { TEXTOS_COL_ID, TEXTOS_COL_TEXTO },
                 where, new String[] { Long.toString(id) }, null, null, null);
 
         try {
-            if (!cur.moveToFirst())
+            if (!cur.moveToNext()) {
                 return null;
-            if (cur.moveToNext())
-                throw new RuntimeException("Se obtuvo mas de un resultado al buscar por ID");
+            }
+
+            if (!cur.isLast())
+                Log.w("obtenerTextoById()", "cur.isLast() devolvio FALSE");
+
+            for (String col : cur.getColumnNames())
+                Log.i("obtenerTextoById()", "col: " + col);
+
+            Log.i("obtenerTextoById()",
+                    "getColumnIndexOrThrow(TEXTOS_COL_TEXTO): "
+                            + cur.getColumnIndexOrThrow(TEXTOS_COL_TEXTO));
 
             return cur.getString(cur.getColumnIndexOrThrow(TEXTOS_COL_TEXTO));
         } finally {
