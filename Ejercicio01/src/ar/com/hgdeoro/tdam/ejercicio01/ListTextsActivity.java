@@ -1,11 +1,11 @@
 package ar.com.hgdeoro.tdam.ejercicio01;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ListTextsActivity extends ListActivity {
 
@@ -23,7 +23,12 @@ public class ListTextsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Toast.makeText(this, "Item " + position, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Item " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = this.getIntent();
+        intent.putExtra(MainActivity.TEXT_ID, Long.valueOf((long) position));
+        intent.putExtra(MainActivity.TEXT_STRING, provincias[position]);
+        this.setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

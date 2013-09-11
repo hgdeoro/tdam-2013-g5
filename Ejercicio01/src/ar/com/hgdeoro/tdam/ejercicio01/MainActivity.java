@@ -18,15 +18,49 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+    /** Dialogs */
     public static final int DEFAULT_DIALOG = 0;
+
+    /** Activity for response */
+    public static final int AFR_SELECT_TEXT_TO_LOAD = 1;
+
+    /** Keys para datos en intents */
+    public static final String TEXT_ID = "TEXT_ID";
+    public static final String TEXT_STRING = "TEXT_STRING";
+
+    /** Id del texto cargado (desde BD). -1 si no hay nada cargado desde la BD. */
+    private long textId = -1;
+
+    /**
+     * Metodo utilitario para setear texto en componente central. Resetea textId
+     * 
+     * @param newText
+     */
+    private void _setText(CharSequence newText) {
+        ((EditText) findViewById(R.id.editText)).setText(newText);
+    }
+
+    /**
+     * Metodo utilitario para setear texto en componente central. Resetea textId
+     * 
+     * @param newText
+     */
+    private void cleanTextAndId() {
+        _setText("");
+        this.textId = -1;
+        Log.i("cleanText()", "");
+    }
 
     /**
      * Metodo utilitario para setear texto en componente central.
      * 
      * @param newText
      */
-    private void setText(CharSequence newText) {
-        ((EditText) findViewById(R.id.editText)).setText(newText);
+    private void setTextFromDb(long textId, String text) {
+        Log.i("setTextFromDb()", "id: " + textId + " - texto: '" + text + "'");
+        cleanTextAndId();
+        this.textId = textId;
+        _setText(text);
     }
 
     /**
@@ -44,7 +78,8 @@ public class MainActivity extends Activity {
         OnClickListener onClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setText(((Button) v).getText());
+                cleanTextAndId();
+                _setText(((Button) v).getText());
             }
         };
 
@@ -90,7 +125,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        setText("");
     }
 
     @Override
@@ -101,23 +135,54 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        Log.i("onMenuItemSelected()", "featureId: " + featureId + " - item: " + item);
         if (item.getItemId() == R.id.action_toast_1) {
+            /*
+             * Toast
+             */
             Toast.makeText(getBaseContext(), R.string.menu_toast_1, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.action_toast_2) {
+            /*
+             * Toast
+             */
             Toast.makeText(getBaseContext(), R.string.menu_toast_2, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.action_limpiar) {
-            setText("");
+            /*
+             * Limpiar
+             */
+            cleanTextAndId();
             return true;
         } else if (item.getItemId() == R.id.action_load_text) {
+            /*
+             * Cargar texto desde BD
+             */
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(this,
                     "ar.com.hgdeoro.tdam.ejercicio01.ListTextsActivity"));
-            this.startActivity(intent);
+            this.startActivityForResult(intent, AFR_SELECT_TEXT_TO_LOAD);
             return true;
         } else {
             return super.onMenuItemSelected(featureId, item);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // super.onActivityResult(requestCode, resultCode, data);
+        Log.i("onActivityResult()", "requestCode: " + requestCode + " - resultCode: " + resultCode
+                + " - data: " + data);
+        if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                setTextFromDb(bundle.getLong(TEXT_ID), bundle.getString(TEXT_STRING));
+            } else {
+                Log.e("onActivityResult()", "resultCode != RESULT_OK");
+            }
+        } else {
+            Log.e("onActivityResult()", "requestCode desconocido");
+        }
+    }
+
 }
