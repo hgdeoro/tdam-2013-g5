@@ -32,6 +32,10 @@ public class MainActivity extends Activity {
     /** Id del texto cargado (desde BD). -1 si no hay nada cargado desde la BD. */
     private long textId = -1;
 
+    /*------------------------------------------------------------------------------------------
+     * Metodos utilitarios para UI y BD
+     *------------------------------------------------------------------------------------------*/
+
     /**
      * Metodo utilitario para setear texto en componente central. Resetea textId
      * 
@@ -56,6 +60,26 @@ public class MainActivity extends Activity {
     }
 
     /**
+     * Carga texto/id desde BD.
+     * 
+     * @param id
+     */
+    private void cargarTextoById(long id) {
+        if (id <= 0)
+            throw new RuntimeException("El 'id' recibido no es valido: " + id);
+
+        String text = new DBHelper(this).obtenerTextoById(id);
+        if (text == null)
+            Log.w("cargarTextoById()", "DBHelper.obtenerTextoById(" + id + ") ha devuelto null");
+
+        setTextoYId(id, text);
+    }
+
+    /*------------------------------------------------------------------------------------------
+     * Activity
+     *------------------------------------------------------------------------------------------*/
+
+    /**
      * Al crear la Activity seteamos listeners
      */
     @Override
@@ -64,15 +88,16 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //
-        // Instanciamos DBHelper para crear BD
+        // Instanciamos DBHelper para crear o actualizar BD
         //
 
         new DBHelper(this);
 
         //
-        // Seteamos listener
+        // Seteamos listeners
         //
 
+        // Se pidio que el boton de arriba abriera un Dialog
         ((Button) findViewById(R.id.btArriba)).setOnClickListener(new OnClickListener() {
 
             @SuppressWarnings("deprecation")
@@ -83,13 +108,14 @@ public class MainActivity extends Activity {
 
         });
 
+        // Guardamos (update/insert) texto en BD
         ((Button) findViewById(R.id.btGuardar)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 String texto = ((EditText) findViewById(R.id.editText)).getText().toString();
                 if (texto.trim().length() == 0) {
-                    Toast.makeText(getBaseContext(), R.string.no_hay_mensaje_que_guardar, Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(getBaseContext(), R.string.no_hay_mensaje_que_guardar,
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (textId == -1) {
@@ -106,6 +132,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // Limpiamos texto
         ((Button) findViewById(R.id.btLimpiar)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +140,28 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // super.onActivityResult(requestCode, resultCode, data);
+        Log.i("onActivityResult()", "requestCode: " + requestCode + " - resultCode: " + resultCode
+                + " - data: " + data);
+        if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
+            if (resultCode == Activity.RESULT_OK) {
+                final long id = data.getExtras().getLong(TEXT_ID);
+                Log.i("onActivityResult()", "id recibido: " + id);
+                this.cargarTextoById(id);
+            } else {
+                Log.e("onActivityResult()", "resultCode != RESULT_OK");
+            }
+        } else {
+            Log.e("onActivityResult()", "requestCode desconocido");
+        }
+    }
+
+    /*------------------------------------------------------------------------------------------
+     * Dialog
+     *------------------------------------------------------------------------------------------*/
 
     @SuppressWarnings("deprecation")
     @Override
@@ -133,13 +182,9 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * On resume borramos el contenido del EditText
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+    /*------------------------------------------------------------------------------------------
+     * Menu
+     *------------------------------------------------------------------------------------------*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,35 +224,6 @@ public class MainActivity extends Activity {
             return true;
         } else {
             return super.onMenuItemSelected(featureId, item);
-        }
-    }
-
-    private void cargarTextoById(long id) {
-        if (id <= 0)
-            throw new RuntimeException("El 'id' recibido no es valido: " + id);
-
-        String text = new DBHelper(this).obtenerTextoById(id);
-        if (text == null)
-            Log.w("cargarTextoById()", "DBHelper.obtenerTextoById(" + id + ") ha devuelto null");
-
-        setTextoYId(id, text);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // super.onActivityResult(requestCode, resultCode, data);
-        Log.i("onActivityResult()", "requestCode: " + requestCode + " - resultCode: " + resultCode
-                + " - data: " + data);
-        if (requestCode == AFR_SELECT_TEXT_TO_LOAD) {
-            if (resultCode == Activity.RESULT_OK) {
-                final long id = data.getExtras().getLong(TEXT_ID);
-                Log.i("onActivityResult()", "id recibido: " + id);
-                this.cargarTextoById(id);
-            } else {
-                Log.e("onActivityResult()", "resultCode != RESULT_OK");
-            }
-        } else {
-            Log.e("onActivityResult()", "requestCode desconocido");
         }
     }
 
