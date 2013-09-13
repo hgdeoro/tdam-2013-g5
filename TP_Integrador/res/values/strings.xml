@@ -4,5 +4,6 @@
     <string name="app_name">TP_Integrador</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_acciones_sobre_contacto">Acciones para el contacto</string>
 
 </resources>

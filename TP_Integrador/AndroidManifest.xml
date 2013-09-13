@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.tdam2013.grupo05.AccionesSobreContactoActivity"
+            android:label="@string/title_activity_acciones_sobre_contacto" >
+        </activity>
     </application>
 
 </manifest>
