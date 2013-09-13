@@ -9,14 +9,15 @@ import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    protected static final String DB_NAME = "textos";
+    public static int DB_VERSION = 2;
+    public static final String DB_NAME = "textos.db";
 
     public static final String TEXTOS_TABLE_NAME = "textos";
     public static final String TEXTOS_COL_ID = "_id";
     public static final String TEXTOS_COL_TEXTO = "text_string";
 
     public DBHelper(Context context) {
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
