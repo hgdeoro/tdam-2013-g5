@@ -12,7 +12,7 @@ import android.widget.ListView;
 public class ListaDeContactosActivity extends ListActivity {
 
     // TODO: cargar contactos desde ContentManager de contactos
-    
+
     public static final String[] contactos = new String[] { "Juan", "Pepe", "Juan", "Pepe", "Juan",
             "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe",
             "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", };

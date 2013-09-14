@@ -26,6 +26,10 @@
             android:name="com.tdam2013.grupo05.AccionesSobreContactoActivity"
             android:label="@string/title_activity_acciones_sobre_contacto" >
         </activity>
+        <activity
+            android:name="com.tdam2013.grupo05.HistorialActivity"
+            android:label="@string/title_activity_historial" >
+        </activity>
     </application>
 
 </manifest>
