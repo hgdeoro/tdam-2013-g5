@@ -46,7 +46,7 @@
         android:text="Mensa je men saje men a je men saje men a je men saje men a je men saje men a je men saje men a je men saje men a je men saje men " />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/enviar_mensaje_web_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
