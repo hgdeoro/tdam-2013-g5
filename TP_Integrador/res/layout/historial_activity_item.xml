@@ -7,30 +7,35 @@
 
     <TextView
         android:id="@+id/historial_item_tipo_accion"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:text="Llamada"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/historial_item_contacto"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:text="Juan Pérez"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/historial_item_dato_contacto"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:text="011-5555-5555"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/historial_item_fecha_hora"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:text="01/01/2013 - 15:43:01"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
