@@ -30,6 +30,10 @@
             android:name="com.tdam2013.grupo05.HistorialActivity"
             android:label="@string/title_activity_historial" >
         </activity>
+        <activity
+            android:name="com.tdam2013.grupo05.EnviarMensajeWeb"
+            android:label="@string/title_activity_enviar_mensaje_web" >
+        </activity>
     </application>
 
 </manifest>
