@@ -15,10 +15,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Nombre de usuario:" />
+        android:text="@string/registrar_usuario_label_nombre_usuario" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/registrar_usuario_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
@@ -32,6 +32,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="OK" />
+        android:text="@string/android:ok" />
 
 </LinearLayout>

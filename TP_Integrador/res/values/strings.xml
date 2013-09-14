@@ -10,5 +10,6 @@
     <string name="title_activity_registrar_usuario">Registrar Usuario</string>
     <string name="enviar_mensaje_web_a">A:</string>
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>
+    <string name="registrar_usuario_label_nombre_usuario">Nombre de usuario:</string>
 
 </resources>
