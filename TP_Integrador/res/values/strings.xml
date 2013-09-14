@@ -7,5 +7,6 @@
     <string name="title_activity_acciones_sobre_contacto">Acciones para el contacto</string>
     <string name="title_activity_historial">Historial</string>
     <string name="title_activity_enviar_mensaje_web">Enviar Mensaje Web</string>
+    <string name="title_activity_registrar_usuario">Registrar Usuario</string>
 
 </resources>

@@ -38,7 +38,7 @@ public class ListaDeContactosActivity extends ListActivity {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(this,
                 "com.tdam2013.grupo05.AccionesSobreContactoActivity"));
-        intent.setComponent(new ComponentName(this, "com.tdam2013.grupo05.EnviarMensajeWeb"));
+        intent.setComponent(new ComponentName(this, "com.tdam2013.grupo05.RegistrarUsuarioActivity"));
         this.startActivity(intent);
     }
 

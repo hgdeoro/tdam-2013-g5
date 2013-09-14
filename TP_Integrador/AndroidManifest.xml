@@ -34,6 +34,10 @@
             android:name="com.tdam2013.grupo05.EnviarMensajeWeb"
             android:label="@string/title_activity_enviar_mensaje_web" >
         </activity>
+        <activity
+            android:name="com.tdam2013.grupo05.RegistrarUsuarioActivity"
+            android:label="@string/title_activity_registrar_usuario" >
+        </activity>
     </application>
 
 </manifest>
