@@ -1,14 +1,13 @@
 package com.tdam2013.grupo05;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
-
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class AccionesSobreContactoActivity extends ListActivity {
 
@@ -54,15 +53,6 @@ public class AccionesSobreContactoActivity extends ListActivity {
 
             Toast.makeText(getBaseContext(), "Accion desconocida", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /**
-     * Menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // getMenuInflater().inflate(R.menu.acciones_sobre_contacto, menu);
-        return true;
     }
 
 }

@@ -1,10 +1,9 @@
 package com.tdam2013.grupo05.preferences;
 
-import com.tdam2013.grupo05.R;
-import com.tdam2013.grupo05.R.xml;
-
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.tdam2013.grupo05.R;
 
 public class ListaDeContactosSettingsActivity extends PreferenceActivity {
 

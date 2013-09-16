@@ -3,15 +3,19 @@
 
     <string name="app_name">TDAM Grupo 05</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Titulos de Activities -->
     <string name="title_activity_acciones_sobre_contacto">Acciones para el contacto</string>
     <string name="title_activity_historial">Historial</string>
     <string name="title_activity_enviar_mensaje_web">Enviar Mensaje Web</string>
     <string name="title_activity_registrar_usuario">Registrar Usuario</string>
+
+    <!-- Otros strings -->
     <string name="enviar_mensaje_web_a">A:</string>
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>
     <string name="registrar_usuario_label_nombre_usuario">Nombre de usuario:</string>
     <string name="nombre_de_usuario">Nombre de usuario:</string>
-    
+
     <!-- Menu -->
     <string name="filtros">Filtros</string>
     <string name="orden">Orden</string>
