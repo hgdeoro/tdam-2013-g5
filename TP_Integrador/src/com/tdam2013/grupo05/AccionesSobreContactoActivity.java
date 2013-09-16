@@ -7,8 +7,8 @@ import android.widget.ArrayAdapter;
 
 public class AccionesSobreContactoActivity extends ListActivity {
 
-    public static final String[] acciones = new String[] { "Llamar", "Llamar", "Llamar",
-            "Enviar SMS", "Enviar SMS", "Enviar Weekeeteekee", };
+    public static final String[] acciones = new String[] { "Llamar", "Llamar", "Enviar sms",
+            "Enviar email", "Enviar mensaje web", };
 
     // TODO: crear custom adaptar para cargar ambos textos: accion y dato
     // TODO: implementar onListItemClick() para respoder a clics
@@ -21,7 +21,6 @@ public class AccionesSobreContactoActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this,
                 R.layout.acciones_sobre_contacto_activity_item,
                 R.id.acciones_sobre_contacto_item_accion, acciones));
-
     }
 
     @Override

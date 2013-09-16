@@ -31,7 +31,7 @@
             android:label="@string/title_activity_historial" >
         </activity>
         <activity
-            android:name="com.tdam2013.grupo05.EnviarMensajeWeb"
+            android:name="com.tdam2013.grupo05.EnviarMensajeWebActivity"
             android:label="@string/title_activity_enviar_mensaje_web" >
         </activity>
         <activity

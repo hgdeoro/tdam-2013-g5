@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-public class EnviarMensajeWeb extends Activity {
+public class EnviarMensajeWebActivity extends Activity {
 
     public static final int DIALOG = 1;
 
@@ -21,7 +21,7 @@ public class EnviarMensajeWeb extends Activity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EnviarMensajeWeb.this.showDialog(DIALOG);
+                        EnviarMensajeWebActivity.this.showDialog(DIALOG);
                     }
                 });
     }
