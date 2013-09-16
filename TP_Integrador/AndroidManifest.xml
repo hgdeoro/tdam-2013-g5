@@ -41,11 +41,11 @@
             android:label="@string/title_activity_registrar_usuario" >
         </activity>
         <activity
-            android:name="com.tdam2013.grupo05.ListaDeContactosSettingsActivity"
+            android:name="com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity"
             android:label="@string/action_settings" >
         </activity>
         <activity
-            android:name="com.tdam2013.grupo05.HistorialSettingsActivity"
+            android:name="com.tdam2013.grupo05.preferences.HistorialSettingsActivity"
             android:label="@string/action_settings" >
         </activity>
         </application>

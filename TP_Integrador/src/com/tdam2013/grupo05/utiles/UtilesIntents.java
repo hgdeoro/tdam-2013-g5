@@ -1,11 +1,18 @@
-package com.tdam2013.grupo05;
+package com.tdam2013.grupo05.utiles;
+
+import com.tdam2013.grupo05.AccionesSobreContactoActivity;
+import com.tdam2013.grupo05.EnviarMensajeWebActivity;
+import com.tdam2013.grupo05.HistorialActivity;
+import com.tdam2013.grupo05.RegistrarUsuarioActivity;
+import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
+import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-public class Utiles {
+public class UtilesIntents {
 
     public static Intent getHistorialActivityIntent(Context ctx) {
         Intent intent = new Intent();

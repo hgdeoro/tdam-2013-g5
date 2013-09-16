@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05;
 
+import com.tdam2013.grupo05.utiles.UtilesIntents;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +60,7 @@ public class HistorialActivity extends ListActivity {
 
         if (item.getItemId() == R.id.action_settings) {
             Log.i("onMenuItemSelected()", "action_settings");
-            this.startActivity(Utiles.getHistorialSettingsActivity(this));
+            this.startActivity(UtilesIntents.getHistorialSettingsActivity(this));
             return true;
         }
 

@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05;
 
+import com.tdam2013.grupo05.utiles.UtilesIntents;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +40,7 @@ public class ListaDeContactosActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        this.startActivity(Utiles.getAccionesSobreContactoActivityIntent(this));
+        this.startActivity(UtilesIntents.getAccionesSobreContactoActivityIntent(this));
     }
 
     /**
@@ -81,12 +83,12 @@ public class ListaDeContactosActivity extends ListActivity {
 
         if (item.getItemId() == R.id.action_ldc_ver_historial) {
             Log.i("onMenuItemSelected()", "action_ldc_ver_historial");
-            this.startActivity(Utiles.getHistorialActivityIntent(this));
+            this.startActivity(UtilesIntents.getHistorialActivityIntent(this));
             return true;
 
         } else if (item.getItemId() == R.id.action_ldc_settings) {
             Log.i("onMenuItemSelected()", "action_ldc_settings");
-            this.startActivity(Utiles.getListaDeContactosSettingsActivity(this));
+            this.startActivity(UtilesIntents.getListaDeContactosSettingsActivity(this));
             return true;
 
         }
@@ -115,7 +117,7 @@ public class ListaDeContactosActivity extends ListActivity {
 
         if (item.getItemId() == R.id.action_ldcc_ver_historial) {
             Log.i("onContextItemSelected()", "action_ldcc_ver_historial");
-            this.startActivity(Utiles.getHistorialActivityIntent(this));
+            this.startActivity(UtilesIntents.getHistorialActivityIntent(this));
             return true;
         }
 

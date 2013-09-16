@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05;
 
+import com.tdam2013.grupo05.utiles.UtilesIntents;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,16 +39,16 @@ public class AccionesSobreContactoActivity extends ListActivity {
         super.onListItemClick(l, v, position, id);
         final String accion = acciones[position];
         if (LLAMAR.equals(accion)) {
-            this.startActivity(Utiles.getCallPhoneIntent("0"));
+            this.startActivity(UtilesIntents.getCallPhoneIntent("0"));
 
         } else if (SMS.equals(accion)) {
-            this.startActivity(Utiles.getSendSmsIntent("0"));
+            this.startActivity(UtilesIntents.getSendSmsIntent("0"));
 
         } else if (EMAIL.equals(accion)) {
-            this.startActivity(Utiles.getSendEmailIntent("alguien@example.com"));
+            this.startActivity(UtilesIntents.getSendEmailIntent("alguien@example.com"));
 
         } else if (MSGWEB.equals(accion)) {
-            this.startActivity(Utiles.getEnviarMensajeWebActivityIntent(this));
+            this.startActivity(UtilesIntents.getEnviarMensajeWebActivityIntent(this));
 
         } else {
 
