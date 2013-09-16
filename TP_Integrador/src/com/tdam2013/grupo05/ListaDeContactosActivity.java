@@ -1,8 +1,6 @@
 package com.tdam2013.grupo05;
 
 import android.app.ListActivity;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;

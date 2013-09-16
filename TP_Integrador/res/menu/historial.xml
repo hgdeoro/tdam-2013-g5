@@ -1,8 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_hist_filtros"
         android:orderInCategory="100"
-        android:title="@string/action_settings"/>
+        android:title="@string/filtros"/>
+    <item
+        android:id="@+id/action_hist_orden"
+        android:title="@string/orden">
+    </item>
 
 </menu>

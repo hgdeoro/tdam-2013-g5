@@ -8,14 +8,14 @@ public class Utiles {
 
     public static Intent getHistorialActivityIntent(Context ctx) {
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName(ctx,
-                "com.tdam2013.grupo05.AccionesSobreContactoActivity"));
+        intent.setComponent(new ComponentName(ctx, HistorialActivity.class.getCanonicalName()));
         return intent;
     }
 
     public static Intent getRegistrarUsuarioActivityIntent(Context ctx) {
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName(ctx, "com.tdam2013.grupo05.RegistrarUsuarioActivity"));
+        intent.setComponent(new ComponentName(ctx, RegistrarUsuarioActivity.class
+                .getCanonicalName()));
         return intent;
     }
 
