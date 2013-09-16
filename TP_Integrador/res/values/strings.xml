@@ -21,5 +21,7 @@
     <string name="orden">Orden</string>
     <string name="renombrar_usuario_web">Renombrar usuario web</string>
     <string name="ver_historial">Ver Historial</string>
+    <string name="title_activity_mostrar_detalle_mensaje_web">Detalle de Mensaje web</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

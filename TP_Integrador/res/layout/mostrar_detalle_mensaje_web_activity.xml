@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:id="@+id/layout_mostrar_detalle_mensaje_web"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,30 +8,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RegistrarUsuarioActivity" >
+    tools:context=".MostrarDetalleMensajeWebActivity" >
 
     <TextView
         android:id="@+id/mostrar_detalle_mensaje_web_contacto"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="@string/registrar_usuario_label_nombre_usuario" />
+        android:text="Juan Pérez"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/registrar_usuario_text"
+    <TextView
+        android:id="@+id/mostrar_detalle_mensaje_web_fecha_hora"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:ems="10" >
+        android:text="01/01/2013 - 14:15:16 hs"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/mostrar_detalle_mensaje_web_texto"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textMultiLine" >
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/registrar_usuario_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="@string/android:ok" />
 
 </LinearLayout>
