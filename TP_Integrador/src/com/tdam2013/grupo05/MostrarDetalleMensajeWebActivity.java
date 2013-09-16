@@ -2,6 +2,7 @@ package com.tdam2013.grupo05;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 public class MostrarDetalleMensajeWebActivity extends Activity {
 
@@ -9,6 +10,18 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mostrar_detalle_mensaje_web_activity);
+        EditText editText = (EditText) findViewById(R.id.mostrar_detalle_mensaje_web_texto);
+        editText.setText("Este es el texto del mensaje  el texto del mensaje "
+                + " el texto del mensaje  el texto del mensaje  el texto del "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "mensaje  el texto del mensaje  el texto del mensaje  el "
+                + "texto del mensaje  el texto del mensaje  el texto del mensaje ");
+        editText.setEnabled(false);
     }
 
     /*

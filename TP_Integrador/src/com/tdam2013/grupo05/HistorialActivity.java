@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class HistorialActivity extends ListActivity {
 
@@ -26,6 +28,15 @@ public class HistorialActivity extends ListActivity {
     }
 
     /**
+     * List Item
+     */
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        this.startActivity(UtilesIntents.getMostrarDetalleMensajeWebActivity(this));
+    }
+
+    /**
      * Menu
      */
     @Override
@@ -40,7 +51,7 @@ public class HistorialActivity extends ListActivity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 
-        Log.i("onMenuItemSelected()", "featureId: " + featureId + " - item: " + item);
+        Log.i("onMenuItemSelected()", " - item: " + item);
 
         // if (item.getItemId() == R.id.action_hist_filtros) {
         // /*
