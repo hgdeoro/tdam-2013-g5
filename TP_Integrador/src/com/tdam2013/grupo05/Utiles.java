@@ -41,6 +41,13 @@ public class Utiles {
         return intent;
     }
 
+    public static Intent getHistorialSettingsActivity(Context ctx) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(ctx, HistorialSettingsActivity.class
+                .getCanonicalName()));
+        return intent;
+    }
+
     /*
      * Android
      */

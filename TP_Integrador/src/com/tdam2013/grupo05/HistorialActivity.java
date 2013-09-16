@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 public class HistorialActivity extends ListActivity {
 
@@ -24,36 +23,47 @@ public class HistorialActivity extends ListActivity {
 
     }
 
+    /**
+     * Menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.historial, menu);
         return true;
     }
 
+    /**
+     * Menu
+     */
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 
         Log.i("onMenuItemSelected()", "featureId: " + featureId + " - item: " + item);
 
-        if (item.getItemId() == R.id.action_hist_filtros) {
-            /*
-             * Toast
-             */
-            Toast.makeText(getBaseContext(), "action_hist_filtros", Toast.LENGTH_SHORT).show();
-            return true;
+        // if (item.getItemId() == R.id.action_hist_filtros) {
+        // /*
+        // * Toast
+        // */
+        // Toast.makeText(getBaseContext(), "action_hist_filtros",
+        // Toast.LENGTH_SHORT).show();
+        // return true;
+        //
+        // } else if (item.getItemId() == R.id.action_hist_orden) {
+        // /*
+        // * Toast
+        // */
+        // Toast.makeText(getBaseContext(), "action_hist_orden",
+        // Toast.LENGTH_SHORT).show();
+        // return true;
 
-        } else if (item.getItemId() == R.id.action_hist_orden) {
-            /*
-             * Toast
-             */
-            Toast.makeText(getBaseContext(), "action_hist_orden", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_settings) {
+            Log.i("onMenuItemSelected()", "action_settings");
+            this.startActivity(Utiles.getHistorialSettingsActivity(this));
             return true;
-
-        } else {
-            Toast.makeText(getBaseContext(), "DESCONOCIDO", Toast.LENGTH_SHORT).show();
-            return super.onMenuItemSelected(featureId, item);
         }
+
+        Log.i("onMenuItemSelected()", "Item no manejado");
+        return super.onMenuItemSelected(featureId, item);
 
     }
 

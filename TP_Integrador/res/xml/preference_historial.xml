@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:dialogTitle="@string/orden"
+        android:entries="@array/hist_orden"
+        android:entryValues="@array/hist_orden_values"
+        android:key="pref_hist_orden"
+        android:title="@string/orden" />
+    <ListPreference
+        android:dialogTitle="@string/filtros"
+        android:entries="@array/hist_filtro"
+        android:entryValues="@array/hist_filtro_values"
+        android:key="pref_hist_filtro"
+        android:title="@string/filtros" />
+
+</PreferenceScreen>

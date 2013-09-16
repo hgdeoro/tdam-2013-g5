@@ -42,8 +42,12 @@
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.ListaDeContactosSettingsActivity"
-            android:label="@string/title_activity_lista_de_contactos_settings" >
+            android:label="@string/action_settings" >
         </activity>
-    </application>
+        <activity
+            android:name="com.tdam2013.grupo05.HistorialSettingsActivity"
+            android:label="@string/action_settings" >
+        </activity>
+        </application>
 
 </manifest>
