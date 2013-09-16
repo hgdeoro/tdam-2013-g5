@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <ListPreference android:entries="@array/ldc_orden" android:entryValues="@array/ldc_orden_values" android:dialogTitle="@string/orden" android:title="@string/orden"/>
-    <ListPreference android:entries="@array/ldc_filtro" android:title="@string/filtros" android:dialogTitle="@string/filtros" android:entryValues="@array/ldc_filtro_values"/>
+    <ListPreference
+        android:dialogTitle="@string/orden"
+        android:entries="@array/ldc_orden"
+        android:entryValues="@array/ldc_orden_values"
+        android:key="pref_ldc_orden"
+        android:title="@string/orden" />
+    <ListPreference
+        android:dialogTitle="@string/filtros"
+        android:entries="@array/ldc_filtro"
+        android:entryValues="@array/ldc_filtro_values"
+        android:key="pref_ldc_filtro"
+        android:title="@string/filtros" />
+
+    <EditTextPreference
+        android:dialogTitle="@string/nombre_de_usuario"
+        android:key="pref_ldc_nombre_usuario_web"
+        android:title="@string/nombre_de_usuario" />
 
 </PreferenceScreen>
