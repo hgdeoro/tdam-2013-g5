@@ -42,8 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:gravity="top|left"
-        android:text="Mensa je men saje men a je men saje men a je men saje men a je men saje men a je men saje men a je men saje men a je men saje men " />
+        android:gravity="top|left" />
 
     <Button
         android:id="@+id/enviar_mensaje_web_button"
