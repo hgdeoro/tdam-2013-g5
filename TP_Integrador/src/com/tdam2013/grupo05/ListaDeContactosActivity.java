@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ListaDeContactosActivity extends ListActivity {
 
@@ -59,22 +58,28 @@ public class ListaDeContactosActivity extends ListActivity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         Log.i("onMenuItemSelected()", "item: " + item);
 
-        if (item.getItemId() == R.id.action_ldc_filtros) {
-            Log.i("onMenuItemSelected()", "action_ldc_filtros");
-            Toast.makeText(getBaseContext(), "action_ldc_filtros", Toast.LENGTH_SHORT).show();
-            return true;
+        // if (item.getItemId() == R.id.action_ldc_filtros) {
+        // Log.i("onMenuItemSelected()", "action_ldc_filtros");
+        // Toast.makeText(getBaseContext(), "action_ldc_filtros",
+        // Toast.LENGTH_SHORT).show();
+        // return true;
+        //
+        // } else if (item.getItemId() == R.id.action_ldc_orden) {
+        // Log.i("onMenuItemSelected()", "action_ldc_orden");
+        // Toast.makeText(getBaseContext(), "action_ldc_orden",
+        // Toast.LENGTH_SHORT).show();
+        // return true;
+        //
+        // } else if (item.getItemId() == R.id.action_ldc_renombrar_usuario_web)
+        // {
+        // Log.i("onMenuItemSelected()", "action_ldc_renombrar_usuario_web");
+        // this.startActivity(Utiles.getRegistrarUsuarioActivityIntent(this));
+        // return true;
+        //
+        // } else
+        //
 
-        } else if (item.getItemId() == R.id.action_ldc_orden) {
-            Log.i("onMenuItemSelected()", "action_ldc_orden");
-            Toast.makeText(getBaseContext(), "action_ldc_orden", Toast.LENGTH_SHORT).show();
-            return true;
-
-        } else if (item.getItemId() == R.id.action_ldc_renombrar_usuario_web) {
-            Log.i("onMenuItemSelected()", "action_ldc_renombrar_usuario_web");
-            this.startActivity(Utiles.getRegistrarUsuarioActivityIntent(this));
-            return true;
-
-        } else if (item.getItemId() == R.id.action_ldc_ver_historial) {
+        if (item.getItemId() == R.id.action_ldc_ver_historial) {
             Log.i("onMenuItemSelected()", "action_ldc_ver_historial");
             this.startActivity(Utiles.getHistorialActivityIntent(this));
             return true;
