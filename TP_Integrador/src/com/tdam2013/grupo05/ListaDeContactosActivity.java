@@ -27,6 +27,9 @@ public class ListaDeContactosActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this, R.layout.lista_de_contactos_activity_item,
                 R.id.lista_de_contactos_item_label, contactos));
 
+        /*
+         * Context Menu
+         */
         registerForContextMenu(this.getListView());
     }
 
@@ -36,7 +39,7 @@ public class ListaDeContactosActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        this.startActivity(Utiles.getHistorialActivityIntent(this));
+        this.startActivity(Utiles.getAccionesSobreContactoActivityIntent(this));
     }
 
     /**
@@ -54,41 +57,33 @@ public class ListaDeContactosActivity extends ListActivity {
      */
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-
-        Log.i("onMenuItemSelected()", "featureId: " + featureId + " - item: " + item);
+        Log.i("onMenuItemSelected()", "item: " + item);
 
         if (item.getItemId() == R.id.action_ldc_filtros) {
-            /*
-             * Toast
-             */
+            Log.i("onMenuItemSelected()", "action_ldc_filtros");
             Toast.makeText(getBaseContext(), "action_ldc_filtros", Toast.LENGTH_SHORT).show();
             return true;
 
         } else if (item.getItemId() == R.id.action_ldc_orden) {
-            /*
-             * Toast
-             */
+            Log.i("onMenuItemSelected()", "action_ldc_orden");
             Toast.makeText(getBaseContext(), "action_ldc_orden", Toast.LENGTH_SHORT).show();
             return true;
 
         } else if (item.getItemId() == R.id.action_ldc_renombrar_usuario_web) {
-            /*
-             * Toast
-             */
+            Log.i("onMenuItemSelected()", "action_ldc_renombrar_usuario_web");
             this.startActivity(Utiles.getRegistrarUsuarioActivityIntent(this));
             return true;
 
         } else if (item.getItemId() == R.id.action_ldc_ver_historial) {
-            /*
-             * Toast
-             */
+            Log.i("onMenuItemSelected()", "action_ldc_ver_historial");
             this.startActivity(Utiles.getHistorialActivityIntent(this));
             return true;
 
-        } else {
-            Toast.makeText(getBaseContext(), "DESCONOCIDO", Toast.LENGTH_SHORT).show();
-            return super.onMenuItemSelected(featureId, item);
         }
+
+        Log.i("onMenuItemSelected()", "Item no manejado "
+                + "(puede deberse a que se utilizo el menu contextual)");
+        return super.onMenuItemSelected(featureId, item);
 
     }
 
@@ -107,12 +102,16 @@ public class ListaDeContactosActivity extends ListActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         Log.i("onContextItemSelected()", "item: " + item);
+
         if (item.getItemId() == R.id.action_ldcc_ver_historial) {
+            Log.i("onContextItemSelected()", "action_ldcc_ver_historial");
             this.startActivity(Utiles.getHistorialActivityIntent(this));
             return true;
-        } else {
-            return super.onContextItemSelected(item);
         }
+
+        Log.i("onContextItemSelected()", "Item no manejado");
+        return super.onContextItemSelected(item);
+
     }
 
 }

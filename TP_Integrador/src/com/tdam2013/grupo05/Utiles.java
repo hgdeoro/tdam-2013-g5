@@ -19,4 +19,11 @@ public class Utiles {
         return intent;
     }
 
+    public static Intent getAccionesSobreContactoActivityIntent(Context ctx) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(ctx, AccionesSobreContactoActivity.class
+                .getCanonicalName()));
+        return intent;
+    }
+
 }
