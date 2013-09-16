@@ -18,7 +18,6 @@ public class AccionesSobreContactoActivity extends ListActivity {
     public static final String[] acciones = new String[] { LLAMAR, LLAMAR, SMS, SMS, EMAIL, MSGWEB };
 
     // TODO: crear custom adaptar para cargar ambos textos: accion y dato
-    // TODO: implementar onListItemClick() para respoder a clics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
