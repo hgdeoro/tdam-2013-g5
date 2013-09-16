@@ -9,7 +9,44 @@
         android:id="@+id/lista_de_contactos_item_label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Juan Perez" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Juan Perez"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/lista_de_contactos_item_icono_telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/phone_12x12" />
+
+        <ImageView
+            android:id="@+id/lista_de_contactos_item_icono_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/sms_12x12" />
+
+        <ImageView
+            android:id="@+id/lista_de_contactos_item_icono_email"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/mail_12x8" />
+
+        <ImageView
+            android:id="@+id/lista_de_contactos_item_icono_msg_web"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/msg_web_12x12" />
+
+    </LinearLayout>
 
 </LinearLayout>
