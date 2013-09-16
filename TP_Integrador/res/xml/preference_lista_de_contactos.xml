@@ -2,5 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ListPreference android:entries="@array/ldc_orden" android:entryValues="@array/ldc_orden_values" android:dialogTitle="@string/orden" android:title="@string/orden"/>
+    <ListPreference android:entries="@array/ldc_filtro" android:title="@string/filtros" android:dialogTitle="@string/filtros" android:entryValues="@array/ldc_filtro_values"/>
 
 </PreferenceScreen>
