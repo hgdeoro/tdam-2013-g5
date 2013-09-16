@@ -3,6 +3,8 @@ package com.tdam2013.grupo05;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +26,22 @@ public class ListaDeContactosActivity extends ListActivity {
         setContentView(R.layout.lista_de_contactos_activity);
         setListAdapter(new ArrayAdapter<String>(this, R.layout.lista_de_contactos_activity_item,
                 R.id.lista_de_contactos_item_label, contactos));
+
+        registerForContextMenu(this.getListView());
     }
 
+    /**
+     * List Item
+     */
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        this.startActivity(Utiles.getHistorialActivityIntent(this));
+    }
+
+    /**
+     * Menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -33,12 +49,9 @@ public class ListaDeContactosActivity extends ListActivity {
         return true;
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        this.startActivity(Utiles.getHistorialActivityIntent(this));
-    }
-
+    /**
+     * Menu
+     */
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 
@@ -77,6 +90,29 @@ public class ListaDeContactosActivity extends ListActivity {
             return super.onMenuItemSelected(featureId, item);
         }
 
+    }
+
+    /**
+     * Context Menu
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.lista_de_contactos_contextual, menu);
+    }
+
+    /**
+     * Context Menu
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.i("onContextItemSelected()", "item: " + item);
+        if (item.getItemId() == R.id.action_ldcc_ver_historial) {
+            this.startActivity(Utiles.getHistorialActivityIntent(this));
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
     }
 
 }
