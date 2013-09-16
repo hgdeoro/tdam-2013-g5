@@ -34,6 +34,13 @@ public class Utiles {
         return intent;
     }
 
+    public static Intent getListaDeContactosSettingsActivity(Context ctx) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(ctx, ListaDeContactosSettingsActivity.class
+                .getCanonicalName()));
+        return intent;
+    }
+
     /*
      * Android
      */

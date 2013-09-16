@@ -79,6 +79,11 @@ public class ListaDeContactosActivity extends ListActivity {
             this.startActivity(Utiles.getHistorialActivityIntent(this));
             return true;
 
+        } else if (item.getItemId() == R.id.action_ldc_settings) {
+            Log.i("onMenuItemSelected()", "action_ldc_settings");
+            this.startActivity(Utiles.getListaDeContactosSettingsActivity(this));
+            return true;
+
         }
 
         Log.i("onMenuItemSelected()", "Item no manejado "

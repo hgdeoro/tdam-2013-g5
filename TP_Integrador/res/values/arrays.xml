@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ldc_orden">
+        <item name="0">Alfabéticamente</item>
+        <item name="1">Fecha de último contacto</item>
+    </string-array>
+    <string-array name="ldc_orden_values">
+        <item name="0">0</item>
+        <item name="1">1</item>
+    </string-array>
+
+</resources>

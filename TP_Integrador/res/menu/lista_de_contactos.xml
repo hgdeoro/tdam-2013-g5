@@ -7,5 +7,6 @@
     <item android:id="@+id/action_ldc_orden" android:title="@string/orden"></item>
     <item android:id="@+id/action_ldc_renombrar_usuario_web" android:title="@string/renombrar_usuario_web"></item>
     <item android:id="@+id/action_ldc_ver_historial" android:title="@string/ver_historial"></item>
+    <item android:id="@+id/action_ldc_settings" android:title="@string/action_settings"></item>
 
 </menu>

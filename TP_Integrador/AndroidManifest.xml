@@ -40,6 +40,10 @@
             android:name="com.tdam2013.grupo05.RegistrarUsuarioActivity"
             android:label="@string/title_activity_registrar_usuario" >
         </activity>
+        <activity
+            android:name="com.tdam2013.grupo05.ListaDeContactosSettingsActivity"
+            android:label="@string/title_activity_lista_de_contactos_settings" >
+        </activity>
     </application>
 
 </manifest>
