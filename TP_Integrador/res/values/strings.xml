@@ -12,4 +12,10 @@
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>
     <string name="registrar_usuario_label_nombre_usuario">Nombre de usuario:</string>
 
+    <!-- Menu -->
+    <string name="filtros">Filtros</string>
+    <string name="orden">Orden</string>
+    <string name="renombrar_usuario_web">Renombrar usuario web</string>
+    <string name="ver_historial">Ver Historial</string>
+    
 </resources>

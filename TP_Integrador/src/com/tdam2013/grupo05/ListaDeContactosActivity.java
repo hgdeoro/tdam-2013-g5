@@ -4,10 +4,13 @@ import android.app.ListActivity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ListaDeContactosActivity extends ListActivity {
 
@@ -35,10 +38,47 @@ public class ListaDeContactosActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName(this,
-                "com.tdam2013.grupo05.AccionesSobreContactoActivity"));
-        this.startActivity(intent);
+        this.startActivity(Utiles.getHistorialActivityIntent(this));
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+
+        Log.i("onMenuItemSelected()", "featureId: " + featureId + " - item: " + item);
+
+        if (item.getItemId() == R.id.action_ldc_filtros) {
+            /*
+             * Toast
+             */
+            Toast.makeText(getBaseContext(), "action_ldc_filtros", Toast.LENGTH_SHORT).show();
+            return true;
+
+        } else if (item.getItemId() == R.id.action_ldc_orden) {
+            /*
+             * Toast
+             */
+            Toast.makeText(getBaseContext(), "action_ldc_orden", Toast.LENGTH_SHORT).show();
+            return true;
+
+        } else if (item.getItemId() == R.id.action_ldc_renombrar_usuario_web) {
+            /*
+             * Toast
+             */
+            this.startActivity(Utiles.getRegistrarUsuarioActivityIntent(this));
+            return true;
+
+        } else if (item.getItemId() == R.id.action_ldc_ver_historial) {
+            /*
+             * Toast
+             */
+            this.startActivity(Utiles.getHistorialActivityIntent(this));
+            return true;
+
+        } else {
+            Toast.makeText(getBaseContext(), "DESCONOCIDO", Toast.LENGTH_SHORT).show();
+            return super.onMenuItemSelected(featureId, item);
+        }
+
     }
 
 }
