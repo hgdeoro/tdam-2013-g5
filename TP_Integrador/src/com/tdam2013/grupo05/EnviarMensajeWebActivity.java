@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05;
 
+import com.tdam2013.grupo05.utiles.UtilesIntents;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,9 +44,17 @@ public class EnviarMensajeWebActivity extends Activity {
      */
     public class EnviarMensajeWebOnClickListener implements View.OnClickListener {
 
+        boolean mostrarDialogo = true;
+
         @Override
         public void onClick(View v) {
-            EnviarMensajeWebActivity.this.showDialog(DIALOG_ERROR);
+            if (mostrarDialogo) {
+                EnviarMensajeWebActivity.this.showDialog(DIALOG_ERROR);
+            } else {
+                EnviarMensajeWebActivity.this.startActivity(UtilesIntents
+                        .getRegistrarUsuarioActivityIntent(EnviarMensajeWebActivity.this));
+            }
+            mostrarDialogo = !mostrarDialogo;
         }
     }
 

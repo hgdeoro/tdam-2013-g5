@@ -9,7 +9,7 @@ public class RegistrarUsuarioActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar_usuario_activity);
-        this.setTitle("Renombrar usuario");
+        // this.setTitle("Renombrar usuario");
     }
 
 }
