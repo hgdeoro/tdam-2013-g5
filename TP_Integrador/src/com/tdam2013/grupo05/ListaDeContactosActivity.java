@@ -243,7 +243,7 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
 
         // Starts the query
         return new CursorLoader(this, Contacts.CONTENT_URI, PROJECTION, SELECTION, mSelectionArgs,
-                null);
+                Contacts.DISPLAY_NAME_PRIMARY + " COLLATE LOCALIZED ASC");
 
     }
 
