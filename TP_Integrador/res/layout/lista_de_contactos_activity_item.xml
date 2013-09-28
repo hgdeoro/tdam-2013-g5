@@ -24,28 +24,28 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
-            android:src="@drawable/phone_12x12" />
+            android:src="@drawable/phone_blanco_12x12" />
 
         <ImageView
             android:id="@+id/lista_de_contactos_item_icono_sms"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
-            android:src="@drawable/sms_12x12" />
+            android:src="@drawable/sms_blanco_12x12" />
 
         <ImageView
             android:id="@+id/lista_de_contactos_item_icono_email"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
-            android:src="@drawable/mail_12x8" />
+            android:src="@drawable/mail_blanco_12x8" />
 
         <ImageView
             android:id="@+id/lista_de_contactos_item_icono_msg_web"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
-            android:src="@drawable/msg_web_12x12" />
+            android:src="@drawable/msg_web_blanco_12x12" />
 
     </LinearLayout>
 
