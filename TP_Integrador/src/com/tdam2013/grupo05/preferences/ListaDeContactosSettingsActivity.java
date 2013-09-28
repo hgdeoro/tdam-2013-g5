@@ -7,6 +7,7 @@ import com.tdam2013.grupo05.R;
 
 public class ListaDeContactosSettingsActivity extends PreferenceActivity {
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

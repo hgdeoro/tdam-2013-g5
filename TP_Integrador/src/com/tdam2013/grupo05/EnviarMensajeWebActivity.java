@@ -29,6 +29,7 @@ public class EnviarMensajeWebActivity extends Activity {
     /**
      * Dialog
      */
+    @SuppressWarnings("deprecation")
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ERROR) {
             Dialog dialog = new AlertDialog.Builder(this).setTitle("ERROR")
@@ -46,6 +47,7 @@ public class EnviarMensajeWebActivity extends Activity {
 
         boolean mostrarDialogo = true;
 
+        @SuppressWarnings("deprecation")
         @Override
         public void onClick(View v) {
             if (mostrarDialogo) {
