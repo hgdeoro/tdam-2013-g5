@@ -4,9 +4,11 @@ import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -20,6 +22,12 @@ import android.widget.SimpleCursorAdapter;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class ListaDeContactosActivity extends ListActivity implements LoaderCallbacks<Cursor> {
+
+    /*
+     * ----------------------------------------------------------------------
+     * Manejo de Cursor, etc.
+     * ----------------------------------------------------------------------
+     */
 
     // https://developer.android.com/training/contacts-provider/retrieve-names.html
     private final static String[] FROM_COLUMNS = { Contacts.DISPLAY_NAME_PRIMARY };
@@ -61,6 +69,29 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     // Defines the array to hold values that replace the ?
     private String[] mSelectionArgs = { mSearchString };
 
+    /**
+     * Devuelve True si hay que ordenar los contactos en orden ascendente.
+     * 
+     * @return
+     */
+    private boolean getPreferenceOrdenAscendente() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String value = sp.getString("pref_ldc_orden", "");
+        Log.d("getPreferenceOrdenAscendente()", "pref_ldc_orden: '" + value + "'");
+
+        if ("Z-A".equals(value)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * ----------------------------------------------------------------------
+     * Activity
+     * ----------------------------------------------------------------------
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +106,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
                 null, FROM_COLUMNS, TO_IDS, 0);
 
         // Sets the adapter for the ListView
-        // mContactsList.setAdapter(mCursorAdapter);
         setListAdapter(mCursorAdapter);
 
         /*
@@ -91,13 +121,22 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
          * pero como no uso fragments, lo hacemos acá
          */
 
-        getLoaderManager().initLoader(0, null, this);
+        // getLoaderManager().initLoader(0, null, this);
 
     }
 
-    /**
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    /*
+     * ----------------------------------------------------------------------
      * List Item
+     * ----------------------------------------------------------------------
      */
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -147,9 +186,12 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
 
     }
 
-    /**
-     * Menu
+    /*
+     * ----------------------------------------------------------------------
+     * Menu & Context menu
+     * ----------------------------------------------------------------------
      */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -163,27 +205,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         Log.i("onMenuItemSelected()", "item: " + item);
-
-        // if (item.getItemId() == R.id.action_ldc_filtros) {
-        // Log.i("onMenuItemSelected()", "action_ldc_filtros");
-        // Toast.makeText(getBaseContext(), "action_ldc_filtros",
-        // Toast.LENGTH_SHORT).show();
-        // return true;
-        //
-        // } else if (item.getItemId() == R.id.action_ldc_orden) {
-        // Log.i("onMenuItemSelected()", "action_ldc_orden");
-        // Toast.makeText(getBaseContext(), "action_ldc_orden",
-        // Toast.LENGTH_SHORT).show();
-        // return true;
-        //
-        // } else if (item.getItemId() == R.id.action_ldc_renombrar_usuario_web)
-        // {
-        // Log.i("onMenuItemSelected()", "action_ldc_renombrar_usuario_web");
-        // this.startActivity(Utiles.getRegistrarUsuarioActivityIntent(this));
-        // return true;
-        //
-        // } else
-        //
 
         if (item.getItemId() == R.id.action_ldc_ver_historial) {
             Log.i("onMenuItemSelected()", "action_ldc_ver_historial");
@@ -243,7 +264,8 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
 
         // Starts the query
         return new CursorLoader(this, Contacts.CONTENT_URI, PROJECTION, SELECTION, mSelectionArgs,
-                Contacts.DISPLAY_NAME_PRIMARY + " COLLATE LOCALIZED ASC");
+                Contacts.DISPLAY_NAME_PRIMARY + " COLLATE LOCALIZED "
+                        + (getPreferenceOrdenAscendente() ? "ASC" : "DESC"));
 
     }
 
