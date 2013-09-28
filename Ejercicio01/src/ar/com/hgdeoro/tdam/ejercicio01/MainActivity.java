@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -199,13 +201,23 @@ public class MainActivity extends Activity {
             /*
              * Toast
              */
+
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(this, MyPrefActivity.class.getCanonicalName()));
+            startActivity(intent);
+
             Toast.makeText(getBaseContext(), R.string.menu_toast_1, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.action_toast_2) {
             /*
              * Toast
              */
-            Toast.makeText(getBaseContext(), R.string.menu_toast_2, Toast.LENGTH_SHORT).show();
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean loginAuto = sp.getBoolean("login_automatico", true);
+            Toast.makeText(getBaseContext(), "El valor es: " + loginAuto, Toast.LENGTH_SHORT)
+                    .show();
+
             return true;
         } else if (item.getItemId() == R.id.action_limpiar) {
             /*

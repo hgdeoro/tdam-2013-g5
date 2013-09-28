@@ -23,6 +23,8 @@
         </activity>
         <activity android:name="ar.com.hgdeoro.tdam.ejercicio01.ListTextsActivity"
             android:label="@string/list_texts_activity"></activity>
-    </application>
+        <activity android:name="ar.com.hgdeoro.tdam.ejercicio01.MyPrefActivity"
+            android:label="Configuracion"></activity>
+        </application>
 
 </manifest>
