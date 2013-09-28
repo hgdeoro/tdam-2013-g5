@@ -128,6 +128,7 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     @Override
     protected void onResume() {
         super.onResume();
+        // TODO: recargar SOLO si se ha cambiado el orden o filtro
         getLoaderManager().restartLoader(0, null, this);
         // getLoaderManager().initLoader(0, null, this);
     }
