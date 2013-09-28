@@ -21,8 +21,6 @@ import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class ListaDeContactosActivity extends ListActivity implements LoaderCallbacks<Cursor> {
 
-    // TODO: cargar contactos desde ContentManager de contactos
-
     // https://developer.android.com/training/contacts-provider/retrieve-names.html
     private final static String[] FROM_COLUMNS = { Contacts.DISPLAY_NAME_PRIMARY };
 
@@ -63,14 +61,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     // Defines the array to hold values that replace the ?
     private String[] mSelectionArgs = { mSearchString };
 
-    // ----------------------------------------
-
-    // public static final String[] contactos = new String[] { "Juan", "Pepe",
-    // "Juan", "Pepe", "Juan",
-    // "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe",
-    // "Juan", "Pepe",
-    // "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,16 +69,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
         /*
          * Cursor
          */
-
-        // if (false) {
-        // setListAdapter(new ArrayAdapter<String>(this,
-        // R.layout.lista_de_contactos_activity_item,
-        // R.id.lista_de_contactos_item_label,
-        // contactos));
-        // }
-
-        // Gets the ListView from the View list of the parent activity
-        // mContactsList = (ListView) findViewById(R.layout.contact_list_view);
 
         // Gets a CursorAdapter
         mCursorAdapter = new SimpleCursorAdapter(this, R.layout.lista_de_contactos_activity_item,
@@ -257,7 +237,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
      */
 
     @Override
-    // LoaderCallbacks<Cursor>
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         mSelectionArgs[0] = "%" + mSearchString + "%";
@@ -269,13 +248,11 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     }
 
     @Override
-    // LoaderCallbacks<Cursor>
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mCursorAdapter.swapCursor(cursor);
     }
 
     @Override
-    // LoaderCallbacks<Cursor>
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);
     }
