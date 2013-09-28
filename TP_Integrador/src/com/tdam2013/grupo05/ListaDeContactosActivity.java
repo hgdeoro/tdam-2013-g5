@@ -128,7 +128,8 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
     @Override
     protected void onResume() {
         super.onResume();
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().restartLoader(0, null, this);
+        // getLoaderManager().initLoader(0, null, this);
     }
 
     /*
