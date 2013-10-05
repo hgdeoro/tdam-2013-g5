@@ -1,5 +1,9 @@
 package ar.com.hgdeoro.tdam.ejercicio01.db;
 
+import android.R;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import ar.com.hgdeoro.tdam.ejercicio01.MainActivity;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -109,10 +114,22 @@ public class DBHelper extends SQLiteOpenHelper {
             val = -1;
         }
 
-        Intent broadcastIntent = new Intent("ar.com.hgdeoro.tdam.ejercicio01.TEXTO_GUARDADO");
-        this.context.sendBroadcast(broadcastIntent);
+        // Intent broadcastIntent = new
+        // Intent("ar.com.hgdeoro.tdam.ejercicio01.TEXTO_GUARDADO");
+        // this.context.sendBroadcast(broadcastIntent);
+
+        NotificationManager nm = (NotificationManager) this.context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Notification notification = new Notification(R.drawable.ic_menu_agenda,
+                "Guardado! (1)", System.currentTimeMillis());
+
+        Intent intent = new Intent(this.context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this.context, 0, intent, 0);
+        notification.setLatestEventInfo(this.context, "Guardado! (2)", "Guardado! (3)", pendingIntent);
+        nm.notify(0, notification);
+
         return val;
 
     }
-
 }
