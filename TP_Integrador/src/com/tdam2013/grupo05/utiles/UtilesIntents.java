@@ -28,10 +28,11 @@ public class UtilesIntents {
         return intent;
     }
 
-    public static Intent getAccionesSobreContactoActivityIntent(Context ctx) {
+    public static Intent getAccionesSobreContactoActivityIntent(Context ctx, Uri contactUri) {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(ctx, AccionesSobreContactoActivity.class
                 .getCanonicalName()));
+        intent.setData(contactUri);
         return intent;
     }
 

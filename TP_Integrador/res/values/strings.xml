@@ -23,5 +23,6 @@
     <string name="ver_historial">Ver Historial</string>
     <string name="title_activity_mostrar_detalle_mensaje_web">Detalle de Mensaje web</string>
     <string name="hello_world">Hello world!</string>
+    <string name="editar_contacto">Editar contacto</string>
 
 </resources>

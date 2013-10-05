@@ -2,7 +2,9 @@ package com.tdam2013.grupo05;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.ContentUris;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,6 +18,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -50,24 +53,6 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
 
     // An adapter that binds the result Cursor to the ListView
     private SimpleCursorAdapter mCursorAdapter;
-
-    private static final String[] PROJECTION = { Contacts._ID, Contacts.LOOKUP_KEY,
-            Contacts.DISPLAY_NAME_PRIMARY };
-
-    // The column index for the _ID column
-    private static final int CONTACT_ID_INDEX = 0;
-
-    // The column index for the LOOKUP_KEY column
-    private static final int LOOKUP_KEY_INDEX = 1;
-
-    // Defines the text expression
-    private static final String SELECTION = Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?";
-
-    // Defines a variable for the search string
-    private String mSearchString = "";
-
-    // Defines the array to hold values that replace the ?
-    private String[] mSelectionArgs = { mSearchString };
 
     /**
      * Devuelve True si hay que ordenar los contactos en orden ascendente.
@@ -144,19 +129,16 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
         super.onListItemClick(l, v, position, id);
 
         // Get the Cursor
-        // Cursor cursor = getAdapter().getCursor();
         Cursor cursor = ((SimpleCursorAdapter) getListAdapter()).getCursor();
 
         // Move to the selected contact
         cursor.moveToPosition(position);
 
         // Get the _ID value
-        // mContactId = getLong(CONTACT_ID_INDEX);
-        mContactId = cursor.getLong(CONTACT_ID_INDEX);
+        mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
 
         // Get the selected LOOKUP KEY
-        // mContactKey = getString(CONTACT_KEY_INDEX);
-        mContactKey = cursor.getString(LOOKUP_KEY_INDEX);
+        mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
 
         // Create the contact's content Uri
         mContactUri = Contacts.getLookupUri(mContactId, mContactKey);
@@ -166,7 +148,7 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
          * for a contact.
          */
 
-        this.startActivity(UtilesIntents.getAccionesSobreContactoActivityIntent(this));
+        this.startActivity(UtilesIntents.getAccionesSobreContactoActivityIntent(this, mContactUri));
 
         //
         // You now have the key pieces of an app that matches a search string to
@@ -246,6 +228,38 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
             Log.i("onContextItemSelected()", "action_ldcc_ver_historial");
             this.startActivity(UtilesIntents.getHistorialActivityIntent(this));
             return true;
+
+        } else if (item.getItemId() == R.id.action_ldcc_editar_contacto) {
+            Log.i("onContextItemSelected()", "action_ldcc_editar_contacto");
+
+            // ////////////////////////////////////////////////////////
+
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                    .getMenuInfo();
+            // long id = getListAdapter().getItemId(info.position);
+
+            // ////////////////////////////////////////////////////////
+
+            // Get the Cursor
+            Cursor cursor = ((SimpleCursorAdapter) getListAdapter()).getCursor();
+
+            // Move to the selected contact
+            // cursor.moveToPosition(this.getListView().getSelectedItemPosition());
+
+            cursor.moveToPosition(info.position);
+
+            // Get the _ID value
+            mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
+
+            // Get the selected LOOKUP KEY
+            mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
+
+            Uri uri = ContentUris.withAppendedId(Contacts.CONTENT_URI, mContactId);
+
+            this.startActivity(new Intent(Intent.ACTION_EDIT, uri));
+
+            return true;
+
         }
 
         Log.i("onContextItemSelected()", "Item no manejado");
@@ -259,15 +273,39 @@ public class ListaDeContactosActivity extends ListActivity implements LoaderCall
      * --------------------------------------------------
      */
 
+    private static final String[] PROJECTION = { Contacts._ID, Contacts.LOOKUP_KEY,
+            Contacts.DISPLAY_NAME_PRIMARY };
+
+    // The column index for the _ID column
+    private static final int COLUMN_INDEX_FOR_CONTACT_ID = 0;
+
+    // The column index for the LOOKUP_KEY column
+    private static final int COLUMN_INDEX_FOR_LOOKUP_KEY = 1;
+
+    // Defines the text expression
+    // private static final String SELECTION = Contacts.DISPLAY_NAME_PRIMARY +
+    // " LIKE ?";
+
+    // Defines a variable for the search string
+    // private String mSearchString = "";
+
+    // Defines the array to hold values that replace the ?
+    // private String[] mSelectionArgs = { mSearchString };
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        mSelectionArgs[0] = "%" + mSearchString + "%";
+        // mSelectionArgs[0] = "%" + mSearchString + "%";
 
-        // Starts the query
-        return new CursorLoader(this, Contacts.CONTENT_URI, PROJECTION, SELECTION, mSelectionArgs,
-                Contacts.DISPLAY_NAME_PRIMARY + " COLLATE LOCALIZED "
-                        + (getPreferenceOrdenAscendente() ? "ASC" : "DESC"));
+        final Uri uri = Contacts.CONTENT_URI;
+
+        final String orderBy = Contacts.DISPLAY_NAME_PRIMARY + " COLLATE LOCALIZED "
+                + (getPreferenceOrdenAscendente() ? "ASC" : "DESC");
+
+        //
+        // --> ContactsContract.Contacts.CONTENT_URI
+        //
+        return new CursorLoader(this, uri, PROJECTION, null, null, orderBy);
 
     }
 
