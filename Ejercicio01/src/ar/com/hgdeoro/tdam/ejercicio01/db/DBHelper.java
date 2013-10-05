@@ -2,6 +2,7 @@ package ar.com.hgdeoro.tdam.ejercicio01.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -16,8 +17,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TEXTOS_COL_ID = "_id";
     public static final String TEXTOS_COL_TEXTO = "text_string";
 
+    private Context context = null;
+
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -94,15 +98,20 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.TEXTOS_COL_TEXTO, texto);
+        long val;
         if (id == -1) {
-            return db.insert(DBHelper.TEXTOS_TABLE_NAME, DBHelper.TEXTOS_COL_ID, cv);
+            val = db.insert(DBHelper.TEXTOS_TABLE_NAME, DBHelper.TEXTOS_COL_ID, cv);
         } else {
             final String where = "" + TEXTOS_COL_ID + " = ?";
             int count = db.update(DBHelper.TEXTOS_TABLE_NAME, cv, where,
                     new String[] { Long.toString(id) });
             // assert count== 1
-            return -1;
+            val = -1;
         }
+
+        Intent broadcastIntent = new Intent("ar.com.hgdeoro.tdam.ejercicio01.TEXTO_GUARDADO");
+        this.context.sendBroadcast(broadcastIntent);
+        return val;
 
     }
 
