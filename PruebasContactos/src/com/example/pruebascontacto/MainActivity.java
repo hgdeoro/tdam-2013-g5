@@ -33,7 +33,16 @@ public class MainActivity extends Activity {
         }
 
         while (c.moveToNext()) {
-            Log.i(TAG, c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+            String linea = "";
+            linea += c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            linea += " / ";
+            linea += c.getString(c.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+            Log.i(TAG, linea);
+
+            String lookupUri = ContactsContract.Contacts.CONTENT_LOOKUP_URI + "/"
+                    + c.getString(c.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+            Log.i(TAG, "  +-> lookupUri: " + lookupUri);
+
         }
 
         Log.i(TAG, "FIN!");
