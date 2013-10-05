@@ -49,6 +49,9 @@ public class MainActivity extends Activity {
     /** Id del texto cargado (desde BD). -1 si no hay nada cargado desde la BD. */
     private long textId = -1;
 
+    /** */
+    public static final int NOTIFICATION_ID = 1;
+
     /*------------------------------------------------------------------------------------------
      * Metodos utilitarios para UI y BD
      *------------------------------------------------------------------------------------------*/

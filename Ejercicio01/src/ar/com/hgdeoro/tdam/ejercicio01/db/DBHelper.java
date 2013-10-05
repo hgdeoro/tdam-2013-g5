@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import ar.com.hgdeoro.tdam.ejercicio01.MainActivity;
+import ar.com.hgdeoro.tdam.ejercicio01.MyPrefActivity;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -130,7 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
         PendingIntent pendingIntent = PendingIntent.getActivity(this.context, 0, intent, 0);
         notification.setLatestEventInfo(this.context, "Guardado! (2)", "Guardado! (3)",
                 pendingIntent);
-        nm.notify(0, notification);
+        nm.notify(MainActivity.NOTIFICATION_ID, notification);
 
         return val;
 
