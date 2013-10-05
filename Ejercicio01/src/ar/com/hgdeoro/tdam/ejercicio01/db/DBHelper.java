@@ -121,12 +121,15 @@ public class DBHelper extends SQLiteOpenHelper {
         NotificationManager nm = (NotificationManager) this.context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = new Notification(R.drawable.ic_menu_agenda,
-                "Guardado! (1)", System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.ic_menu_agenda, "Guardado! (1)",
+                System.currentTimeMillis());
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         Intent intent = new Intent(this.context, MainActivity.class);
+        intent.putExtra("msg_id", val);
         PendingIntent pendingIntent = PendingIntent.getActivity(this.context, 0, intent, 0);
-        notification.setLatestEventInfo(this.context, "Guardado! (2)", "Guardado! (3)", pendingIntent);
+        notification.setLatestEventInfo(this.context, "Guardado! (2)", "Guardado! (3)",
+                pendingIntent);
         nm.notify(0, notification);
 
         return val;

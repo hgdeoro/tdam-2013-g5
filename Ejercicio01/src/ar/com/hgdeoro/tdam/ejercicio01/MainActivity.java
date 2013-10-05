@@ -21,6 +21,21 @@ import ar.com.hgdeoro.tdam.ejercicio01.db.DBHelper;
 
 public class MainActivity extends Activity {
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = this.getIntent();
+
+        //
+
+        long msgId = intent.getLongExtra("msg_id", 0);
+        Log.i("onResume()", "msg_id recibido: " + msgId);
+        if (msgId > 0) {
+            cargarTextoById(msgId);
+        }
+    }
+
     /** Dialogs */
     public static final int DEFAULT_DIALOG = 0;
 
