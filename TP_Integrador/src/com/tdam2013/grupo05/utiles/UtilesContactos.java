@@ -27,10 +27,12 @@ public class UtilesContactos {
 					ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
 					new String[] { contactId.toString() }, null);
 			while (cursor.moveToNext()) {
-				Log.i("AccionesSobreContactoActivity",
-						"Telefono: "
-								+ cursor.getString(cursor
-										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+				String telefono = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+				Log.i("AccionesSobreContactoActivity", "Telefono: " + telefono);
+
+				telefonos.add(telefono);
 				// contact.addTelephoneNumber(pCur.getString(pCur
 				// .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
 			}
