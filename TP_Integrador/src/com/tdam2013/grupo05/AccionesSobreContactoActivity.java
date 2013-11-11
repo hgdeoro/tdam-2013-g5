@@ -1,15 +1,21 @@
 package com.tdam2013.grupo05;
 
+import java.util.List;
+
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class AccionesSobreContactoActivity extends ListActivity {
+
+	public static final String CONTACT_ID = "CONTACT_ID";
 
 	public static final String LLAMAR = "Llamar";
 	public static final String SMS = "Enviar SMS";
@@ -29,6 +35,14 @@ public class AccionesSobreContactoActivity extends ListActivity {
 		setListAdapter(new ArrayAdapter<String>(this,
 				R.layout.acciones_sobre_contacto_activity_item,
 				R.id.acciones_sobre_contacto_item_accion, acciones));
+
+		Long contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
+
+		Log.i("AccionesSobreContactoActivity", "contactId: " + contactId);
+
+		List<String> telefonos = UtilesContactos.getTelefonos(
+				this.getApplicationContext(), contactId);
+
 	}
 
 	/**

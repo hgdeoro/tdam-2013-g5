@@ -141,19 +141,20 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Get the _ID value
 		mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
 
-		// Get the selected LOOKUP KEY
-		mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
-
-		// Create the contact's content Uri
-		mContactUri = Contacts.getLookupUri(mContactId, mContactKey);
-
-		/*
-		 * You can use mContactUri as the content URI for retrieving the details
-		 * for a contact.
-		 */
+		// // Get the selected LOOKUP KEY
+		// mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
+		//
+		// // Create the contact's content Uri
+		// mContactUri = Contacts.getLookupUri(mContactId, mContactKey);
+		//
+		// /*
+		// * You can use mContactUri as the content URI for retrieving the
+		// details
+		// * for a contact.
+		// */
 
 		this.startActivity(UtilesIntents
-				.getAccionesSobreContactoActivityIntent(this, mContactUri));
+				.getAccionesSobreContactoActivityIntent(this, mContactId));
 
 		//
 		// You now have the key pieces of an app that matches a search string to

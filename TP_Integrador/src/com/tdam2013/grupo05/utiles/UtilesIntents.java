@@ -30,11 +30,11 @@ public class UtilesIntents {
 	}
 
 	public static Intent getAccionesSobreContactoActivityIntent(Context ctx,
-			Uri contactUri) {
+			long contactId) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				AccionesSobreContactoActivity.class.getCanonicalName()));
-		intent.setData(contactUri);
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
 		return intent;
 	}
 
