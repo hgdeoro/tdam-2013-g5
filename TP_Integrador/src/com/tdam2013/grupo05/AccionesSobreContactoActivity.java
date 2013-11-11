@@ -37,8 +37,14 @@ public class AccionesSobreContactoActivity extends ListActivity {
 		Log.i("AccionesSobreContactoActivity", "contactId: " + contactId);
 
 		for (String valor : UtilesContactos.getTelefonos(
-				this.getApplicationContext(), contactId))
+				this.getApplicationContext(), contactId)) {
 			infoList.add(new Info(LLAMAR, valor));
+			infoList.add(new Info(SMS, valor));
+		}
+
+		for (String valor : UtilesContactos.getEmails(
+				this.getApplicationContext(), contactId))
+			infoList.add(new Info(EMAIL, valor));
 
 		this.setListAdapter(new CustomAdapter());
 	}

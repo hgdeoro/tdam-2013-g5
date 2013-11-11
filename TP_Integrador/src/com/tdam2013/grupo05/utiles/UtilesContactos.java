@@ -30,11 +30,9 @@ public class UtilesContactos {
 				String telefono = cursor
 						.getString(cursor
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-				Log.i("AccionesSobreContactoActivity", "Telefono: " + telefono);
+				Log.i("getTelefonos()", "Telefono: " + telefono);
 
 				telefonos.add(telefono);
-				// contact.addTelephoneNumber(pCur.getString(pCur
-				// .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
 			}
 
 		} finally {
@@ -43,6 +41,39 @@ public class UtilesContactos {
 		}
 
 		return telefonos;
+	}
+
+	/**
+	 * Devuelve lista de emails
+	 * 
+	 * @param contactId
+	 * @return
+	 */
+	public static List<String> getEmails(Context ctx, Long contactId) {
+
+		List<String> emails = new ArrayList<String>();
+		Cursor cursor = null;
+
+		try {
+			cursor = ctx.getContentResolver().query(
+					ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
+					ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
+					new String[] { contactId.toString() }, null);
+			while (cursor.moveToNext()) {
+				String email = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+				Log.i("getEmails()", "Email: " + email);
+
+				emails.add(email);
+			}
+
+		} finally {
+			if (cursor != null)
+				cursor.close();
+		}
+
+		return emails;
 	}
 
 }
