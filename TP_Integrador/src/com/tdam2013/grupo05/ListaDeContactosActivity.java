@@ -138,23 +138,10 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Move to the selected contact
 		cursor.moveToPosition(position);
 
-		// Get the _ID value
-		mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
-
-		// // Get the selected LOOKUP KEY
-		// mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
-		//
-		// // Create the contact's content Uri
-		// mContactUri = Contacts.getLookupUri(mContactId, mContactKey);
-		//
-		// /*
-		// * You can use mContactUri as the content URI for retrieving the
-		// details
-		// * for a contact.
-		// */
-
 		this.startActivity(UtilesIntents
-				.getAccionesSobreContactoActivityIntent(this, mContactId));
+				.getAccionesSobreContactoActivityIntent(this,
+						cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID),
+						cursor.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
 
 		//
 		// You now have the key pieces of an app that matches a search string to
@@ -291,6 +278,9 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 	// The column index for the LOOKUP_KEY column
 	private static final int COLUMN_INDEX_FOR_LOOKUP_KEY = 1;
+
+	// The column index for the LOOKUP_KEY column
+	private static final int COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY = 2;
 
 	// Defines the text expression
 	// private static final String SELECTION = Contacts.DISPLAY_NAME_PRIMARY +

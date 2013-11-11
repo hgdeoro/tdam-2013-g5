@@ -20,6 +20,7 @@ import com.tdam2013.grupo05.utiles.UtilesIntents;
 public class AccionesSobreContactoActivity extends ListActivity {
 
 	public static final String CONTACT_ID = "CONTACT_ID";
+	public static final String DISPLAY_NAME = "DISPLAY_NAME";
 
 	public static final String LLAMAR = "Llamar";
 	public static final String SMS = "Enviar SMS";
@@ -28,12 +29,17 @@ public class AccionesSobreContactoActivity extends ListActivity {
 
 	private List<Info> infoList = new ArrayList<Info>();
 
+	private Long contactId = null;
+	private String displayName = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acciones_sobre_contacto_activity);
 
-		Long contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
+		contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
+		displayName = this.getIntent().getExtras().getString(DISPLAY_NAME);
+
 		Log.i("AccionesSobreContactoActivity", "contactId: " + contactId);
 
 		for (String valor : UtilesContactos.getTelefonos(
@@ -71,8 +77,8 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			this.startActivity(UtilesIntents.getSendEmailIntent(info.valor));
 
 		} else if (MSGWEB.equals(info.accion)) {
-			this.startActivity(UtilesIntents
-					.getEnviarMensajeWebActivityIntent(this));
+			this.startActivity(UtilesIntents.getEnviarMensajeWebActivityIntent(
+					getApplicationContext(), displayName));
 
 		} else {
 

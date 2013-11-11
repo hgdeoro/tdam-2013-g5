@@ -8,15 +8,27 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class EnviarMensajeWebActivity extends Activity {
 
+	/**
+	 * Key to use in Intent.extra to declare destination of the message
+	 */
+	public static final String MSG_TO = "MSG_TO";
+
+	/**
+	 * Dialog ids
+	 */
 	public static final int DIALOG_ERROR = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.enviar_mensaje_web_activity);
+
+		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
+				.setText(this.getIntent().getExtras().getString(MSG_TO));
 
 		/*
 		 * Listeners

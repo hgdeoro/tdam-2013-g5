@@ -30,18 +30,21 @@ public class UtilesIntents {
 	}
 
 	public static Intent getAccionesSobreContactoActivityIntent(Context ctx,
-			long contactId) {
+			long contactId, String displayName) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				AccionesSobreContactoActivity.class.getCanonicalName()));
 		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
 		return intent;
 	}
 
-	public static Intent getEnviarMensajeWebActivityIntent(Context ctx) {
+	public static Intent getEnviarMensajeWebActivityIntent(Context ctx,
+			String to) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				EnviarMensajeWebActivity.class.getCanonicalName()));
+		intent.putExtra(EnviarMensajeWebActivity.MSG_TO, to);
 		return intent;
 	}
 
