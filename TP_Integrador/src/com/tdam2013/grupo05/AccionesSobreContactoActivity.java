@@ -56,20 +56,18 @@ public class AccionesSobreContactoActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		// final String accion = acciones[position];
-		final String accion = LLAMAR;
+		Info info = infoList.get(position);
 
-		if (LLAMAR.equals(accion)) {
-			this.startActivity(UtilesIntents.getCallPhoneIntent("0"));
+		if (LLAMAR.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getCallPhoneIntent(info.valor));
 
-		} else if (SMS.equals(accion)) {
-			this.startActivity(UtilesIntents.getSendSmsIntent("0"));
+		} else if (SMS.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getSendSmsIntent(info.valor));
 
-		} else if (EMAIL.equals(accion)) {
-			this.startActivity(UtilesIntents
-					.getSendEmailIntent("alguien@example.com"));
+		} else if (EMAIL.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getSendEmailIntent(info.valor));
 
-		} else if (MSGWEB.equals(accion)) {
+		} else if (MSGWEB.equals(info.accion)) {
 			this.startActivity(UtilesIntents
 					.getEnviarMensajeWebActivityIntent(this));
 
