@@ -7,11 +7,11 @@ import com.tdam2013.grupo05.R;
 
 public class HistorialSettingsActivity extends PreferenceActivity {
 
-    @SuppressWarnings("deprecation")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.addPreferencesFromResource(R.xml.preference_historial);
-    }
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.addPreferencesFromResource(R.xml.preference_historial);
+	}
 
 }
