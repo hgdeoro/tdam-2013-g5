@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class EnviarMensajeWebActivity extends Activity {
 
@@ -73,6 +75,11 @@ public class EnviarMensajeWebActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		/*
+		 * este chequeo lo hacemos en onResume() para que funciona al cargar la
+		 * activity, y tambien luego de ejecutar onActivityResult().
+		 */
 		checkUsername();
 	}
 
@@ -84,16 +91,31 @@ public class EnviarMensajeWebActivity extends Activity {
 					+ resultCode + ", data: " + data);
 
 			if (resultCode == RESULT_OK) {
-				SharedPreferences sp = PreferenceManager
-						.getDefaultSharedPreferences(this);
-				Editor editor = sp.edit();
-				editor.putString("pref_ldc_nombre_usuario_web", data
-						.getExtras().getString("username").trim());
-				editor.commit();
+
+				final String username = data.getExtras().getString("username")
+						.trim();
+
+				if (UtilesMensajesWeb.usernameIsValid(username)) {
+					SharedPreferences sp = PreferenceManager
+							.getDefaultSharedPreferences(this);
+					Editor editor = sp.edit();
+					editor.putString("pref_ldc_nombre_usuario_web", username);
+					editor.commit();
+
+					Toast.makeText(this,
+							"El nombre de usuario fue guardado correctamente.",
+							Toast.LENGTH_SHORT).show();
+
+					return;
+				}
+
+				Toast.makeText(this, "No se ha seteado el nombre de usuario.",
+						Toast.LENGTH_SHORT).show();
 
 			} else {
 				Log.w("onActivityResult()", "resultCode invalido: "
 						+ resultCode);
+				finish();
 			}
 
 		} else {
