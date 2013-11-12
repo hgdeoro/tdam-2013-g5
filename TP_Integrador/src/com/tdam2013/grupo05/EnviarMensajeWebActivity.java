@@ -5,7 +5,11 @@ import com.tdam2013.grupo05.utiles.UtilesIntents;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +26,33 @@ public class EnviarMensajeWebActivity extends Activity {
 	 */
 	public static final int DIALOG_ERROR = 1;
 
+	public static final int ACTIVITY_REQUEST_CODE__ENTER_USERNAME = 1;
+
+	/**
+	 * Checks if the username exists in preferences. If doesn't exists, a new
+	 * activity is launched to let the user enter his/her username.
+	 */
+	protected void checkUsername() {
+
+		/*
+		 * Check prefs
+		 */
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String nombreUsuarioWeb = sp.getString("pref_ldc_nombre_usuario_web",
+				"").trim();
+
+		Log.d("EnviarMensajeWebActivity", "pref_ldc_nombre_usuario_web: '"
+				+ nombreUsuarioWeb + "'");
+
+		if (nombreUsuarioWeb.length() == 0)
+			startActivityForResult(
+					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
+					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
+
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +67,20 @@ public class EnviarMensajeWebActivity extends Activity {
 		getButton(R.id.enviar_mensaje_web_button).setOnClickListener(
 				new EnviarMensajeWebOnClickListener());
 
+		checkUsername();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == ACTIVITY_REQUEST_CODE__ENTER_USERNAME) {
+			Log.i("", "requestCode: " + requestCode + ", resultCode: "
+					+ resultCode + ", data: " + data);
+			// checkUsername();
+
+		} else {
+			throw new RuntimeException("Invalid requestCode: " + requestCode);
+		}
 	}
 
 	/**
@@ -59,19 +104,10 @@ public class EnviarMensajeWebActivity extends Activity {
 	public class EnviarMensajeWebOnClickListener implements
 			View.OnClickListener {
 
-		boolean mostrarDialogo = true;
-
 		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
-			if (mostrarDialogo) {
-				EnviarMensajeWebActivity.this.showDialog(DIALOG_ERROR);
-			} else {
-				EnviarMensajeWebActivity.this
-						.startActivity(UtilesIntents
-								.getRegistrarUsuarioActivityIntent(EnviarMensajeWebActivity.this));
-			}
-			mostrarDialogo = !mostrarDialogo;
+
 		}
 	}
 
