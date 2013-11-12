@@ -1,18 +1,19 @@
 package com.tdam2013.grupo05;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class EnviarMensajeWebActivity extends Activity {
 
@@ -67,6 +68,11 @@ public class EnviarMensajeWebActivity extends Activity {
 		getButton(R.id.enviar_mensaje_web_button).setOnClickListener(
 				new EnviarMensajeWebOnClickListener());
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		checkUsername();
 	}
 
@@ -76,7 +82,19 @@ public class EnviarMensajeWebActivity extends Activity {
 		if (requestCode == ACTIVITY_REQUEST_CODE__ENTER_USERNAME) {
 			Log.i("", "requestCode: " + requestCode + ", resultCode: "
 					+ resultCode + ", data: " + data);
-			// checkUsername();
+
+			if (resultCode == RESULT_OK) {
+				SharedPreferences sp = PreferenceManager
+						.getDefaultSharedPreferences(this);
+				Editor editor = sp.edit();
+				editor.putString("pref_ldc_nombre_usuario_web", data
+						.getExtras().getString("username").trim());
+				editor.commit();
+
+			} else {
+				Log.w("onActivityResult()", "resultCode invalido: "
+						+ resultCode);
+			}
 
 		} else {
 			throw new RuntimeException("Invalid requestCode: " + requestCode);
