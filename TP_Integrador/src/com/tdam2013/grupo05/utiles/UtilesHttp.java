@@ -32,6 +32,8 @@ public class UtilesHttp {
 
 	public boolean debug = true;
 
+	private final String baseUrl;
+
 	public static final String DEFAULT_PASSWORD = "123456";
 
 	protected static final Random randomGenerator = new Random();
@@ -49,7 +51,13 @@ public class UtilesHttp {
 			+ "<action-detail><auth username=\"%s\" key=\"%s\"></auth>"
 			+ "<filter type=\"timestamp\">%s</filter></action-detail></action>";
 
-	public static final UtilesHttp INSTANCE = new UtilesHttp();
+	public UtilesHttp() {
+		baseUrl = "http://10.0.2.2:8080";
+	}
+
+	public UtilesHttp(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
 
 	/**
 	 * Post a messages (the payload) and return the response.
@@ -63,8 +71,7 @@ public class UtilesHttp {
 			IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(
-				"http://192.168.122.1:8080/messages/Sender");
+		HttpPost post = new HttpPost(baseUrl + "/messages/Sender");
 		post.setEntity(new StringEntity(payload));
 
 		HttpResponse response = client.execute(post);

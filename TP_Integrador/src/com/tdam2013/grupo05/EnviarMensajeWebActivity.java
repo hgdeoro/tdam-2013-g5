@@ -3,9 +3,11 @@ package com.tdam2013.grupo05;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -181,6 +183,25 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String from = sp.getString("pref_ldc_nombre_usuario_web", "")
 					.trim();
 
+			AsyncTask<Object, Void, Void> task = new SendMessageTask();
+			task.execute(EnviarMensajeWebActivity.this.getApplicationContext(),
+					from, destinatario, mensaje);
+
+			finish();
+
+		}
+	}
+
+	protected class SendMessageTask extends AsyncTask<Object, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Object... params) {
+
+			final Context ctx = (Context) params[0];
+			final String from = (String) params[1];
+			final String destinatario = (String) params[2];
+			final String mensaje = (String) params[3];
+
 			// FIXME: quitar esto de thread de UI
 			boolean ok;
 			try {
@@ -191,17 +212,27 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 
 			if (ok)
-				Toast.makeText(EnviarMensajeWebActivity.this,
-						"El mensaje fue enviado correctamente.",
-						Toast.LENGTH_SHORT).show();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(ctx,
+								"El mensaje fue enviado correctamente.",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
 			else
-				Toast.makeText(EnviarMensajeWebActivity.this,
-						"ERROR: el mensaje no fue enviado.", Toast.LENGTH_SHORT)
-						.show();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(ctx,
+								"ERROR: el mensaje no fue enviado.",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
 
-			finish();
-
+			return null;
 		}
+
 	}
 
 	/*
