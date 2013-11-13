@@ -112,25 +112,9 @@ public class EnviarMensajeWebActivity extends Activity {
 							"El nombre de usuario fue guardado correctamente.",
 							Toast.LENGTH_SHORT).show();
 
-					// FIXME: quitar esto de thread de UI
-					boolean ok;
-					try {
-						ok = utilesHttp.registerUser(username);
-					} catch (Exception e) {
-						Log.wtf("registerUser()", e);
-						ok = false;
-					}
-
-					if (ok)
-						Toast.makeText(
-								this,
-								"El nombre de usuario fue creado en el servidor.",
-								Toast.LENGTH_SHORT).show();
-					else
-						Toast.makeText(
-								this,
-								"ERROR: el usuario no fue registrado en el servidor",
-								Toast.LENGTH_SHORT).show();
+					AsyncTask<Object, Void, Void> task = new RegisterUserTask();
+					task.execute(EnviarMensajeWebActivity.this
+							.getApplicationContext(), username);
 
 					return;
 				}
@@ -226,6 +210,48 @@ public class EnviarMensajeWebActivity extends Activity {
 					public void run() {
 						Toast.makeText(ctx,
 								"ERROR: el mensaje no fue enviado.",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+
+			return null;
+		}
+
+	}
+
+	protected class RegisterUserTask extends AsyncTask<Object, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Object... params) {
+
+			final Context ctx = (Context) params[0];
+			final String username = (String) params[1];
+
+			boolean ok;
+			try {
+				ok = utilesHttp.registerUser(username);
+			} catch (Exception e) {
+				Log.wtf("registerUser()", e);
+				ok = false;
+			}
+
+			if (ok)
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(
+								ctx,
+								"El nombre de usuario fue creado en el servidor.",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+			else
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(
+								ctx,
+								"ERROR: el usuario no fue registrado en el servidor",
 								Toast.LENGTH_SHORT).show();
 					}
 				});
