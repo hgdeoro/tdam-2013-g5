@@ -49,7 +49,7 @@ public class EnviarMensajeWebActivity extends Activity {
 		Log.d("EnviarMensajeWebActivity", "pref_ldc_nombre_usuario_web: '"
 				+ nombreUsuarioWeb + "'");
 
-		if (nombreUsuarioWeb.length() == 0)
+		if (!UtilesMensajesWeb.usernameIsValid(nombreUsuarioWeb))
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
@@ -144,9 +144,11 @@ public class EnviarMensajeWebActivity extends Activity {
 	public class EnviarMensajeWebOnClickListener implements
 			View.OnClickListener {
 
-		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
+
+			// FIXME: queue mensaje a enviar
+			finish();
 
 		}
 	}
