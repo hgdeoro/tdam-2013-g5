@@ -11,9 +11,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
@@ -30,6 +32,8 @@ public class EnviarMensajeWebActivity extends Activity {
 	public static final int DIALOG_ERROR = 1;
 
 	public static final int ACTIVITY_REQUEST_CODE__ENTER_USERNAME = 1;
+
+	public static final UtilesHttp utilesHttp = new UtilesHttp();
 
 	/**
 	 * Checks if the username exists in preferences. If doesn't exists, a new
@@ -106,6 +110,26 @@ public class EnviarMensajeWebActivity extends Activity {
 							"El nombre de usuario fue guardado correctamente.",
 							Toast.LENGTH_SHORT).show();
 
+					// FIXME: quitar esto de thread de UI
+					boolean ok;
+					try {
+						ok = utilesHttp.registerUser(username);
+					} catch (Exception e) {
+						Log.wtf("registerUser()", e);
+						ok = false;
+					}
+
+					if (ok)
+						Toast.makeText(
+								this,
+								"El nombre de usuario fue creado en el servidor.",
+								Toast.LENGTH_SHORT).show();
+					else
+						Toast.makeText(
+								this,
+								"ERROR: el usuario no fue registrado en el servidor",
+								Toast.LENGTH_SHORT).show();
+
 					return;
 				}
 
@@ -147,7 +171,34 @@ public class EnviarMensajeWebActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			// FIXME: queue mensaje a enviar
+			final String destinatario = ((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
+					.getText().toString();
+			final String mensaje = ((EditText) findViewById(R.id.enviar_mensaje_web_text))
+					.getText().toString();
+
+			SharedPreferences sp = PreferenceManager
+					.getDefaultSharedPreferences(EnviarMensajeWebActivity.this);
+			final String from = sp.getString("pref_ldc_nombre_usuario_web", "")
+					.trim();
+
+			// FIXME: quitar esto de thread de UI
+			boolean ok;
+			try {
+				ok = utilesHttp.sendMessage(from, destinatario, mensaje);
+			} catch (Exception e) {
+				Log.wtf("sendMessage()", e);
+				ok = false;
+			}
+
+			if (ok)
+				Toast.makeText(EnviarMensajeWebActivity.this,
+						"El mensaje fue enviado correctamente.",
+						Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(EnviarMensajeWebActivity.this,
+						"ERROR: el mensaje no fue enviado.", Toast.LENGTH_SHORT)
+						.show();
+
 			finish();
 
 		}

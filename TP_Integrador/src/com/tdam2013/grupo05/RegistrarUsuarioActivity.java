@@ -1,11 +1,14 @@
 package com.tdam2013.grupo05;
 
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegistrarUsuarioActivity extends Activity {
 
@@ -23,10 +26,16 @@ public class RegistrarUsuarioActivity extends Activity {
 					public void onClick(View v) {
 
 						String username = editText.getText().toString().trim();
-						Intent data = new Intent();
-						data.putExtra("username", username);
-						setResult(RESULT_OK, data);
-						finish();
+						if (UtilesMensajesWeb.usernameIsValid(username)) {
+							Intent data = new Intent();
+							data.putExtra("username", username);
+							setResult(RESULT_OK, data);
+							finish();
+						} else {
+							Toast.makeText(RegistrarUsuarioActivity.this,
+									"El nombre de usuario no es valido.",
+									Toast.LENGTH_SHORT).show();
+						}
 
 					}
 				});
