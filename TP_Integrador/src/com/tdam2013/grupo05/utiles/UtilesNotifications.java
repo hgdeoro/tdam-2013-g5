@@ -9,6 +9,9 @@ import com.tdam2013.grupo05.R;
 
 public class UtilesNotifications {
 
+	public static final int SEND_MESSAGE = 1;
+	public static final int REGISTER_USER = 2;
+	
 	public static NotificationManager getManager(Context context) {
 		NotificationManager mNotificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);

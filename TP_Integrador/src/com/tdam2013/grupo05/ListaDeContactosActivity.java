@@ -23,9 +23,15 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class ListaDeContactosActivity extends ListActivity implements
 		LoaderCallbacks<Cursor> {
+
+	/**
+     * 
+     */
+	public static final int ACTIVITY_REQUEST_CODE__ENTER_USERNAME = 1;
 
 	/*
 	 * ----------------------------------------------------------------------
@@ -114,9 +120,43 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 	}
 
+	/**
+	 * Checks if the username exists in preferences. If doesn't exists, a new
+	 * activity is launched to let the user enter his/her username.
+	 */
+	protected void checkUsername() {
+
+		/*
+		 * Check prefs
+		 */
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String nombreUsuarioWeb = sp.getString("pref_ldc_nombre_usuario_web",
+				"").trim();
+
+		Log.d("EnviarMensajeWebActivity", "pref_ldc_nombre_usuario_web: '"
+				+ nombreUsuarioWeb + "'");
+
+		if (!UtilesMensajesWeb.usernameIsValid(UtilesMensajesWeb
+				.getUsername(this)))
+			startActivityForResult(
+					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
+					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
+
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		/*
+		 * este chequeo lo hacemos en onResume() para que funciona al cargar la
+		 * activity, y tambien luego de ejecutar onActivityResult().
+		 */
+
+		checkUsername();
+
 		// TODO: recargar SOLO si se ha cambiado el orden o filtro
 		getLoaderManager().restartLoader(0, null, this);
 		// getLoaderManager().initLoader(0, null, this);
