@@ -3,6 +3,8 @@ package com.tdam2013.grupo05;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,9 +35,20 @@ public class EnviarMensajeWebActivity extends Activity {
 	 */
 	public static final int DIALOG_ERROR = 1;
 
+	/**
+	 * 
+	 */
 	public static final int ACTIVITY_REQUEST_CODE__ENTER_USERNAME = 1;
 
+	/**
+	 * Instancia de Utileshttp
+	 */
 	public static final UtilesHttp utilesHttp = new UtilesHttp();
+
+	/**
+	 * ID de notificacion
+	 */
+	public static final int SEND_MESSAGE = 1;
 
 	/**
 	 * Checks if the username exists in preferences. If doesn't exists, a new
@@ -178,6 +191,35 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	protected class SendMessageTask extends AsyncTask<Object, Void, Void> {
 
+		private NotificationManager getManager(Context context) {
+			NotificationManager mNotificationManager = (NotificationManager) context
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			return mNotificationManager;
+		}
+
+		private void notify(Context ctx, String msg) {
+			// String tickerText = ctx.getString(R.string.xxxxxxxxxxxxxxxxx);
+			String tickerText = "Enviando mensaje...";
+
+			Notification notification = new Notification(
+					R.drawable.ic_launcher, tickerText,
+					System.currentTimeMillis());
+
+			// PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0,
+			// Utilities.getOpenApplicationIntent(ctx), 0);
+
+			// notification
+			// .setLatestEventInfo(
+			// ctx,
+			// ctx.getString(R.string.title_notification_disconnection),
+			// ctx.getString(R.string.message_notification_disconnection),
+			// pendingIntent);
+
+			notification.setLatestEventInfo(ctx, msg, msg, null);
+
+			getManager(ctx).notify(SEND_MESSAGE, notification);
+		}
+
 		@Override
 		protected Void doInBackground(Object... params) {
 
@@ -186,7 +228,8 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String destinatario = (String) params[2];
 			final String mensaje = (String) params[3];
 
-			// FIXME: quitar esto de thread de UI
+			notify(ctx, "Enviando mensaje...");
+
 			boolean ok;
 			try {
 				ok = utilesHttp.sendMessage(from, destinatario, mensaje);
@@ -196,23 +239,27 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 
 			if (ok)
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						Toast.makeText(ctx,
-								"El mensaje fue enviado correctamente.",
-								Toast.LENGTH_SHORT).show();
-					}
-				});
+				notify(ctx, "El mensaje fue enviado correctamente");
+			// runOnUiThread(new Runnable() {
+			// @Override
+			// public void run() {
+			// Toast.makeText(ctx,
+			// "El mensaje fue enviado correctamente.",
+			// Toast.LENGTH_SHORT).show();
+			// }
+			// });
+
 			else
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						Toast.makeText(ctx,
-								"ERROR: el mensaje no fue enviado.",
-								Toast.LENGTH_SHORT).show();
-					}
-				});
+				notify(ctx, "ERROR: el mensaje no fue enviado");
+
+			// runOnUiThread(new Runnable() {
+			// @Override
+			// public void run() {
+			// Toast.makeText(ctx,
+			// "ERROR: el mensaje no fue enviado.",
+			// Toast.LENGTH_SHORT).show();
+			// }
+			// });
 
 			return null;
 		}
