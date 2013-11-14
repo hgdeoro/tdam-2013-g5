@@ -10,6 +10,12 @@
     <string name="title_activity_enviar_mensaje_web">Enviar Mensaje Web</string>
     <string name="title_activity_registrar_usuario">Registrar Usuario</string>
 
+    <!-- Dialog: sin conectividad -->
+    <string name="dialog_no_connectivity_title">Sin conectividad</string>
+    <string name="dialog_no_connectivity_ok">ok</string>
+    <string name="dialog_no_connectivity_message">Para realizar la accion solicitada
+        es necesario tener conectividad a Internet</string>
+    
     <!-- Otros strings -->
     <string name="enviar_mensaje_web_a">A:</string>
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>

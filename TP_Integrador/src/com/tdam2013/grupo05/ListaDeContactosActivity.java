@@ -159,6 +159,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 		if (!UtilesMensajesWeb.usernameIsValid(UtilesMensajesWeb
 				.getUsername(this))) {
+
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__REGISTER_USERNAME);

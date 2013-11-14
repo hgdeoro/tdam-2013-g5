@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 
-	public boolean isConnected(Context context) {
+	public static boolean isConnected(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();

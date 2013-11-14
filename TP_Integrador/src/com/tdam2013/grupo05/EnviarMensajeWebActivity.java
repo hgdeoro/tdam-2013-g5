@@ -1,7 +1,10 @@
 package com.tdam2013.grupo05;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tdam2013.grupo05.br.NetworkChangeBroadcastReceiver;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
@@ -26,9 +30,13 @@ public class EnviarMensajeWebActivity extends Activity {
 	 */
 	public static final UtilesHttp utilesHttp = new UtilesHttp();
 
+	public static final int DIALOG_NO_CONNECTIVITY = 0;
+
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.enviar_mensaje_web_activity);
 
 		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
@@ -40,6 +48,35 @@ public class EnviarMensajeWebActivity extends Activity {
 		getButton(R.id.enviar_mensaje_web_button).setOnClickListener(
 				new EnviarMensajeWebOnClickListener());
 
+		if (!NetworkChangeBroadcastReceiver.isConnected(this
+				.getApplicationContext())) {
+			this.showDialog(DIALOG_NO_CONNECTIVITY);
+		}
+
+	}
+
+	@Override
+	@Deprecated
+	protected Dialog onCreateDialog(int id) {
+		if (id == DIALOG_NO_CONNECTIVITY) {
+			Dialog dialog = new AlertDialog.Builder(this)
+					.setTitle(R.string.dialog_no_connectivity_title)
+					.setPositiveButton(R.string.dialog_no_connectivity_ok,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+									EnviarMensajeWebActivity.this.finish();
+
+								}
+							})
+					.setMessage(R.string.dialog_no_connectivity_message)
+					.create();
+			return dialog;
+		} else {
+			return super.onCreateDialog(id);
+		}
 	}
 
 	/**
