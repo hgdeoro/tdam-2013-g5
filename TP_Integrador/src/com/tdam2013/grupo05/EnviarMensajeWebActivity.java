@@ -199,8 +199,9 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String mensaje = (String) params[3];
 
 			// FIXME: remove hardcoded strings & use better texts
-			UtilesNotifications.notify(ctx, "Enviando mensaje...",
-					"Enviando mensaje...", "Enviando mensaje...", SEND_MESSAGE);
+			UtilesNotifications.notifyWithIndeterminateProgress(ctx,
+					"Enviando mensaje...", "Enviando mensaje...",
+					"Enviando mensaje...", SEND_MESSAGE);
 
 			boolean ok;
 			try {

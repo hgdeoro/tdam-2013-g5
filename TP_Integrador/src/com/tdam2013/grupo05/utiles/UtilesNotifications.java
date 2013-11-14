@@ -3,6 +3,7 @@ package com.tdam2013.grupo05.utiles;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.support.v4.app.NotificationCompat;
 
 import com.tdam2013.grupo05.R;
 
@@ -14,29 +15,72 @@ public class UtilesNotifications {
 		return mNotificationManager;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void notify(Context ctx, String tickerText,
 			String contentTitle, String contentText, int notificationId) {
 
-		// String tickerText = ctx.getString(R.string.xxxxxxxxxxxxxxxxx);
+		notify(ctx, tickerText, contentTitle, contentText, notificationId, 0,
+				0, false);
 
-		Notification notification = new Notification(R.drawable.ic_launcher,
-				tickerText, System.currentTimeMillis());
+	}
 
-		// PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0,
-		// Utilities.getOpenApplicationIntent(ctx), 0);
+	public static void notifyWithIndeterminateProgress(Context ctx,
+			String tickerText, String contentTitle, String contentText,
+			int notificationId) {
 
-		// notification
-		// .setLatestEventInfo(
-		// ctx,
-		// ctx.getString(R.string.title_notification_disconnection),
-		// ctx.getString(R.string.message_notification_disconnection),
-		// pendingIntent);
+		notify(ctx, tickerText, contentTitle, contentText, notificationId, 0,
+				0, true);
 
-		notification.setLatestEventInfo(ctx, contentTitle, contentText, null);
-		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+	}
 
-		getManager(ctx).notify(notificationId, notification);
+	@SuppressWarnings({ "deprecation", "unused" })
+	public static void notify(Context ctx, String tickerText,
+			String contentTitle, String contentText, int notificationId,
+			int progressMax, int progressCurrent, boolean progressIndeterminate) {
+
+		if (false) {
+
+			// String tickerText = ctx.getString(R.string.xxxxxxxxxxxxxxxxx);
+
+			Notification notification = new Notification(
+					R.drawable.ic_launcher, tickerText,
+					System.currentTimeMillis());
+
+			// PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0,
+			// Utilities.getOpenApplicationIntent(ctx), 0);
+
+			// notification
+			// .setLatestEventInfo(
+			// ctx,
+			// ctx.getString(R.string.title_notification_disconnection),
+			// ctx.getString(R.string.message_notification_disconnection),
+			// pendingIntent);
+
+			notification.setLatestEventInfo(ctx, contentTitle, contentText,
+					null);
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+			getManager(ctx).notify(notificationId, notification);
+
+		} else {
+
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(
+					ctx);
+			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setTicker(tickerText);
+			builder.setContentTitle(contentTitle);
+			builder.setContentText(contentText);
+			builder.setAutoCancel(true);
+
+			builder.setProgress(progressMax, progressCurrent,
+					progressIndeterminate);
+
+			Notification notification = builder.build();
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+			getManager(ctx).notify(notificationId, notification);
+
+		}
+
 	}
 
 }

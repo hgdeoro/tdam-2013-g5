@@ -70,6 +70,11 @@ public class UtilesHttp {
 	public String post(String payload) throws ClientProtocolException,
 			IOException {
 
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(baseUrl + "/messages/Sender");
 		post.setEntity(new StringEntity(payload));
