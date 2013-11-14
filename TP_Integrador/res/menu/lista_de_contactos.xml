@@ -23,5 +23,10 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/action_settings">
     </item>
-
+    <item
+        android:id="@+id/action_ldc_usuario_web"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/action_usuario_web">
+    </item>
+    
 </menu>

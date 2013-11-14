@@ -15,7 +15,8 @@
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>
     <string name="registrar_usuario_label_nombre_usuario">Nombre de usuario</string>
     <string name="nombre_de_usuario">Nombre de usuario</string>
-
+    <string name="action_usuario_web">Usuario web</string>
+    
     <!-- Menu -->
     <string name="filtros">Filtros</string>
     <string name="orden">Orden</string>

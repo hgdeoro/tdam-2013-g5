@@ -127,11 +127,11 @@ public class ListaDeContactosActivity extends ListActivity implements
 	protected void checkUsername() {
 
 		if (!UtilesMensajesWeb.usernameIsValid(UtilesMensajesWeb
-				.getUsername(this)))
+				.getUsername(this))) {
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
-
+		}
 	}
 
 	@Override
@@ -234,6 +234,13 @@ public class ListaDeContactosActivity extends ListActivity implements
 			Log.i("onMenuItemSelected()", "action_ldc_settings");
 			this.startActivity(UtilesIntents
 					.getListaDeContactosSettingsActivity(this));
+			return true;
+
+		} else if (item.getItemId() == R.id.action_ldc_usuario_web) {
+			Log.i("onMenuItemSelected()", "action_ldc_usuario_web");
+			startActivityForResult(
+					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
+					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
 			return true;
 
 		}
