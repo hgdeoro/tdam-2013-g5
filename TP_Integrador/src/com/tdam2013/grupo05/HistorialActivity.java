@@ -47,12 +47,14 @@ public class HistorialActivity extends ListActivity {
 
 				// Array of cursor columns to bind to.
 				new String[] { Database.TABLE_WEB_MESSAGES.F_USERNAME,
-						Database.TABLE_WEB_MESSAGES.F_TIME },
+						Database.TABLE_WEB_MESSAGES.F_TIME,
+						Database.TABLE_WEB_MESSAGES.F_TEXT },
 
 				// Parallel array of which template objects to bind to those
 				// columns.
 				new int[] { R.id.historial_item_contacto,
-						R.id.historial_item_fecha_hora });
+						R.id.historial_item_fecha_hora,
+						R.id.historial_item_dato_mensaje });
 
 		setListAdapter(adapter);
 
