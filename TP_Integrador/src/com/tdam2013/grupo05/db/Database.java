@@ -2,6 +2,7 @@ package com.tdam2013.grupo05.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -52,15 +53,16 @@ public class Database extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	// public Cursor getSentWebMessages() {
-	// String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-	//
-	// return this.getReadableDatabase().query(
-	// TABLE_WEB_MESSAGES.T_NAME,
-	// new String[] { TABLE_WEB_MESSAGES.F_USERNAME,
-	// TABLE_WEB_MESSAGES.F_TIME, TABLE_WEB_MESSAGES.F_TEXT },
-	// null, null, null, null, orderBy);
-	// }
+	public Cursor getSentWebMessages() {
+		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+
+		return this.getReadableDatabase().query(
+				TABLE_WEB_MESSAGES.T_NAME,
+				new String[] { TABLE_WEB_MESSAGES.F_ID,
+						TABLE_WEB_MESSAGES.F_USERNAME,
+						TABLE_WEB_MESSAGES.F_TIME, TABLE_WEB_MESSAGES.F_TEXT },
+				null, null, null, null, orderBy);
+	}
 
 	/**
 	 * Table with messages
