@@ -126,23 +126,25 @@ public class ListaDeContactosActivity extends ListActivity implements
 	 */
 	protected void checkUsername() {
 
-		/*
-		 * Check prefs
-		 */
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		String nombreUsuarioWeb = sp.getString("pref_ldc_nombre_usuario_web",
-				"").trim();
-
-		Log.d("EnviarMensajeWebActivity", "pref_ldc_nombre_usuario_web: '"
-				+ nombreUsuarioWeb + "'");
-
 		if (!UtilesMensajesWeb.usernameIsValid(UtilesMensajesWeb
 				.getUsername(this)))
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == ACTIVITY_REQUEST_CODE__ENTER_USERNAME) {
+
+			if (resultCode != RESULT_OK) {
+				finish();
+			}
+
+		}
 
 	}
 
