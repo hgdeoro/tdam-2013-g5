@@ -1,6 +1,8 @@
 package com.tdam2013.grupo05;
 
 import android.app.ListActivity;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,53 +13,77 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
-public class HistorialActivity extends ListActivity {
+public class HistorialActivity extends ListActivity implements
+		LoaderCallbacks<Cursor> {
 
-	// public static final String[] item_historial = new String[] { "Juan",
-	// "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan",
-	// "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan", "Pepe", "Juan",
-	// "Pepe", "Juan", "Pepe", "Juan", "Pepe", };
+	private SimpleCursorAdapter mCursorAdapter;
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "unused" })
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.historial_activity);
 
-		// setListAdapter(new ArrayAdapter<String>(this,
-		// R.layout.historial_activity_item, R.id.historial_item_contacto,
-		// item_historial));
+		/*
+		 * Cursor
+		 */
 
-		Cursor cursor = new Database(this.getApplicationContext())
-				.getSentWebMessages();
-		startManagingCursor(cursor);
+		if (true) {
 
-		ListAdapter adapter = new SimpleCursorAdapter(
-		// Context
-				this,
+			// Gets a CursorAdapter
+			mCursorAdapter = new SimpleCursorAdapter(this,
+					R.layout.historial_activity_item, null, new String[] {
+							Database.TABLE_WEB_MESSAGES.F_USERNAME,
+							Database.TABLE_WEB_MESSAGES.F_TIME,
+							Database.TABLE_WEB_MESSAGES.F_TEXT }, new int[] {
+							R.id.historial_item_contacto,
+							R.id.historial_item_fecha_hora,
+							R.id.historial_item_dato_mensaje }, 0);
 
-				// row template
-				R.layout.historial_activity_item,
+			// Sets the adapter for the ListView
+			setListAdapter(mCursorAdapter);
 
-				// Pass in the cursor to bind to.
-				cursor,
+		} else {
+			Cursor cursor = new Database(this.getApplicationContext())
+					.getSentWebMessages();
+			startManagingCursor(cursor);
 
-				// Array of cursor columns to bind to.
-				new String[] { Database.TABLE_WEB_MESSAGES.F_USERNAME,
-						Database.TABLE_WEB_MESSAGES.F_TIME,
-						Database.TABLE_WEB_MESSAGES.F_TEXT },
+			ListAdapter adapter = new SimpleCursorAdapter(
+			// Context
+					this,
 
-				// Parallel array of which template objects to bind to those
-				// columns.
-				new int[] { R.id.historial_item_contacto,
-						R.id.historial_item_fecha_hora,
-						R.id.historial_item_dato_mensaje });
+					// row template
+					R.layout.historial_activity_item,
 
-		setListAdapter(adapter);
+					// Pass in the cursor to bind to.
+					cursor,
 
+					// Array of cursor columns to bind to.
+					new String[] { Database.TABLE_WEB_MESSAGES.F_USERNAME,
+							Database.TABLE_WEB_MESSAGES.F_TIME,
+							Database.TABLE_WEB_MESSAGES.F_TEXT },
+
+					// Parallel array of which template objects to bind to those
+					// columns.
+					new int[] { R.id.historial_item_contacto,
+							R.id.historial_item_fecha_hora,
+							R.id.historial_item_dato_mensaje });
+
+			setListAdapter(adapter);
+
+		}
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		getLoaderManager().restartLoader(0, null, this);
 	}
 
 	/**
@@ -114,4 +140,35 @@ public class HistorialActivity extends ListActivity {
 
 	}
 
+	/*
+	 * --------------------------------------------------
+	 * LoaderCallbacks<Cursor>
+	 * --------------------------------------------------
+	 */
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+		return new AbstractCursorLoader(this.getApplicationContext()) {
+
+			@Override
+			protected Cursor buildCursor() {
+				return new Database(
+						HistorialActivity.this.getApplicationContext())
+						.getSentWebMessages();
+			}
+
+		};
+
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		mCursorAdapter.swapCursor(cursor);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		mCursorAdapter.swapCursor(null);
+	}
 }
