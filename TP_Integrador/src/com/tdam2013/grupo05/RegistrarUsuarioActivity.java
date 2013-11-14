@@ -78,12 +78,6 @@ public class RegistrarUsuarioActivity extends Activity {
 			final Context ctx = (Context) params[0];
 			final String username = (String) params[1];
 
-			// UtilesNotifications
-			// .notifyWithIndeterminateProgress(ctx,
-			// "Registrando usuario...", "Registrando usuario...",
-			// "Registrando usuario...",
-			// UtilesNotifications.REGISTER_USER);
-
 			boolean ok;
 			try {
 				ok = utilesHttp.registerUser(username);
@@ -99,11 +93,6 @@ public class RegistrarUsuarioActivity extends Activity {
 				pd.dismiss();
 
 			if (ok) {
-				// UtilesNotifications.notifyWithIndeterminateProgress(ctx,
-				// "El usuario fue creado satisfactoriamente",
-				// "El usuario fue creado satisfactoriamente",
-				// "El usuario fue creado satisfactoriamente",
-				// UtilesNotifications.REGISTER_USER);
 
 				runOnUiThread(new Runnable() {
 
@@ -125,11 +114,6 @@ public class RegistrarUsuarioActivity extends Activity {
 				});
 
 			} else {
-				// UtilesNotifications.notifyWithIndeterminateProgress(ctx,
-				// "ERROR: el usuario no fue registrado en el servidor",
-				// "ERROR: el usuario no fue registrado en el servidor",
-				// "ERROR: el usuario no fue registrado en el servidor",
-				// UtilesNotifications.REGISTER_USER);
 
 				runOnUiThread(new Runnable() {
 

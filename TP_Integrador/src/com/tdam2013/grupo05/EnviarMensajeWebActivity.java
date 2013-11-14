@@ -21,11 +21,6 @@ public class EnviarMensajeWebActivity extends Activity {
 	 */
 	public static final String MSG_TO = "MSG_TO";
 
-	// /**
-	// * Dialog ids
-	// */
-	// public static final int DIALOG_ERROR = 1;
-
 	/**
 	 * Instancia de Utileshttp
 	 */
@@ -46,21 +41,6 @@ public class EnviarMensajeWebActivity extends Activity {
 				new EnviarMensajeWebOnClickListener());
 
 	}
-
-	// /**
-	// * Dialog
-	// */
-	// @SuppressWarnings("deprecation")
-	// protected Dialog onCreateDialog(int id) {
-	// if (id == DIALOG_ERROR) {
-	// Dialog dialog = new AlertDialog.Builder(this).setTitle("ERROR")
-	// .setMessage("No se ha podido enviar el mensaje web.")
-	// .create();
-	// return dialog;
-	// } else {
-	// return super.onCreateDialog(id);
-	// }
-	// }
 
 	/**
 	 * OnClickListener
