@@ -54,19 +54,19 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 	private final static int[] TO_IDS = { R.id.lista_de_contactos_item_label };
 
-	// Define global mutable variables
-	// Define a ListView object
-	ListView mContactsList;
+	// // Define global mutable variables
+	// // Define a ListView object
+	// ListView mContactsList;
 
-	// Define variables for the contact the user selects
-	// The contact's _ID value
-	long mContactId;
+	// // Define variables for the contact the user selects
+	// // The contact's _ID value
+	// long mContactId;
 
-	// The contact's LOOKUP_KEY
-	String mContactKey;
+	// // The contact's LOOKUP_KEY
+	// String mContactKey;
 
-	// A content URI for the selected contact
-	Uri mContactUri;
+	// // A content URI for the selected contact
+	// Uri mContactUri;
 
 	// An adapter that binds the result Cursor to the ListView
 	private SimpleCursorAdapter mCursorAdapter;
@@ -326,10 +326,10 @@ public class ListaDeContactosActivity extends ListActivity implements
 			cursor.moveToPosition(info.position);
 
 			// Get the _ID value
-			mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
+			long mContactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
 
-			// Get the selected LOOKUP KEY
-			mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
+			// // Get the selected LOOKUP KEY
+			// mContactKey = cursor.getString(COLUMN_INDEX_FOR_LOOKUP_KEY);
 
 			Uri uri = ContentUris.withAppendedId(Contacts.CONTENT_URI,
 					mContactId);
@@ -359,6 +359,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 	private static final int COLUMN_INDEX_FOR_CONTACT_ID = 0;
 
 	// The column index for the LOOKUP_KEY column
+	@SuppressWarnings("unused")
 	private static final int COLUMN_INDEX_FOR_LOOKUP_KEY = 1;
 
 	// The column index for the LOOKUP_KEY column
