@@ -27,6 +27,28 @@ public class HistorialActivity extends ListActivity {
 				R.layout.historial_activity_item, R.id.historial_item_contacto,
 				item_historial));
 
+		// Cursor cursor = new Database(this.getApplicationContext()).get;
+		// startManagingCursor(cursor);
+		//
+		// ListAdapter adapter = new SimpleCursorAdapter(
+		// // Context
+		// this,
+		//
+		// // row template
+		// R.layout.list_texts_activity_list_item,
+		//
+		// // Pass in the cursor to bind to.
+		// cursor,
+		//
+		// // Array of cursor columns to bind to.
+		// new String[] { DBHelper.TEXTOS_COL_TEXTO },
+		//
+		// // Parallel array of which template objects to bind to those
+		// // columns.
+		// new int[] { R.id.label_list_text_activity_item });
+		//
+		// setListAdapter(adapter);
+
 	}
 
 	/**

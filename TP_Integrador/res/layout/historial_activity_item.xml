@@ -6,15 +6,6 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/historial_item_tipo_accion"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Llamada"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/historial_item_contacto"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

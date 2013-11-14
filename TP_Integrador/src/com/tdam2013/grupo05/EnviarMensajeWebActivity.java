@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tdam2013.grupo05.br.NetworkChangeBroadcastReceiver;
+import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
@@ -127,21 +128,27 @@ public class EnviarMensajeWebActivity extends Activity {
 				ok = false;
 			}
 
-			if (ok)
+			if (ok) {
 				// FIXME: remove hardcoded strings & use better texts
+
+				new Database(
+						EnviarMensajeWebActivity.this.getApplicationContext())
+						.insertSentMessage(destinatario, mensaje);
+
 				UtilesNotifications.notify(ctx,
 						"El mensaje fue enviado correctamente",
 						"El mensaje fue enviado correctamente",
 						"El mensaje fue enviado correctamente",
-						UtilesNotifications.SEND_MESSAGE);
-			else
-				// FIXME: remove hardcoded strings & use better texts
-				UtilesNotifications.notify(ctx,
-						"ERROR: el mensaje no fue enviado",
-						"ERROR: el mensaje no fue enviado",
-						"ERROR: el mensaje no fue enviado",
 						UtilesNotifications.SEND_MESSAGE);
 
+			} else {
+				// FIXME: remove hardcoded strings & use better texts
+				UtilesNotifications.notify(ctx,
+						"ERROR: el mensaje no fue enviado",
+						"ERROR: el mensaje no fue enviado",
+						"ERROR: el mensaje no fue enviado",
+						UtilesNotifications.SEND_MESSAGE);
+			}
 			return null;
 		}
 
