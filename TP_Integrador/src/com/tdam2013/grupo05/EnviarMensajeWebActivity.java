@@ -3,8 +3,6 @@ package com.tdam2013.grupo05;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +20,7 @@ import android.widget.Toast;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
+import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
 public class EnviarMensajeWebActivity extends Activity {
 
@@ -191,35 +190,6 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	protected class SendMessageTask extends AsyncTask<Object, Void, Void> {
 
-		private NotificationManager getManager(Context context) {
-			NotificationManager mNotificationManager = (NotificationManager) context
-					.getSystemService(Context.NOTIFICATION_SERVICE);
-			return mNotificationManager;
-		}
-
-		private void notify(Context ctx, String msg) {
-			// String tickerText = ctx.getString(R.string.xxxxxxxxxxxxxxxxx);
-			String tickerText = "Enviando mensaje...";
-
-			Notification notification = new Notification(
-					R.drawable.ic_launcher, tickerText,
-					System.currentTimeMillis());
-
-			// PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0,
-			// Utilities.getOpenApplicationIntent(ctx), 0);
-
-			// notification
-			// .setLatestEventInfo(
-			// ctx,
-			// ctx.getString(R.string.title_notification_disconnection),
-			// ctx.getString(R.string.message_notification_disconnection),
-			// pendingIntent);
-
-			notification.setLatestEventInfo(ctx, msg, msg, null);
-
-			getManager(ctx).notify(SEND_MESSAGE, notification);
-		}
-
 		@Override
 		protected Void doInBackground(Object... params) {
 
@@ -228,38 +198,30 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String destinatario = (String) params[2];
 			final String mensaje = (String) params[3];
 
-			notify(ctx, "Enviando mensaje...");
+			// FIXME: remove hardcoded strings & use better texts
+			UtilesNotifications.notify(ctx, "Enviando mensaje...",
+					"Enviando mensaje...", "Enviando mensaje...", SEND_MESSAGE);
 
 			boolean ok;
 			try {
 				ok = utilesHttp.sendMessage(from, destinatario, mensaje);
 			} catch (Exception e) {
-				Log.wtf("sendMessage()", e);
+				Log.w("sendMessage()", e);
 				ok = false;
 			}
 
 			if (ok)
-				notify(ctx, "El mensaje fue enviado correctamente");
-			// runOnUiThread(new Runnable() {
-			// @Override
-			// public void run() {
-			// Toast.makeText(ctx,
-			// "El mensaje fue enviado correctamente.",
-			// Toast.LENGTH_SHORT).show();
-			// }
-			// });
-
+				// FIXME: remove hardcoded strings & use better texts
+				UtilesNotifications.notify(ctx,
+						"El mensaje fue enviado correctamente",
+						"El mensaje fue enviado correctamente",
+						"El mensaje fue enviado correctamente", SEND_MESSAGE);
 			else
-				notify(ctx, "ERROR: el mensaje no fue enviado");
-
-			// runOnUiThread(new Runnable() {
-			// @Override
-			// public void run() {
-			// Toast.makeText(ctx,
-			// "ERROR: el mensaje no fue enviado.",
-			// Toast.LENGTH_SHORT).show();
-			// }
-			// });
+				// FIXME: remove hardcoded strings & use better texts
+				UtilesNotifications.notify(ctx,
+						"ERROR: el mensaje no fue enviado",
+						"ERROR: el mensaje no fue enviado",
+						"ERROR: el mensaje no fue enviado", SEND_MESSAGE);
 
 			return null;
 		}

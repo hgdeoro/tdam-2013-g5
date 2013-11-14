@@ -1,7 +1,5 @@
 package com.tdam2013.grupo05;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
-
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 public class HistorialActivity extends ListActivity {
 

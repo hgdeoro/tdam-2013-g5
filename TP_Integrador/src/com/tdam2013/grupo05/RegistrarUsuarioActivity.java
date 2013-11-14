@@ -1,7 +1,5 @@
 package com.tdam2013.grupo05;
 
-import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class RegistrarUsuarioActivity extends Activity {
 

@@ -1,5 +1,10 @@
 package com.tdam2013.grupo05.utiles;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+
 import com.tdam2013.grupo05.AccionesSobreContactoActivity;
 import com.tdam2013.grupo05.EnviarMensajeWebActivity;
 import com.tdam2013.grupo05.HistorialActivity;
@@ -7,11 +12,6 @@ import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
 import com.tdam2013.grupo05.RegistrarUsuarioActivity;
 import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
 import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
-
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 
 public class UtilesIntents {
 
