@@ -14,11 +14,4 @@
         android:key="pref_ldc_filtro"
         android:title="@string/filtros" />
 
-    <!--
-        <EditTextPreference
-        android:dialogTitle="@string/nombre_de_usuario"
-        android:key="pref_ldc_nombre_usuario_web"
-        android:title="@string/nombre_de_usuario" />
-    -->
-
 </PreferenceScreen>

@@ -14,17 +14,4 @@ public class ListaDeContactosSettingsActivity extends PreferenceActivity {
 		this.addPreferencesFromResource(R.xml.preference_lista_de_contactos);
 	}
 
-	// @Override
-	// public void onSharedPreferenceChanged(SharedPreferences
-	// sharedPreferences,
-	// String key) {
-	//
-	// if ("pref_ldc_nombre_usuario_web".equals(key)) {
-	// AsyncTask<Object, Void, Void> task = new RegisterUserTask();
-	// task.execute(getApplicationContext(),
-	// sharedPreferences.getString(key, ""));
-	// }
-	//
-	// }
-
 }
