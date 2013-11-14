@@ -1,6 +1,7 @@
 package com.tdam2013.grupo05;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,11 +14,12 @@ import android.widget.Toast;
 
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
-import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
 public class RegistrarUsuarioActivity extends Activity {
 
 	public static final UtilesHttp utilesHttp = new UtilesHttp();
+
+	protected ProgressDialog pd = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,11 @@ public class RegistrarUsuarioActivity extends Activity {
 
 						String username = editText.getText().toString().trim();
 						if (UtilesMensajesWeb.usernameIsValid(username)) {
-							Intent data = new Intent();
-							data.putExtra("username", username);
-							setResult(RESULT_OK, data);
 
-							AsyncTask<Object, Void, Void> task = new RegisterUserTask();
-							task.execute(getApplicationContext(), username);
-
-							finish();
+							AsyncTask<Object, Void, Void> task = new RegisterUserTask(
+									RegistrarUsuarioActivity.this);
+							task.execute(RegistrarUsuarioActivity.this,
+									username);
 
 						} else {
 							Toast.makeText(RegistrarUsuarioActivity.this,
@@ -57,17 +56,33 @@ public class RegistrarUsuarioActivity extends Activity {
 
 	protected class RegisterUserTask extends AsyncTask<Object, Void, Void> {
 
+		private final Context ctx;
+
+		public RegisterUserTask(Context ctx) {
+			this.ctx = ctx;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			pd = new ProgressDialog(ctx);
+			pd.setTitle("Registrando usuario...");
+			pd.setMessage("Registrando usuario...");
+			pd.setCancelable(false);
+			pd.setIndeterminate(true);
+			pd.show();
+		}
+
 		@Override
 		protected Void doInBackground(Object... params) {
 
 			final Context ctx = (Context) params[0];
 			final String username = (String) params[1];
 
-			UtilesNotifications
-					.notifyWithIndeterminateProgress(ctx,
-							"Registrando usuario...", "Registrando usuario...",
-							"Registrando usuario...",
-							UtilesNotifications.REGISTER_USER);
+			// UtilesNotifications
+			// .notifyWithIndeterminateProgress(ctx,
+			// "Registrando usuario...", "Registrando usuario...",
+			// "Registrando usuario...",
+			// UtilesNotifications.REGISTER_USER);
 
 			boolean ok;
 			try {
@@ -80,20 +95,56 @@ public class RegistrarUsuarioActivity extends Activity {
 				ok = false;
 			}
 
-			if (ok)
-				UtilesNotifications.notifyWithIndeterminateProgress(ctx,
-						"El usuario fue creado satisfactoriamente",
-						"El usuario fue creado satisfactoriamente",
-						"El usuario fue creado satisfactoriamente",
-						UtilesNotifications.REGISTER_USER);
+			if (pd != null)
+				pd.dismiss();
 
-			else
-				UtilesNotifications.notifyWithIndeterminateProgress(ctx,
-						"ERROR: el usuario no fue registrado en el servidor",
-						"ERROR: el usuario no fue registrado en el servidor",
-						"ERROR: el usuario no fue registrado en el servidor",
-						UtilesNotifications.REGISTER_USER);
+			if (ok) {
+				// UtilesNotifications.notifyWithIndeterminateProgress(ctx,
+				// "El usuario fue creado satisfactoriamente",
+				// "El usuario fue creado satisfactoriamente",
+				// "El usuario fue creado satisfactoriamente",
+				// UtilesNotifications.REGISTER_USER);
 
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+
+						Toast.makeText(
+								RegistrarUsuarioActivity.this,
+								"El usuario se ha registrado satisfactoriamente.",
+								Toast.LENGTH_SHORT).show();
+
+						Intent data = new Intent();
+						data.putExtra("username", username);
+						setResult(RESULT_OK, data);
+						finish();
+
+					}
+
+				});
+
+			} else {
+				// UtilesNotifications.notifyWithIndeterminateProgress(ctx,
+				// "ERROR: el usuario no fue registrado en el servidor",
+				// "ERROR: el usuario no fue registrado en el servidor",
+				// "ERROR: el usuario no fue registrado en el servidor",
+				// UtilesNotifications.REGISTER_USER);
+
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+
+						Toast.makeText(RegistrarUsuarioActivity.this,
+								"El usuario no pudo registrarse.",
+								Toast.LENGTH_SHORT).show();
+
+					}
+
+				});
+
+			}
 			return null;
 		}
 
