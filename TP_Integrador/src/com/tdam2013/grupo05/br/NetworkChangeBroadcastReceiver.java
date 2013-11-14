@@ -6,10 +6,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 
-	public boolean isConnectedOrConnecting(Context context) {
+	public boolean isConnected(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -18,21 +19,10 @@ public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 		return isConnectedOrConnecting;
 	}
 
-	public boolean isConnected(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		boolean isConnected = activeNetwork != null
-				&& activeNetwork.isConnected();
-		return isConnected;
-	}
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
 		Log.i("---------- onReceive ----------", "");
-		Log.i("@isConnectedOrConnecting()", ""
-				+ isConnectedOrConnecting(context));
 		Log.i("@isConnected()", "" + isConnected(context));
 		Log.i("getAction()", "" + intent.getAction());
 		Log.i("getDataString()", "" + intent.getDataString());
@@ -41,6 +31,9 @@ public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 		Log.i("getComponent()", "" + intent.getComponent());
 		Log.i("getData()", "" + intent.getData());
 		Log.i("getExtras()", "" + intent.getExtras().toString());
+
+		Toast.makeText(context, "isC(): " + isConnected(context),
+				Toast.LENGTH_SHORT).show();
 
 	}
 
