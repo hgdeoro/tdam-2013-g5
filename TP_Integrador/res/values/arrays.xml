@@ -21,13 +21,16 @@
     <string-array name="ldc_filtro">
         <item name="0">Todos</item>
         <item name="1">Con teléfono</item>
-        <item name="2">Con email</item>
     </string-array>
     <string-array name="ldc_filtro_values">
         <item name="0">TODOS</item>
         <item name="1">CON_TELEFONO</item>
-        <item name="2">CON_EMAIL</item>
     </string-array>
+
+    <!-- ## -->
+    <!-- ## Historial -->
+    <!-- ## .... Orden -->
+    <!-- ## -->
     <string-array name="hist_orden">
         <item name="0">Alfabéticamente</item>
         <item name="1">Fecha de último contacto</item>
@@ -36,6 +39,11 @@
         <item name="0">0</item>
         <item name="1">1</item>
     </string-array>
+
+    <!-- ## -->
+    <!-- ## Historial -->
+    <!-- ## .... Filtro -->
+    <!-- ## -->
     <string-array name="hist_filtro">
         <item name="0">Todos</item>
         <item name="1">Teléfono</item>

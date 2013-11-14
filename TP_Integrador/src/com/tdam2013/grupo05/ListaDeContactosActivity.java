@@ -31,7 +31,17 @@ public class ListaDeContactosActivity extends ListActivity implements
 	/**
      * 
      */
-	public static final int ACTIVITY_REQUEST_CODE__ENTER_USERNAME = 1;
+	public static final int ACTIVITY_REQUEST_CODE__REGISTER_USERNAME = 1;
+
+	/**
+	 * Return value for getPreferenceFiltroDeContactos()
+	 */
+	public static final String PREF_FILTRO_CONTACTO__TODOS = "TODOS";
+
+	/**
+	 * Return value for getPreferenceFiltroDeContactos()
+	 */
+	public static final String PREF_FILTRO_CONTACTO__CON_TELEFONO = "CON_TELEFONO";
 
 	/*
 	 * ----------------------------------------------------------------------
@@ -78,6 +88,27 @@ public class ListaDeContactosActivity extends ListActivity implements
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Devuelve filtrado de contactos configurado en preferencias.
+	 * 
+	 * @return
+	 */
+	private String getPreferenceFiltroDeContactos() {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String value = sp.getString("pref_ldc_filtro",
+				PREF_FILTRO_CONTACTO__TODOS);
+		Log.d("getPreferenceFiltroDeContactos()", "pref_ldc_filtro: '" + value
+				+ "'");
+
+		if (PREF_FILTRO_CONTACTO__CON_TELEFONO.equals(value)) {
+			return PREF_FILTRO_CONTACTO__CON_TELEFONO;
+		} else {
+			return PREF_FILTRO_CONTACTO__TODOS;
+		}
 	}
 
 	/*
@@ -130,7 +161,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 				.getUsername(this))) {
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
-					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
+					ACTIVITY_REQUEST_CODE__REGISTER_USERNAME);
 		}
 	}
 
@@ -138,7 +169,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == ACTIVITY_REQUEST_CODE__ENTER_USERNAME) {
+		if (requestCode == ACTIVITY_REQUEST_CODE__REGISTER_USERNAME) {
 
 			if (resultCode != RESULT_OK) {
 				finish();
@@ -240,7 +271,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 			Log.i("onMenuItemSelected()", "action_ldc_usuario_web");
 			startActivityForResult(
 					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
-					ACTIVITY_REQUEST_CODE__ENTER_USERNAME);
+					ACTIVITY_REQUEST_CODE__REGISTER_USERNAME);
 			return true;
 
 		}
@@ -320,7 +351,8 @@ public class ListaDeContactosActivity extends ListActivity implements
 	 */
 
 	private static final String[] PROJECTION = { Contacts._ID,
-			Contacts.LOOKUP_KEY, Contacts.DISPLAY_NAME_PRIMARY };
+			Contacts.LOOKUP_KEY, Contacts.DISPLAY_NAME_PRIMARY,
+			Contacts.HAS_PHONE_NUMBER };
 
 	// The column index for the _ID column
 	private static final int COLUMN_INDEX_FOR_CONTACT_ID = 0;
@@ -330,6 +362,10 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 	// The column index for the LOOKUP_KEY column
 	private static final int COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY = 2;
+
+	// The column index for the HAS_PHONE_NUMBER column
+	@SuppressWarnings("unused")
+	private static final int COLUMN_INDEX_FOR_HAS_PHONE_NUMBER = 3;
 
 	// Defines the text expression
 	// private static final String SELECTION = Contacts.DISPLAY_NAME_PRIMARY +
@@ -352,10 +388,18 @@ public class ListaDeContactosActivity extends ListActivity implements
 				+ " COLLATE LOCALIZED "
 				+ (getPreferenceOrdenAscendente() ? "ASC" : "DESC");
 
+		final String filtro = getPreferenceFiltroDeContactos();
+		final String selection;
+		if (PREF_FILTRO_CONTACTO__CON_TELEFONO.equals(filtro)) {
+			selection = "" + Contacts.HAS_PHONE_NUMBER + " == 1";
+		} else {
+			selection = "";
+		}
+
 		//
 		// --> ContactsContract.Contacts.CONTENT_URI
 		//
-		return new CursorLoader(this, uri, PROJECTION, null, null, orderBy);
+		return new CursorLoader(this, uri, PROJECTION, selection, null, orderBy);
 
 	}
 
