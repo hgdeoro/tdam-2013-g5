@@ -21,16 +21,23 @@ import com.tdam2013.grupo05.utiles.UtilesIntents;
 public class HistorialActivity extends ListActivity implements
 		LoaderCallbacks<Cursor> {
 
+	public static final String INTENT_EXTRA__CONTACT_NAME = "CONTACT_NAME";
+
 	public static final String PREF_ORDEN__ALFABETICO = "ALFA";
 
 	public static final String PREF_ORDEN__CRONOLOGICO = "CRONO";
 
 	private SimpleCursorAdapter mCursorAdapter;
 
+	private String contactName = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.historial_activity);
+
+		contactName = getIntent().getExtras() == null ? null : getIntent()
+				.getExtras().getString(INTENT_EXTRA__CONTACT_NAME);
 
 		/*
 		 * Cursor
@@ -125,16 +132,26 @@ public class HistorialActivity extends ListActivity implements
 
 			@Override
 			protected Cursor buildCursor() {
-				if (PREF_ORDEN__ALFABETICO.equals(HistorialActivity.this
-						.getPreferenceOrden())) {
+
+				if (contactName != null) {
+					// Filtramos x contacto
 					return new Database(
 							HistorialActivity.this.getApplicationContext())
-							.getSentWebMessagesOrderedByUsername();
+							.getSentWebMessages(contactName);
+
 				} else {
-					return new Database(
-							HistorialActivity.this.getApplicationContext())
-							.getSentWebMessages();
+					if (PREF_ORDEN__ALFABETICO.equals(HistorialActivity.this
+							.getPreferenceOrden())) {
+						return new Database(
+								HistorialActivity.this.getApplicationContext())
+								.getSentWebMessagesOrderedByUsername();
+					} else {
+						return new Database(
+								HistorialActivity.this.getApplicationContext())
+								.getSentWebMessages();
+					}
 				}
+
 			}
 
 		};

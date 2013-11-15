@@ -302,7 +302,19 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 		if (item.getItemId() == R.id.action_ldcc_ver_historial) {
 			Log.i("onContextItemSelected()", "action_ldcc_ver_historial");
-			this.startActivity(UtilesIntents.getHistorialActivityIntent(this));
+
+			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+					.getMenuInfo();
+
+			Cursor cursor = ((SimpleCursorAdapter) getListAdapter())
+					.getCursor();
+
+			cursor.moveToPosition(info.position);
+
+			this.startActivity(UtilesIntents
+					.getHistorialDeContactoActivityIntent(this, cursor
+							.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
+
 			return true;
 
 		} else if (item.getItemId() == R.id.action_ldcc_editar_contacto) {

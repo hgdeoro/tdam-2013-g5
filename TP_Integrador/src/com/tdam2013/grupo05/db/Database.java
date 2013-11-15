@@ -60,7 +60,17 @@ public class Database extends SQLiteOpenHelper {
 	 */
 	public Cursor getSentWebMessages() {
 		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		return getSentWebMessages(orderBy);
+		return _getSentWebMessages(orderBy, null);
+	}
+
+	/**
+	 * Devuelve mensajes para un destinatario especifico.
+	 * 
+	 * @return
+	 */
+	public Cursor getSentWebMessages(String username) {
+		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+		return _getSentWebMessages(orderBy, username);
 	}
 
 	/**
@@ -70,16 +80,27 @@ public class Database extends SQLiteOpenHelper {
 	 */
 	public Cursor getSentWebMessagesOrderedByUsername() {
 		String orderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
-		return getSentWebMessages(orderBy);
+		return _getSentWebMessages(orderBy, null);
 	}
 
-	protected Cursor getSentWebMessages(String orderBy) {
-		return this.getReadableDatabase().query(
-				TABLE_WEB_MESSAGES.T_NAME,
-				new String[] { TABLE_WEB_MESSAGES.F_ID,
-						TABLE_WEB_MESSAGES.F_USERNAME,
-						TABLE_WEB_MESSAGES.F_TIME, TABLE_WEB_MESSAGES.F_TEXT },
-				null, null, null, null, orderBy);
+	protected Cursor _getSentWebMessages(String orderBy, String username) {
+		String[] columns = new String[] { TABLE_WEB_MESSAGES.F_ID,
+				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_TIME,
+				TABLE_WEB_MESSAGES.F_TEXT };
+
+		final String selection;
+		final String[] selectionArgs;
+
+		if (username == null) {
+			selection = null;
+			selectionArgs = null;
+		} else {
+			selection = TABLE_WEB_MESSAGES.F_USERNAME + " = ?";
+			selectionArgs = new String[] { username };
+		}
+
+		return this.getReadableDatabase().query(TABLE_WEB_MESSAGES.T_NAME,
+				columns, selection, selectionArgs, null, null, orderBy);
 	}
 
 	public MensajeWebDto getMensajeById(long id) {
