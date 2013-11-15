@@ -7,11 +7,14 @@
         android:entryValues="@array/hist_orden_values"
         android:key="pref_hist_orden"
         android:title="@string/orden" />
-    <ListPreference
+
+    <!--
+	    <ListPreference
         android:dialogTitle="@string/filtros"
         android:entries="@array/hist_filtro"
         android:entryValues="@array/hist_filtro_values"
         android:key="pref_hist_filtro"
         android:title="@string/filtros" />
+    -->
 
 </PreferenceScreen>
