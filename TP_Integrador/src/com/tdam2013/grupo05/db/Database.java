@@ -111,6 +111,8 @@ public class Database extends SQLiteOpenHelper {
 						.getColumnIndex(TABLE_WEB_MESSAGES.F_USERNAME));
 				dto.direction = cursor.getInt(cursor
 						.getColumnIndex(TABLE_WEB_MESSAGES.F_DIRECTION));
+				dto.time = cursor.getString(cursor
+						.getColumnIndex(TABLE_WEB_MESSAGES.F_TIME));
 				return dto;
 
 			} else {

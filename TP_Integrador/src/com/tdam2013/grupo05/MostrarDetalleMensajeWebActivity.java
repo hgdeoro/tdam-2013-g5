@@ -1,12 +1,13 @@
 package com.tdam2013.grupo05;
 
-import com.tdam2013.grupo05.db.Database;
-import com.tdam2013.grupo05.db.MensajeWebDto;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.tdam2013.grupo05.db.Database;
+import com.tdam2013.grupo05.db.MensajeWebDto;
 
 public class MostrarDetalleMensajeWebActivity extends Activity {
 
@@ -21,6 +22,11 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
 		Database db = new Database(this.getApplicationContext());
 		MensajeWebDto dto = db.getMensajeById(msgId);
+
+		((TextView) findViewById(R.id.mostrar_detalle_mensaje_web_contacto))
+				.setText(dto.username);
+		((TextView) findViewById(R.id.mostrar_detalle_mensaje_web_fecha_hora))
+				.setText(dto.formatAsDateTime(this.getApplicationContext()));
 
 		EditText editText = (EditText) findViewById(R.id.mostrar_detalle_mensaje_web_texto);
 		editText.setText(dto.text);
