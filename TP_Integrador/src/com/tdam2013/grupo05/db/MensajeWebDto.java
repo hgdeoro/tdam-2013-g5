@@ -31,10 +31,6 @@ public class MensajeWebDto {
 	// TEXT as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
 	public String time;
 
-	// public Date getTimeAsDate() {
-	// return new Date(time);
-	// }
-
 	public String formatAsDateTime(Context ctx) {
 		try {
 			return DateFormat.getDateFormat(ctx).format(sdf.parse(this.time))
