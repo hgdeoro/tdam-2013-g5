@@ -92,8 +92,8 @@ public class HistorialActivity extends ListActivity implements
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		this.startActivity(UtilesIntents
-				.getMostrarDetalleMensajeWebActivity(this));
+		this.startActivity(UtilesIntents.getMostrarDetalleMensajeWebActivity(
+				this, id));
 	}
 
 	/**

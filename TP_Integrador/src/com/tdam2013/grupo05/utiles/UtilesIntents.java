@@ -62,10 +62,13 @@ public class UtilesIntents {
 		return intent;
 	}
 
-	public static Intent getMostrarDetalleMensajeWebActivity(Context ctx) {
+	public static Intent getMostrarDetalleMensajeWebActivity(Context ctx,
+			long messageId) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				MostrarDetalleMensajeWebActivity.class.getCanonicalName()));
+		intent.putExtra(MostrarDetalleMensajeWebActivity.MESSAGE_WEB_ID,
+				messageId);
 		return intent;
 	}
 

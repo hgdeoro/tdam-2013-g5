@@ -64,6 +64,49 @@ public class Database extends SQLiteOpenHelper {
 				null, null, null, null, orderBy);
 	}
 
+	public MensajeWebDto getMensajeById(long id) {
+
+		SQLiteDatabase db = null;
+		Cursor cursor = null;
+
+		try {
+			db = this.getReadableDatabase();
+
+			String[] columns = new String[] { TABLE_WEB_MESSAGES.F_ID,
+					TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_TIME,
+					TABLE_WEB_MESSAGES.F_TEXT, TABLE_WEB_MESSAGES.F_DIRECTION };
+
+			String selection = TABLE_WEB_MESSAGES.F_ID + " == ?";
+
+			String[] selectionArgs = new String[] { "" + id };
+
+			cursor = db.query(TABLE_WEB_MESSAGES.T_NAME, columns, selection,
+					selectionArgs, null, null, null);
+
+			if (cursor.moveToNext()) {
+				MensajeWebDto dto = new MensajeWebDto();
+				dto.id = cursor.getLong(cursor
+						.getColumnIndex(TABLE_WEB_MESSAGES.F_ID));
+				dto.text = cursor.getString(cursor
+						.getColumnIndex(TABLE_WEB_MESSAGES.F_TEXT));
+				dto.username = cursor.getString(cursor
+						.getColumnIndex(TABLE_WEB_MESSAGES.F_USERNAME));
+				dto.direction = cursor.getInt(cursor
+						.getColumnIndex(TABLE_WEB_MESSAGES.F_DIRECTION));
+				return dto;
+
+			} else {
+				return null;
+			}
+
+		} finally {
+			if (cursor != null)
+				cursor.close();
+			if (db != null)
+				db.close();
+		}
+	}
+
 	/**
 	 * Table with messages
 	 */
