@@ -3,13 +3,14 @@ package com.tdam2013.grupo05;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -20,9 +21,12 @@ import com.tdam2013.grupo05.utiles.UtilesIntents;
 public class HistorialActivity extends ListActivity implements
 		LoaderCallbacks<Cursor> {
 
+	public static final String PREF_ORDEN__ALFABETICO = "ALFA";
+
+	public static final String PREF_ORDEN__CRONOLOGICO = "CRONO";
+
 	private SimpleCursorAdapter mCursorAdapter;
 
-	@SuppressWarnings({ "deprecation", "unused" })
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,50 +36,18 @@ public class HistorialActivity extends ListActivity implements
 		 * Cursor
 		 */
 
-		if (true) {
+		// Gets a CursorAdapter
+		mCursorAdapter = new SimpleCursorAdapter(this,
+				R.layout.historial_activity_item, null, new String[] {
+						Database.TABLE_WEB_MESSAGES.F_USERNAME,
+						Database.TABLE_WEB_MESSAGES.F_TIME,
+						Database.TABLE_WEB_MESSAGES.F_TEXT }, new int[] {
+						R.id.historial_item_contacto,
+						R.id.historial_item_fecha_hora,
+						R.id.historial_item_dato_mensaje }, 0);
 
-			// Gets a CursorAdapter
-			mCursorAdapter = new SimpleCursorAdapter(this,
-					R.layout.historial_activity_item, null, new String[] {
-							Database.TABLE_WEB_MESSAGES.F_USERNAME,
-							Database.TABLE_WEB_MESSAGES.F_TIME,
-							Database.TABLE_WEB_MESSAGES.F_TEXT }, new int[] {
-							R.id.historial_item_contacto,
-							R.id.historial_item_fecha_hora,
-							R.id.historial_item_dato_mensaje }, 0);
-
-			// Sets the adapter for the ListView
-			setListAdapter(mCursorAdapter);
-
-		} else {
-			Cursor cursor = new Database(this.getApplicationContext())
-					.getSentWebMessages();
-			startManagingCursor(cursor);
-
-			ListAdapter adapter = new SimpleCursorAdapter(
-			// Context
-					this,
-
-					// row template
-					R.layout.historial_activity_item,
-
-					// Pass in the cursor to bind to.
-					cursor,
-
-					// Array of cursor columns to bind to.
-					new String[] { Database.TABLE_WEB_MESSAGES.F_USERNAME,
-							Database.TABLE_WEB_MESSAGES.F_TIME,
-							Database.TABLE_WEB_MESSAGES.F_TEXT },
-
-					// Parallel array of which template objects to bind to those
-					// columns.
-					new int[] { R.id.historial_item_contacto,
-							R.id.historial_item_fecha_hora,
-							R.id.historial_item_dato_mensaje });
-
-			setListAdapter(adapter);
-
-		}
+		// Sets the adapter for the ListView
+		setListAdapter(mCursorAdapter);
 
 	}
 
@@ -153,9 +125,16 @@ public class HistorialActivity extends ListActivity implements
 
 			@Override
 			protected Cursor buildCursor() {
-				return new Database(
-						HistorialActivity.this.getApplicationContext())
-						.getSentWebMessages();
+				if (PREF_ORDEN__ALFABETICO.equals(HistorialActivity.this
+						.getPreferenceOrden())) {
+					return new Database(
+							HistorialActivity.this.getApplicationContext())
+							.getSentWebMessagesOrderedByUsername();
+				} else {
+					return new Database(
+							HistorialActivity.this.getApplicationContext())
+							.getSentWebMessages();
+				}
 			}
 
 		};
@@ -171,4 +150,24 @@ public class HistorialActivity extends ListActivity implements
 	public void onLoaderReset(Loader<Cursor> loader) {
 		mCursorAdapter.swapCursor(null);
 	}
+
+	/*
+	 * Preferences
+	 */
+
+	private String getPreferenceOrden() {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String value = sp.getString("pref_hist_orden", PREF_ORDEN__CRONOLOGICO);
+
+		Log.d("getPreferenceOrden()", "pref_hist_orden: '" + value + "'");
+
+		if (PREF_ORDEN__ALFABETICO.equals(value)) {
+			return PREF_ORDEN__ALFABETICO;
+		} else {
+			return PREF_ORDEN__CRONOLOGICO;
+		}
+	}
+
 }

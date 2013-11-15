@@ -53,9 +53,27 @@ public class Database extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	/**
+	 * Devuelve mensajes, ordenados cronologicamente.
+	 * 
+	 * @return
+	 */
 	public Cursor getSentWebMessages() {
 		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+		return getSentWebMessages(orderBy);
+	}
 
+	/**
+	 * Devuelve mensajes, ordenados por usuario.
+	 * 
+	 * @return
+	 */
+	public Cursor getSentWebMessagesOrderedByUsername() {
+		String orderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
+		return getSentWebMessages(orderBy);
+	}
+
+	protected Cursor getSentWebMessages(String orderBy) {
 		return this.getReadableDatabase().query(
 				TABLE_WEB_MESSAGES.T_NAME,
 				new String[] { TABLE_WEB_MESSAGES.F_ID,
