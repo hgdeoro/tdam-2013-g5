@@ -24,8 +24,11 @@ public class HistorialActivity extends ListActivity implements
 	public static final String INTENT_EXTRA__CONTACT_NAME = "CONTACT_NAME";
 
 	public static final String PREF_ORDEN__ALFABETICO = "ALFA";
-
 	public static final String PREF_ORDEN__CRONOLOGICO = "CRONO";
+
+	public static final String PREF_FILTRO__ALL = "ALL";
+	public static final String PREF_FILTRO__DAY = "DAY";
+	public static final String PREF_FILTRO__WEEK = "WEEK";
 
 	private SimpleCursorAdapter mCursorAdapter;
 
@@ -140,6 +143,10 @@ public class HistorialActivity extends ListActivity implements
 							.getSentWebMessages(contactName);
 
 				} else {
+
+					Log.i("onCreateLoader()", "Filtro: "
+							+ getPreferenceFiltro());
+
 					if (PREF_ORDEN__ALFABETICO.equals(HistorialActivity.this
 							.getPreferenceOrden())) {
 						return new Database(
@@ -184,6 +191,23 @@ public class HistorialActivity extends ListActivity implements
 			return PREF_ORDEN__ALFABETICO;
 		} else {
 			return PREF_ORDEN__CRONOLOGICO;
+		}
+	}
+
+	private String getPreferenceFiltro() {
+		SharedPreferences sp = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String value = sp.getString("pref_hist_filtro", PREF_FILTRO__ALL);
+
+		Log.d("getPreferenceFiltro()", "pref_hist_filtro: '" + value + "'");
+
+		if (PREF_FILTRO__WEEK.equals(value)) {
+			return PREF_FILTRO__WEEK;
+		} else if (PREF_FILTRO__DAY.equals(value)) {
+			return PREF_FILTRO__DAY;
+		} else {
+			return PREF_FILTRO__ALL;
 		}
 	}
 
