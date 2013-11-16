@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05.db;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -54,23 +56,42 @@ public class Database extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Devuelve mensajes, ordenados cronologicamente.
+	 * Busca mensajes enviados, especificando filtros y ordenamiento
+	 * 
+	 * @return
+	 */
+	public Cursor searchSentWebMessages(TABLE_WEB_MESSAGES.Filter filtro,
+			TABLE_WEB_MESSAGES.OrderBy order, String username) {
+
+		final String qOrderBy;
+		if (username != null) {
+			// Si se especifico usuario, NO tiene sentido ordenar
+			// alfabeticamente, por lo tanto, ignoramos la configuracion
+			qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+		} else {
+			if (order == null)
+				order = TABLE_WEB_MESSAGES.OrderBy.CRONOLOGICO;
+			switch (order) {
+			case ALFABETICO:
+				qOrderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
+				break;
+			default:
+				qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+				break;
+			}
+		}
+
+		return _getSentWebMessages(filtro, qOrderBy, username);
+	}
+
+	/**
+	 * Devuelve todos mensajes, ordenados cronologicamente.
 	 * 
 	 * @return
 	 */
 	public Cursor getSentWebMessages() {
 		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		return _getSentWebMessages(orderBy, null);
-	}
-
-	/**
-	 * Devuelve mensajes para un destinatario especifico.
-	 * 
-	 * @return
-	 */
-	public Cursor getSentWebMessages(String username) {
-		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		return _getSentWebMessages(orderBy, username);
+		return _getSentWebMessages(null, orderBy, null);
 	}
 
 	/**
@@ -80,24 +101,47 @@ public class Database extends SQLiteOpenHelper {
 	 */
 	public Cursor getSentWebMessagesOrderedByUsername() {
 		String orderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
-		return _getSentWebMessages(orderBy, null);
+		return _getSentWebMessages(null, orderBy, null);
 	}
 
-	protected Cursor _getSentWebMessages(String orderBy, String username) {
+	/**
+	 * Devuelve mensajes para un destinatario especifico.
+	 * 
+	 * @return
+	 */
+	public Cursor getSentWebMessages(String username) {
+		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+		return _getSentWebMessages(null, orderBy, username);
+	}
+
+	protected Cursor _getSentWebMessages(TABLE_WEB_MESSAGES.Filter filtro,
+			String orderBy, String username) {
+
 		String[] columns = new String[] { TABLE_WEB_MESSAGES.F_ID,
 				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_TIME,
 				TABLE_WEB_MESSAGES.F_TEXT };
 
-		final String selection;
-		final String[] selectionArgs;
+		String selection = "";
+		ArrayList<String> selectionList = new ArrayList<String>();
 
-		if (username == null) {
-			selection = null;
-			selectionArgs = null;
-		} else {
-			selection = TABLE_WEB_MESSAGES.F_USERNAME + " = ?";
-			selectionArgs = new String[] { username };
+		if (username != null) {
+			selection += TABLE_WEB_MESSAGES.F_USERNAME + " = ?";
+			selectionList.add(username);
 		}
+
+		if (filtro != null)
+			switch (filtro) {
+			case WEEK:
+				break;
+			case DAY:
+				break;
+			default:
+				break;
+			}
+
+		String[] selectionArgs = new String[selectionList.size()];
+		for (int i = 0; i < selectionArgs.length; i++)
+			selectionArgs[i] = selectionList.get(i);
 
 		return this.getReadableDatabase().query(TABLE_WEB_MESSAGES.T_NAME,
 				columns, selection, selectionArgs, null, null, orderBy);
@@ -176,6 +220,17 @@ public class Database extends SQLiteOpenHelper {
 		/** Message was received from user referenced by F_USERNAME */
 		public static final int DIRECTION_MESSAGE_RECEIVED = 2;
 
+		/*
+		 * OrderBy
+		 */
+
+		public enum OrderBy {
+			ALFABETICO, CRONOLOGICO
+		};
+
+		public enum Filter {
+			ALL, DAY, WEEK
+		};
 	};
 
 }
