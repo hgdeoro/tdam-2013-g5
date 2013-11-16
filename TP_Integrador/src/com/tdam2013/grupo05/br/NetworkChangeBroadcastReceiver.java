@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
 public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 
@@ -32,8 +33,15 @@ public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 		Log.i("getData()", "" + intent.getData());
 		Log.i("getExtras()", "" + intent.getExtras().toString());
 
-		Toast.makeText(context, "isC(): " + isConnected(context),
-				Toast.LENGTH_SHORT).show();
+		if (isConnected(context)) {
+			UtilesNotifications.notify(context, "Hay conectividad",
+					"Hay conectividad", "Hay conectividad",
+					UtilesNotifications.NETWORK_STATUS_CHANGE);
+		} else {
+			UtilesNotifications.notify(context, "No hay conectividad",
+					"No hay conectividad", "No hay conectividad",
+					UtilesNotifications.NETWORK_STATUS_CHANGE);
+		}
 
 	}
 
