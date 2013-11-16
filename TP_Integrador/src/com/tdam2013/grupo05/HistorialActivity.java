@@ -137,26 +137,22 @@ public class HistorialActivity extends ListActivity implements
 			protected Cursor buildCursor() {
 
 				if (contactName != null) {
+
 					// Filtramos x contacto
 					return new Database(
 							HistorialActivity.this.getApplicationContext())
-							.getSentWebMessages(contactName);
+							.searchSentWebMessages(getPreferenceFiltro(), null,
+									contactName);
 
 				} else {
 
-					Log.i("onCreateLoader()", "Filtro: "
-							+ getPreferenceFiltro());
+					return new Database(
+							HistorialActivity.this.getApplicationContext())
+							.searchSentWebMessages(
+									getPreferenceFiltro(),
+									HistorialActivity.this.getPreferenceOrden(),
+									null);
 
-					if (PREF_ORDEN__ALFABETICO.equals(HistorialActivity.this
-							.getPreferenceOrden())) {
-						return new Database(
-								HistorialActivity.this.getApplicationContext())
-								.getSentWebMessagesOrderedByUsername();
-					} else {
-						return new Database(
-								HistorialActivity.this.getApplicationContext())
-								.getSentWebMessages();
-					}
 				}
 
 			}
@@ -179,7 +175,7 @@ public class HistorialActivity extends ListActivity implements
 	 * Preferences
 	 */
 
-	private String getPreferenceOrden() {
+	private Database.TABLE_WEB_MESSAGES.OrderBy getPreferenceOrden() {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
@@ -188,13 +184,13 @@ public class HistorialActivity extends ListActivity implements
 		Log.d("getPreferenceOrden()", "pref_hist_orden: '" + value + "'");
 
 		if (PREF_ORDEN__ALFABETICO.equals(value)) {
-			return PREF_ORDEN__ALFABETICO;
+			return Database.TABLE_WEB_MESSAGES.OrderBy.ALFABETICO;
 		} else {
-			return PREF_ORDEN__CRONOLOGICO;
+			return Database.TABLE_WEB_MESSAGES.OrderBy.CRONOLOGICO;
 		}
 	}
 
-	private String getPreferenceFiltro() {
+	private Database.TABLE_WEB_MESSAGES.Filter getPreferenceFiltro() {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
@@ -203,11 +199,11 @@ public class HistorialActivity extends ListActivity implements
 		Log.d("getPreferenceFiltro()", "pref_hist_filtro: '" + value + "'");
 
 		if (PREF_FILTRO__WEEK.equals(value)) {
-			return PREF_FILTRO__WEEK;
+			return Database.TABLE_WEB_MESSAGES.Filter.WEEK;
 		} else if (PREF_FILTRO__DAY.equals(value)) {
-			return PREF_FILTRO__DAY;
+			return Database.TABLE_WEB_MESSAGES.Filter.DAY;
 		} else {
-			return PREF_FILTRO__ALL;
+			return Database.TABLE_WEB_MESSAGES.Filter.ALL;
 		}
 	}
 

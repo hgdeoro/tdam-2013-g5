@@ -63,63 +63,13 @@ public class Database extends SQLiteOpenHelper {
 	public Cursor searchSentWebMessages(TABLE_WEB_MESSAGES.Filter filtro,
 			TABLE_WEB_MESSAGES.OrderBy order, String username) {
 
-		final String qOrderBy;
-		if (username != null) {
-			// Si se especifico usuario, NO tiene sentido ordenar
-			// alfabeticamente, por lo tanto, ignoramos la configuracion
-			qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		} else {
-			if (order == null)
-				order = TABLE_WEB_MESSAGES.OrderBy.CRONOLOGICO;
-			switch (order) {
-			case ALFABETICO:
-				qOrderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
-				break;
-			default:
-				qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-				break;
-			}
-		}
-
-		return _getSentWebMessages(filtro, qOrderBy, username);
-	}
-
-	/**
-	 * Devuelve todos mensajes, ordenados cronologicamente.
-	 * 
-	 * @return
-	 */
-	public Cursor getSentWebMessages() {
-		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		return _getSentWebMessages(null, orderBy, null);
-	}
-
-	/**
-	 * Devuelve mensajes, ordenados por usuario.
-	 * 
-	 * @return
-	 */
-	public Cursor getSentWebMessagesOrderedByUsername() {
-		String orderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
-		return _getSentWebMessages(null, orderBy, null);
-	}
-
-	/**
-	 * Devuelve mensajes para un destinatario especifico.
-	 * 
-	 * @return
-	 */
-	public Cursor getSentWebMessages(String username) {
-		String orderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
-		return _getSentWebMessages(null, orderBy, username);
-	}
-
-	protected Cursor _getSentWebMessages(TABLE_WEB_MESSAGES.Filter filtro,
-			String orderBy, String username) {
-
 		String[] columns = new String[] { TABLE_WEB_MESSAGES.F_ID,
 				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_TIME,
 				TABLE_WEB_MESSAGES.F_TEXT };
+
+		/*
+		 * Filtro
+		 */
 
 		String selection = "";
 		ArrayList<String> selectionList = new ArrayList<String>();
@@ -143,8 +93,30 @@ public class Database extends SQLiteOpenHelper {
 		for (int i = 0; i < selectionArgs.length; i++)
 			selectionArgs[i] = selectionList.get(i);
 
+		/*
+		 * 
+		 */
+
+		final String qOrderBy;
+		if (username != null) {
+			// Si se especifico usuario, NO tiene sentido ordenar
+			// alfabeticamente, por lo tanto, ignoramos la configuracion
+			qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+		} else {
+			if (order == null)
+				order = TABLE_WEB_MESSAGES.OrderBy.CRONOLOGICO;
+			switch (order) {
+			case ALFABETICO:
+				qOrderBy = "" + TABLE_WEB_MESSAGES.F_USERNAME + " ASC";
+				break;
+			default:
+				qOrderBy = "" + TABLE_WEB_MESSAGES.F_TIME + " DESC";
+				break;
+			}
+		}
+
 		return this.getReadableDatabase().query(TABLE_WEB_MESSAGES.T_NAME,
-				columns, selection, selectionArgs, null, null, orderBy);
+				columns, selection, selectionArgs, null, null, qOrderBy);
 	}
 
 	public MensajeWebDto getMensajeById(long id) {
