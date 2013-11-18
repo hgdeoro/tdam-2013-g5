@@ -1,18 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!--
-    <item
-        android:id="@+id/action_ldc_filtros"
-        android:title="@string/filtros"/>
-    <item
-        android:id="@+id/action_ldc_orden"
-        android:title="@string/orden">
-    </item>
-    <item
-        android:id="@+id/action_ldc_renombrar_usuario_web"
-        android:title="@string/renombrar_usuario_web">
-    </item>
-    -->
     <item
         android:id="@+id/action_ldc_ver_historial"
         android:icon="@android:drawable/ic_menu_recent_history"
@@ -25,8 +12,8 @@
     </item>
     <item
         android:id="@+id/action_ldc_usuario_web"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/action_usuario_web">
     </item>
-    
+
 </menu>

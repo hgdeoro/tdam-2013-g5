@@ -2,12 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ListPreference
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
         android:dialogTitle="@string/orden"
         android:entries="@array/hist_orden"
         android:entryValues="@array/hist_orden_values"
         android:key="pref_hist_orden"
         android:title="@string/orden" />
     <ListPreference
+        android:icon="@android:drawable/ic_menu_edit"
         android:dialogTitle="@string/filtros"
         android:entries="@array/hist_filtro"
         android:entryValues="@array/hist_filtro_values"
