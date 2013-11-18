@@ -82,8 +82,16 @@ public class Database extends SQLiteOpenHelper {
 		if (filtro != null)
 			switch (filtro) {
 			case WEEK:
+				if (selection.trim().length() > 0)
+					selection += " AND ";
+				selection += TABLE_WEB_MESSAGES.F_TIME
+						+ " >= datetime('now', '-7 days')";
 				break;
 			case DAY:
+				if (selection.trim().length() > 0)
+					selection += " AND ";
+				selection += TABLE_WEB_MESSAGES.F_TIME
+						+ " >= datetime('now', '-1 day')";
 				break;
 			default:
 				break;
