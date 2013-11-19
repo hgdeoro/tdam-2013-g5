@@ -33,6 +33,8 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	public static final int DIALOG_NO_CONNECTIVITY = 0;
 
+	public static final int DIALOG_EMPTY_MESSAGE = 1;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,12 @@ public class EnviarMensajeWebActivity extends Activity {
 					.setMessage(R.string.dialog_no_connectivity_message)
 					.create();
 			return dialog;
+
+		} else if (id == DIALOG_EMPTY_MESSAGE) {
+			Dialog dialog = new AlertDialog.Builder(this)
+					.setTitle(R.string.dialog_message_empty_title)
+					.setMessage(R.string.dialog_message_empty_message).create();
+			return dialog;
 		} else {
 			return super.onCreateDialog(id);
 		}
@@ -86,6 +94,7 @@ public class EnviarMensajeWebActivity extends Activity {
 	public class EnviarMensajeWebOnClickListener implements
 			View.OnClickListener {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
 
@@ -93,6 +102,11 @@ public class EnviarMensajeWebActivity extends Activity {
 					.getText().toString();
 			final String mensaje = ((EditText) findViewById(R.id.enviar_mensaje_web_text))
 					.getText().toString();
+
+			if (mensaje.length() == 0) {
+				showDialog(DIALOG_EMPTY_MESSAGE);
+				return;
+			}
 
 			AsyncTask<Object, Void, Void> task = new SendMessageTask();
 			task.execute(EnviarMensajeWebActivity.this.getApplicationContext(),
