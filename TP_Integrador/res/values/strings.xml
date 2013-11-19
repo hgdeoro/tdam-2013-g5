@@ -38,5 +38,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="editar_contacto">Editar contacto</string>
     <string name="call">Llamar</string>
+    <string name="no_se_encontraron_contactos">No se encontraron contactos</string>
+    <string name="empty_history">El historial se encuentra vacío</string>
 
 </resources>
