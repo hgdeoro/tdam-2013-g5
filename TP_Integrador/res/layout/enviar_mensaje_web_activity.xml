@@ -33,7 +33,6 @@
             android:layout_margin="2dp"
             android:text="Juan Pérez"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </LinearLayout>
 
     <EditText
@@ -42,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:gravity="top|left" />
+        android:gravity="top|left"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/enviar_mensaje_web_button"

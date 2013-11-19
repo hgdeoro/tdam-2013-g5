@@ -15,6 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:labelFor="@+id/registrar_usuario_text"
         android:text="@string/registrar_usuario_label_nombre_usuario" />
 
     <EditText
@@ -22,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:ems="10" >
+        android:ems="10" android:inputType="text">
 
         <requestFocus />
     </EditText>
