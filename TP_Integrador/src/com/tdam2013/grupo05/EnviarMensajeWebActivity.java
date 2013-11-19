@@ -129,10 +129,10 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String destinatario = (String) params[2];
 			final String mensaje = (String) params[3];
 
-			// FIXME: remove hardcoded strings & use better texts
-			UtilesNotifications.notifyWithIndeterminateProgress(ctx,
-					"Enviando mensaje...", "Enviando mensaje...",
-					"Enviando mensaje...", UtilesNotifications.SEND_MESSAGE);
+			// TODO: use better texts
+			String msg = getString(R.string.enviando_mensaje_web);
+			UtilesNotifications.notifyWithIndeterminateProgress(ctx, msg, msg,
+					msg, UtilesNotifications.SEND_MESSAGE);
 
 			boolean ok;
 			try {
@@ -143,24 +143,19 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 
 			if (ok) {
-				// FIXME: remove hardcoded strings & use better texts
-
 				new Database(
 						EnviarMensajeWebActivity.this.getApplicationContext())
 						.insertSentMessage(destinatario, mensaje);
 
-				UtilesNotifications.notify(ctx,
-						"El mensaje fue enviado correctamente",
-						"El mensaje fue enviado correctamente",
-						"El mensaje fue enviado correctamente",
+				// TODO: use better texts
+				msg = getString(R.string.mensaje_web_enviado_ok);
+				UtilesNotifications.notify(ctx, msg, msg, msg,
 						UtilesNotifications.SEND_MESSAGE);
 
 			} else {
-				// FIXME: remove hardcoded strings & use better texts
-				UtilesNotifications.notify(ctx,
-						"ERROR: el mensaje no fue enviado",
-						"ERROR: el mensaje no fue enviado",
-						"ERROR: el mensaje no fue enviado",
+				// TODO: use better texts
+				msg = getString(R.string.mensaje_web_enviado_error);
+				UtilesNotifications.notify(ctx, msg, msg, msg,
 						UtilesNotifications.SEND_MESSAGE);
 			}
 			return null;

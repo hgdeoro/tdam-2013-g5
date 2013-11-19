@@ -15,20 +15,27 @@
     <string name="dialog_no_connectivity_ok">ok</string>
     <string name="dialog_no_connectivity_message">Para realizar la accion solicitada
         es necesario tener conectividad a Internet</string>
-    
+
     <!-- Dialog: sin conectividad -->
     <string name="dialog_message_empty_title">Mensaje vacío</string>
     <string name="dialog_message_empty_ok">ok</string>
     <string name="dialog_message_empty_message">Ud. no ha especificado
         ningún mensaje.</string>
-    
+
     <!-- Otros strings -->
     <string name="enviar_mensaje_web_a">A:</string>
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>
     <string name="registrar_usuario_label_nombre_usuario">Nombre de usuario</string>
     <string name="nombre_de_usuario">Nombre de usuario</string>
     <string name="action_usuario_web">Usuario web</string>
-    
+    <string name="nombre_de_usuario_invalido">El nombre de usuario no es valido</string>
+    <string name="registrando_usuario">Registrando usuario...</string>
+    <string name="usuario_registrado_ok">El usuario se ha registrado satisfactoriamente</string>
+    <string name="usuario_registrado_error">El usuario no pudo registrarse</string>
+    <string name="enviando_mensaje_web">Enviando mensaje...</string>
+	<string name="mensaje_web_enviado_ok">El mensaje fue enviado correctamente</string>
+	<string name="mensaje_web_enviado_error">ERROR: el mensaje no fue enviado</string>
+	
     <!-- Menu -->
     <string name="filtros">Filtros</string>
     <string name="orden">Orden</string>

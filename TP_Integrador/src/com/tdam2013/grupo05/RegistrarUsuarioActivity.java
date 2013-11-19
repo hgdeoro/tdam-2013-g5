@@ -46,7 +46,7 @@ public class RegistrarUsuarioActivity extends Activity {
 
 						} else {
 							Toast.makeText(RegistrarUsuarioActivity.this,
-									"El nombre de usuario no es valido.",
+									R.string.nombre_de_usuario_invalido,
 									Toast.LENGTH_SHORT).show();
 						}
 
@@ -65,8 +65,8 @@ public class RegistrarUsuarioActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			pd = new ProgressDialog(ctx);
-			pd.setTitle("Registrando usuario...");
-			pd.setMessage("Registrando usuario...");
+			pd.setTitle(R.string.registrando_usuario);
+			pd.setMessage(getString(R.string.registrando_usuario));
 			pd.setCancelable(false);
 			pd.setIndeterminate(true);
 			pd.show();
@@ -99,9 +99,8 @@ public class RegistrarUsuarioActivity extends Activity {
 					@Override
 					public void run() {
 
-						Toast.makeText(
-								RegistrarUsuarioActivity.this,
-								"El usuario se ha registrado satisfactoriamente.",
+						Toast.makeText(RegistrarUsuarioActivity.this,
+								R.string.usuario_registrado_ok,
 								Toast.LENGTH_SHORT).show();
 
 						Intent data = new Intent();
@@ -121,7 +120,7 @@ public class RegistrarUsuarioActivity extends Activity {
 					public void run() {
 
 						Toast.makeText(RegistrarUsuarioActivity.this,
-								"El usuario no pudo registrarse.",
+								R.string.usuario_registrado_error,
 								Toast.LENGTH_SHORT).show();
 
 					}
