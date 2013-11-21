@@ -122,12 +122,8 @@ public class UtilesHttp {
 
 		final String random = "" + randomGenerator.nextLong();
 
-		// FIXME: escape username
-
 		String xmlResponse = post(String.format(REGISTER_USER_XML, random,
-				username, DEFAULT_PASSWORD));
-
-		// FIXME: process response
+				UtilesXml.escape(username), DEFAULT_PASSWORD));
 
 		/*
 		 * <?xml version="1.0" encoding="UTF-8"?><result type="success"
@@ -163,12 +159,9 @@ public class UtilesHttp {
 
 		final String random = "" + randomGenerator.nextLong();
 
-		// FIXME: escape usernames and message
-
 		String xmlResponse = post(String.format(SEND_MESSAGE_XML, random,
-				fromUser, DEFAULT_PASSWORD, toUser, message));
-
-		// FIXME: process response
+				UtilesXml.escape(fromUser), DEFAULT_PASSWORD,
+				UtilesXml.escape(toUser), UtilesXml.escape(message)));
 
 		if (debug)
 			Log.d("sendMessage()", "XML response: " + xmlResponse);
@@ -202,12 +195,9 @@ public class UtilesHttp {
 
 		final String random = "" + randomGenerator.nextLong();
 
-		// FIXME: escape usernames
-
 		String xmlResponse = post(String.format(GET_MESSAGES_XML, random,
-				forUser, DEFAULT_PASSWORD, "01/01/1970 00:00:00"));
-
-		// FIXME: process response
+				UtilesXml.escape(forUser), DEFAULT_PASSWORD,
+				"01/01/1970 00:00:00"));
 
 		if (debug)
 			Log.d("getMessages()", "XML response: " + xmlResponse);
