@@ -48,14 +48,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_margin="4dp"
-                    android:src="@drawable/mail_blanco_9_b" />
+                    android:src="@drawable/mail_blanco_9_b"
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:id="@+id/lista_de_contactos_item_icono_msg_web"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_margin="4dp"
-                    android:src="@drawable/msg_web_blanco_9_b" />
+                    android:src="@drawable/msg_web_blanco_9_b"
+                    android:visibility="invisible" />
+
             </LinearLayout>
 
         </LinearLayout>

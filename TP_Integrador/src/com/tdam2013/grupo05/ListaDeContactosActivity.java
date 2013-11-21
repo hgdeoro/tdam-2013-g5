@@ -50,9 +50,13 @@ public class ListaDeContactosActivity extends ListActivity implements
 	 */
 
 	// https://developer.android.com/training/contacts-provider/retrieve-names.html
-	private final static String[] FROM_COLUMNS = { Contacts.DISPLAY_NAME_PRIMARY };
+	private final static String[] FROM_COLUMNS = {
+			Contacts.DISPLAY_NAME_PRIMARY, Contacts.HAS_PHONE_NUMBER,
+			Contacts.HAS_PHONE_NUMBER };
 
-	private final static int[] TO_IDS = { R.id.lista_de_contactos_item_label };
+	private final static int[] TO_IDS = { R.id.lista_de_contactos_item_label,
+			R.id.lista_de_contactos_item_icono_telefono,
+			R.id.lista_de_contactos_item_icono_sms };
 
 	// // Define global mutable variables
 	// // Define a ListView object
@@ -130,6 +134,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 		mCursorAdapter = new SimpleCursorAdapter(this,
 				R.layout.lista_de_contactos_activity_item, null, FROM_COLUMNS,
 				TO_IDS, 0);
+		mCursorAdapter.setViewBinder(new ListaDeContactosViewBinder());
 
 		// Sets the adapter for the ListView
 		setListAdapter(mCursorAdapter);
@@ -425,6 +430,25 @@ public class ListaDeContactosActivity extends ListActivity implements
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		mCursorAdapter.swapCursor(null);
+	}
+
+	class ListaDeContactosViewBinder implements SimpleCursorAdapter.ViewBinder {
+
+		@Override
+		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+			if (view.getId() == R.id.lista_de_contactos_item_icono_telefono
+					|| view.getId() == R.id.lista_de_contactos_item_icono_sms) {
+				int hasPhoneNumber = cursor.getInt(columnIndex);
+				if (hasPhoneNumber == 0) {
+					view.setVisibility(View.INVISIBLE);
+				} else {
+					view.setVisibility(View.VISIBLE);
+				}
+				return true;
+			}
+			return false;
+		}
+
 	}
 
 }
