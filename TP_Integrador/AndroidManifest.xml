@@ -12,9 +12,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-	
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,6 +20,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.tdam2013.grupo05.ListaDeContactosActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,30 +30,37 @@
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.AccionesSobreContactoActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_acciones_sobre_contacto" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.HistorialActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_historial" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.EnviarMensajeWebActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_enviar_mensaje_web" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.RegistrarUsuarioActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_registrar_usuario" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/action_settings" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.preferences.HistorialSettingsActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/action_settings" >
         </activity>
         <activity
             android:name="com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_mostrar_detalle_mensaje_web" >
         </activity>
 
