@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.db.MensajeWebDto;
@@ -40,11 +39,11 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) { 
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.mostrar_detalle_mensaje_web, menu);
 		return true;
 	}
-	
+
 	/**
 	 * Menu
 	 */
@@ -53,13 +52,23 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		Log.i("onMenuItemSelected()", "item: " + item);
 
 		if (item.getItemId() == R.id.action_borrar_item_historial) {
-			// FIXME: implementar borrado
-			Toast.makeText(getBaseContext(), "BORRANDO ITEM...", Toast.LENGTH_SHORT).show();
+
+			// TODO: pedir confirmacion?
+
+			Intent intent = getIntent();
+			long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
+			Database db = new Database(this.getApplicationContext());
+			db.deleteSentMessage(msgId);
+
+			// FIXME: redireccionar ususario a activity de historial
+			
+			// Toast.makeText(getBaseContext(), "BORRANDO ITEM: " + msgId,
+			// Toast.LENGTH_SHORT).show();
 		}
 
 		Log.i("onMenuItemSelected()", "Item no manejado "
 				+ "(puede deberse a que se utilizo el menu contextual)");
 		return super.onMenuItemSelected(featureId, item);
 
-	}	
+	}
 }

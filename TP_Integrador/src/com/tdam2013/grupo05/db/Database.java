@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -53,6 +54,18 @@ public class Database extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
 		db.close();
+	}
+
+	public void deleteSentMessage(long messageId) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String where = "" + TABLE_WEB_MESSAGES.F_ID + " = ?";
+		String[] whereArgs = new String[] { Long.toString(messageId) };
+
+		db.delete(TABLE_WEB_MESSAGES.T_NAME, where, whereArgs);
+		db.close();
+
+		Log.i("deleteSentMessage()", "Item borrado: " + messageId);
+
 	}
 
 	/**
