@@ -11,10 +11,30 @@ import android.widget.TextView;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.db.MensajeWebDto;
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 
+/**
+ * Muestra el detalle de un mensaje web.
+ * 
+ * Posee menu para permitir borrar el mensaje del historial.
+ * 
+ * @author Horacio G. de Oro
+ *
+ */
 public class MostrarDetalleMensajeWebActivity extends Activity {
 
+	/** "Name", para putExtra() de Intent */
 	public static final String MESSAGE_WEB_ID = "MESSAGE_WEB_ID";
+
+	/** "Name", para putExtra() de Intent */
+	public static final String CONTACT_NAME = "CONTACT_NAME";
+
+	// FIXME: esta activity queda en el stack. Luego de borrar el item del
+	// historial, si se hace back, se vuelve a mostrar el mensaje, ya borrado!
+	// ¿Como se saca esto del stack de activities?
+	//
+	// Ver, por ejemplo:
+	// https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_CLEAR_TOP
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +80,10 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 			Database db = new Database(this.getApplicationContext());
 			db.deleteSentMessage(msgId);
 
-			// FIXME: redireccionar ususario a activity de historial
-			
-			// Toast.makeText(getBaseContext(), "BORRANDO ITEM: " + msgId,
-			// Toast.LENGTH_SHORT).show();
+			String contactName = intent.getExtras().getString(CONTACT_NAME);
+			this.startActivity(UtilesIntents
+					.getHistorialDeContactoActivityIntent(this, contactName));
+
 		}
 
 		Log.i("onMenuItemSelected()", "Item no manejado "

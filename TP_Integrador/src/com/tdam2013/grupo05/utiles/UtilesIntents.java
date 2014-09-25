@@ -13,6 +13,12 @@ import com.tdam2013.grupo05.RegistrarUsuarioActivity;
 import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
 import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
 
+/**
+ * Clase utilitaria. Los metodos generan intents para lanzar activities.
+ * 
+ * @author Horacio G. de Oro
+ *
+ */
 public class UtilesIntents {
 
 	public static Intent getHistorialActivityIntent(Context ctx) {
@@ -25,7 +31,8 @@ public class UtilesIntents {
 	public static Intent getHistorialDeContactoActivityIntent(Context ctx,
 			String contactName) {
 		Intent intent = new Intent();
-		intent.putExtra(HistorialActivity.INTENT_EXTRA__CONTACT_NAME, contactName);
+		intent.putExtra(HistorialActivity.INTENT_EXTRA__CONTACT_NAME,
+				contactName);
 		intent.setComponent(new ComponentName(ctx, HistorialActivity.class
 				.getCanonicalName()));
 		return intent;
@@ -72,12 +79,13 @@ public class UtilesIntents {
 	}
 
 	public static Intent getMostrarDetalleMensajeWebActivity(Context ctx,
-			long messageId) {
+			long messageId, String contactName) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				MostrarDetalleMensajeWebActivity.class.getCanonicalName()));
 		intent.putExtra(MostrarDetalleMensajeWebActivity.MESSAGE_WEB_ID,
 				messageId);
+		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_NAME, contactName);
 		return intent;
 	}
 

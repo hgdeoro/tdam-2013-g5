@@ -18,6 +18,16 @@ import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
+/**
+ * Muestra el historial de mensajes web.
+ * 
+ * Puede ser utilizada a nivel general, donde muestra mensajes de todos los
+ * contactos, o puede ser usada para mostrar los datos de un contacto en
+ * particular.
+ * 
+ * @author Horacio G. de Oro
+ *
+ */
 public class HistorialActivity extends ListActivity implements
 		LoaderCallbacks<Cursor> {
 
@@ -32,6 +42,10 @@ public class HistorialActivity extends ListActivity implements
 
 	private SimpleCursorAdapter mCursorAdapter;
 
+	/**
+	 * Si contactName es != null, solo mostramos historial de dicho contacto,
+	 * sino mostramos todo el historial
+	 */
 	private String contactName = null;
 
 	@Override
@@ -75,7 +89,7 @@ public class HistorialActivity extends ListActivity implements
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		this.startActivity(UtilesIntents.getMostrarDetalleMensajeWebActivity(
-				this, id));
+				this, id, contactName));
 	}
 
 	/**
