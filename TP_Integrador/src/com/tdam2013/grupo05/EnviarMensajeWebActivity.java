@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.tdam2013.grupo05.br.NetworkChangeBroadcastReceiver;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
+import com.tdam2013.grupo05.utiles.UtilesNetwork;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
 public class EnviarMensajeWebActivity extends Activity {
@@ -51,7 +51,7 @@ public class EnviarMensajeWebActivity extends Activity {
 		getButton(R.id.enviar_mensaje_web_button).setOnClickListener(
 				new EnviarMensajeWebOnClickListener());
 
-		if (!NetworkChangeBroadcastReceiver.isConnected(this
+		if (!UtilesNetwork.isConnected(this
 				.getApplicationContext())) {
 			this.showDialog(DIALOG_NO_CONNECTIVITY);
 		}
