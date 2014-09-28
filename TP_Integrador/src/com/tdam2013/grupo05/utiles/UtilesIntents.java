@@ -12,6 +12,7 @@ import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
 import com.tdam2013.grupo05.RegistrarUsuarioActivity;
 import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
 import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
+import com.tdam2013.grupo05.services.MensajeWebPollService;
 
 /**
  * Clase utilitaria. Los metodos generan intents para lanzar activities.
@@ -85,7 +86,19 @@ public class UtilesIntents {
 				MostrarDetalleMensajeWebActivity.class.getCanonicalName()));
 		intent.putExtra(MostrarDetalleMensajeWebActivity.MESSAGE_WEB_ID,
 				messageId);
-		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_NAME, contactName);
+		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_NAME,
+				contactName);
+		return intent;
+	}
+
+	/**
+	 * Devuelve Intent para iniciar servicio de polling.
+	 */
+	public static Intent getMensajeWebPollServiceForStartPolling(Context ctx) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx, MensajeWebPollService.class
+				.getCanonicalName()));
+		// FIXME: agregar dato extra para indicar que es para INICIAR POLLING
 		return intent;
 	}
 
