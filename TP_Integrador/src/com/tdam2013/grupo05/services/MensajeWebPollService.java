@@ -1,6 +1,13 @@
 package com.tdam2013.grupo05.services;
 
+import java.io.IOException;
 import java.lang.Thread.State;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.client.ClientProtocolException;
+import org.xml.sax.SAXException;
 
 import android.app.Service;
 import android.content.Intent;
@@ -8,6 +15,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.utiles.UtilesHttp;
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
 
 //
@@ -18,6 +27,7 @@ public class MensajeWebPollService extends Service {
 
 	private Thread pollThread;
 	private PollRunnable pollRunnable;
+	private UtilesHttp utilesHttp = new UtilesHttp();
 
 	private void info(String msg) {
 		Log.i("MensajeWebPollService", msg);
@@ -32,7 +42,29 @@ public class MensajeWebPollService extends Service {
 		}
 
 		private void pollWebService() {
-			MensajeWebPollService.this.info("pollWebService()");
+			MensajeWebPollService.this.info("Iniciando pollWebService()");
+
+			final String username = UtilesMensajesWeb
+					.getUsername(MensajeWebPollService.this);
+
+			MensajeWebPollService.this.info("pollWebService(): buscando "
+					+ "mensajes para usuario '" + username + "'");
+
+			try {
+				List<String> mensajes = utilesHttp.getAllMessages(username);
+				MensajeWebPollService.this.info("Se recibieron "
+						+ mensajes.size() + " mensajes");
+
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
+			MensajeWebPollService.this.info("FIN: pollWebService()");
 		}
 
 		@Override
