@@ -52,8 +52,7 @@ public class MensajeWebPollService extends Service {
 
 			try {
 				List<String> mensajes = utilesHttp.getAllMessages(username);
-				MensajeWebPollService.this.info("Se recibieron "
-						+ mensajes.size() + " mensajes");
+				procesarMensajes(mensajes);
 
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
@@ -65,6 +64,18 @@ public class MensajeWebPollService extends Service {
 				e.printStackTrace();
 			}
 			MensajeWebPollService.this.info("FIN: pollWebService()");
+		}
+
+		private void procesarMensajes(List<String> mensajes) {
+			MensajeWebPollService.this.info("Se recibieron " + mensajes.size()
+					+ " mensajes");
+			for (String mensaje : mensajes) {
+				procesarMensaje(mensaje);
+			}
+		}
+
+		private void procesarMensaje(String mensaje) {
+			MensajeWebPollService.this.info("Mensaje: " + mensaje);
 		}
 
 		@Override
