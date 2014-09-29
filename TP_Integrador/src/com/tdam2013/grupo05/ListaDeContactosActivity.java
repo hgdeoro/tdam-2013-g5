@@ -199,6 +199,10 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// TODO: recargar SOLO si se ha cambiado el orden o filtro
 		getLoaderManager().restartLoader(0, null, this);
 		// getLoaderManager().initLoader(0, null, this);
+
+		this.startService(UtilesIntents
+				.getMensajeWebPollServiceForStartPolling(this));
+
 	}
 
 	/*

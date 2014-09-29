@@ -1,5 +1,7 @@
 package com.tdam2013.grupo05.services;
 
+import java.lang.Thread.State;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -31,10 +33,6 @@ public class MensajeWebPollService extends Service {
 
 		private void pollWebService() {
 			MensajeWebPollService.this.info("pollWebService()");
-
-			Toast.makeText(getBaseContext(), "pollWebService()",
-					Toast.LENGTH_SHORT).show();
-
 		}
 
 		@Override
@@ -61,6 +59,22 @@ public class MensajeWebPollService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+
+		info("onStartCommand()");
+
+		if (pollThread != null) {
+			// Si el servicio/thread ya esta andando, salimos.
+			if (pollThread.getState() == State.TERMINATED) {
+				pollRunnable = null;
+				pollThread = null;
+			} else {
+				// If we get killed, after returning from here, restart
+				// FIXME: esta bien devolver START_STICKY cuando el servicio ya
+				// esta andando? En realidad, en estos casos, simplemente
+				// hay que ignorar la llamada a este metodo
+				return START_STICKY;
+			}
+		}
 
 		pollRunnable = new PollRunnable();
 		pollThread = new Thread(pollRunnable);
