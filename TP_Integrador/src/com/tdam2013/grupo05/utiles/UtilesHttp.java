@@ -193,11 +193,18 @@ public class UtilesHttp {
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
 
+		return getAllMessages(forUser, "01/01/1970 00:00:00");
+
+	}
+
+	public List<String> getAllMessages(String forUser, String timestamp)
+			throws ClientProtocolException, IOException,
+			ParserConfigurationException, SAXException {
+
 		final String random = "" + randomGenerator.nextLong();
 
 		String xmlResponse = post(String.format(GET_MESSAGES_XML, random,
-				UtilesXml.escape(forUser), DEFAULT_PASSWORD,
-				"01/01/1970 00:00:00"));
+				UtilesXml.escape(forUser), DEFAULT_PASSWORD, timestamp));
 
 		if (debug)
 			Log.d("getMessages()", "XML response: " + xmlResponse);
