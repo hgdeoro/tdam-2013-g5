@@ -52,6 +52,9 @@ public class MensajeWebPollService extends Service {
 
 			try {
 				List<String> mensajes = utilesHttp.getAllMessages(username);
+				if (mensajes == null)
+					return;
+
 				procesarMensajes(mensajes);
 
 			} catch (ClientProtocolException e) {

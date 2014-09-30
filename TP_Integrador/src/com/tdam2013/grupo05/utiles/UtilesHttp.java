@@ -189,6 +189,10 @@ public class UtilesHttp {
 		}
 	}
 
+	/**
+	 * Devuelve lista de mensajes.
+	 * @return null si se produce un error
+	 */
 	public List<String> getAllMessages(String forUser)
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
@@ -197,6 +201,10 @@ public class UtilesHttp {
 
 	}
 
+	/**
+	 * Devuelve lista de mensajes.
+	 * @return null si se produce un error
+	 */
 	public List<String> getAllMessages(String forUser, String timestamp)
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
@@ -207,7 +215,7 @@ public class UtilesHttp {
 				UtilesXml.escape(forUser), DEFAULT_PASSWORD, timestamp));
 
 		if (debug)
-			Log.d("getMessages()", "XML response: " + xmlResponse);
+			Log.d("getAllMessages()", "XML response: " + xmlResponse);
 
 		/*
 		 * <result type="success"
@@ -227,8 +235,11 @@ public class UtilesHttp {
 		String type = result.getAttributes().getNamedItem("type")
 				.getTextContent();
 
-		if (!"success".equals(type))
+		if (!"success".equals(type)) {
+			Log.e("getAllMessages()",
+					"La busqueda de mensajes devolvio error: " + xmlResponse);
 			return null;
+		}
 
 		NodeList messages = doc.getElementsByTagName("message");
 		List<String> list = new ArrayList<String>(messages.getLength());
