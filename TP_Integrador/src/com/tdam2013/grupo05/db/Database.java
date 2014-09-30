@@ -78,7 +78,7 @@ public class Database extends SQLiteOpenHelper {
 
 		String[] columns = new String[] { TABLE_WEB_MESSAGES.F_ID,
 				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_TIME,
-				TABLE_WEB_MESSAGES.F_TEXT };
+				TABLE_WEB_MESSAGES.F_TEXT, TABLE_WEB_MESSAGES.F_DIRECTION };
 
 		/*
 		 * Filtro
