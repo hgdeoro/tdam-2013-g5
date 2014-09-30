@@ -11,7 +11,9 @@ import org.xml.sax.SAXException;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ import com.tdam2013.grupo05.utiles.UtilesNetwork;
  *
  */
 public class MensajeWebPollService extends Service {
+
+	private static final String PREFERENCE_ULTIMO_TIMESTAMP = "tdam_ultimo_timestamp_mensajes_web";
 
 	private Thread pollThread;
 	private PollRunnable pollRunnable;
@@ -56,7 +60,9 @@ public class MensajeWebPollService extends Service {
 					+ "mensajes para usuario '" + username + "'");
 
 			try {
-				List<MensajeWeb> mensajes = utilesHttp.getAllMessages(username);
+				List<MensajeWeb> mensajes = utilesHttp.getAllMessages(username,
+						obtenerUltimoTimestamp());
+
 				if (mensajes == null)
 					return;
 
@@ -80,6 +86,37 @@ public class MensajeWebPollService extends Service {
 			for (MensajeWeb mensaje : mensajes) {
 				procesarMensaje(mensaje);
 			}
+
+			if (!mensajes.isEmpty()) {
+				MensajeWeb ultimo = mensajes.get(mensajes.size() - 1);
+				String ultimoTimestamp = ultimo.getTimestamp();
+				guardarUltimoTimestamp(ultimoTimestamp);
+			}
+
+		}
+
+		/** Guarda timestampe del ultimo mensaje recibido */
+		private void guardarUltimoTimestamp(String ultimoTimestamp) {
+			SharedPreferences sharedPref = PreferenceManager
+					.getDefaultSharedPreferences(MensajeWebPollService.this);
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putString(PREFERENCE_ULTIMO_TIMESTAMP, ultimoTimestamp);
+			editor.commit();
+			Log.i("guardarUltimoTimestamp()", "" + ultimoTimestamp);
+		}
+
+		/**
+		 * Devuelve timestamp del ultimo mensaje obtenido. Si no existe (porque
+		 * es la primera vez que se ejecuta o nunca se ha recibido un mensaje)
+		 * devuelve fecha muy vieja.
+		 */
+		private String obtenerUltimoTimestamp() {
+			SharedPreferences sharedPref = PreferenceManager
+					.getDefaultSharedPreferences(MensajeWebPollService.this);
+			String ultimoTimestamp = sharedPref.getString(
+					PREFERENCE_ULTIMO_TIMESTAMP, "01/01/1970 00:00:00");
+			Log.i("obtenerUltimoTimestamp()", "" + ultimoTimestamp);
+			return ultimoTimestamp;
 		}
 
 		private void procesarMensaje(MensajeWeb mensaje) {

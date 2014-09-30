@@ -197,19 +197,6 @@ public class UtilesHttp {
 	 * 
 	 * @return null si se produce un error
 	 */
-	public List<MensajeWeb> getAllMessages(String forUser)
-			throws ClientProtocolException, IOException,
-			ParserConfigurationException, SAXException {
-
-		return getAllMessages(forUser, "01/01/1970 00:00:00");
-
-	}
-
-	/**
-	 * Devuelve lista de mensajes.
-	 * 
-	 * @return null si se produce un error
-	 */
 	public List<MensajeWeb> getAllMessages(String forUser, String timestamp)
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
