@@ -1,6 +1,9 @@
 package com.tdam2013.grupo05.db;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -48,7 +51,31 @@ public class Database extends SQLiteOpenHelper {
 		cv.put(TABLE_WEB_MESSAGES.F_USERNAME, toUser);
 		cv.put(TABLE_WEB_MESSAGES.F_DIRECTION,
 				TABLE_WEB_MESSAGES.DIRECTION_MESSAGE_SENT);
-		// cv.put(TABLE_WEB_MESSAGES.F_TIME);
+		// TABLE_WEB_MESSAGES.F_TIME -> default CURRENT
+		cv.put(TABLE_WEB_MESSAGES.F_TEXT, text);
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
+		db.close();
+	}
+
+	/**
+	 * Formatea fecha para ser utilizada con consultas SQL (insert, updates,
+	 * etc)
+	 */
+	private String formatDateParaConsultaSql(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		return dateFormat.format(date);
+	}
+
+	public void insertReceivedMessage(String fromUser, String text,
+			Date timestamp) {
+		ContentValues cv = new ContentValues();
+		cv.put(TABLE_WEB_MESSAGES.F_USERNAME, fromUser);
+		cv.put(TABLE_WEB_MESSAGES.F_DIRECTION,
+				TABLE_WEB_MESSAGES.DIRECTION_MESSAGE_RECEIVED);
+		cv.put(TABLE_WEB_MESSAGES.F_TIME, formatDateParaConsultaSql(timestamp));
 		cv.put(TABLE_WEB_MESSAGES.F_TEXT, text);
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -88,6 +115,8 @@ public class Database extends SQLiteOpenHelper {
 		ArrayList<String> selectionList = new ArrayList<String>();
 
 		if (username != null) {
+			Log.i("Database.searchSentWebMessages()",
+					"Filtrando mensajes para usuario " + username);
 			selection += TABLE_WEB_MESSAGES.F_USERNAME + " = ?";
 			selectionList.add(username);
 		}
