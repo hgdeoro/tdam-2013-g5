@@ -1,9 +1,18 @@
 package com.tdam2013.grupo05.modelos;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Representa un mensaje web.
  */
 public class MensajeWeb {
+
+	// Timestamp => 30/09/2014 11:01:15
+	public final static DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat(
+			"dd/MM/yyyy HH:mm:ss");
 
 	public MensajeWeb() {
 	}
@@ -25,6 +34,10 @@ public class MensajeWeb {
 	 * Timestamp del mensaje. Puede ser null.
 	 */
 	private String timestamp;
+
+	public Date getTimestampAsDate() throws ParseException {
+		return TIMESTAMP_FORMAT.parse(timestamp);
+	}
 
 	public String getUser() {
 		return user;
