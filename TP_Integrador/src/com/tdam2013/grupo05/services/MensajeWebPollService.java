@@ -2,6 +2,8 @@ package com.tdam2013.grupo05.services;
 
 import java.io.IOException;
 import java.lang.Thread.State;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.modelos.MensajeWeb;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
@@ -122,6 +125,18 @@ public class MensajeWebPollService extends Service {
 		private void procesarMensaje(MensajeWeb mensaje) {
 			// FIXME: enviar notificacion de mensaje recibido
 			MensajeWebPollService.this.info("Mensaje: " + mensaje.getMensaje());
+
+			Database db = new Database(MensajeWebPollService.this);
+			Date timestamp;
+			try {
+				timestamp = mensaje.getTimestampAsDate();
+			} catch (ParseException e) {
+				// No se pudo parsear fecha -> usamos actual
+				e.printStackTrace();
+				timestamp = new Date();
+			}
+			db.insertReceivedMessage(mensaje.getUser(), mensaje.getMensaje(),
+					timestamp);
 		}
 
 		@Override
