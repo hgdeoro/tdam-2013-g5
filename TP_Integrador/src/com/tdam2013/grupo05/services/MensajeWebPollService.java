@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.modelos.MensajeWeb;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
@@ -23,6 +24,10 @@ import com.tdam2013.grupo05.utiles.UtilesNetwork;
 // https://developer.android.com/guide/components/services.html
 //
 
+/**
+ * Servicio Android, hace polling del webservice en busca de mensajes
+ *
+ */
 public class MensajeWebPollService extends Service {
 
 	private Thread pollThread;
@@ -51,7 +56,7 @@ public class MensajeWebPollService extends Service {
 					+ "mensajes para usuario '" + username + "'");
 
 			try {
-				List<String> mensajes = utilesHttp.getAllMessages(username);
+				List<MensajeWeb> mensajes = utilesHttp.getAllMessages(username);
 				if (mensajes == null)
 					return;
 
@@ -69,16 +74,17 @@ public class MensajeWebPollService extends Service {
 			MensajeWebPollService.this.info("FIN: pollWebService()");
 		}
 
-		private void procesarMensajes(List<String> mensajes) {
+		private void procesarMensajes(List<MensajeWeb> mensajes) {
 			MensajeWebPollService.this.info("Se recibieron " + mensajes.size()
 					+ " mensajes");
-			for (String mensaje : mensajes) {
+			for (MensajeWeb mensaje : mensajes) {
 				procesarMensaje(mensaje);
 			}
 		}
 
-		private void procesarMensaje(String mensaje) {
-			MensajeWebPollService.this.info("Mensaje: " + mensaje);
+		private void procesarMensaje(MensajeWeb mensaje) {
+			// FIXME: enviar notificacion de mensaje recibido
+			MensajeWebPollService.this.info("Mensaje: " + mensaje.getMensaje());
 		}
 
 		@Override

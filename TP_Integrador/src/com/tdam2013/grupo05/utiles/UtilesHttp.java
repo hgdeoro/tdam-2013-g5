@@ -22,9 +22,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.tdam2013.grupo05.modelos.MensajeWeb;
 
 import android.util.Log;
 
@@ -191,9 +194,10 @@ public class UtilesHttp {
 
 	/**
 	 * Devuelve lista de mensajes.
+	 * 
 	 * @return null si se produce un error
 	 */
-	public List<String> getAllMessages(String forUser)
+	public List<MensajeWeb> getAllMessages(String forUser)
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
 
@@ -203,9 +207,10 @@ public class UtilesHttp {
 
 	/**
 	 * Devuelve lista de mensajes.
+	 * 
 	 * @return null si se produce un error
 	 */
-	public List<String> getAllMessages(String forUser, String timestamp)
+	public List<MensajeWeb> getAllMessages(String forUser, String timestamp)
 			throws ClientProtocolException, IOException,
 			ParserConfigurationException, SAXException {
 
@@ -242,10 +247,14 @@ public class UtilesHttp {
 		}
 
 		NodeList messages = doc.getElementsByTagName("message");
-		List<String> list = new ArrayList<String>(messages.getLength());
+		List<MensajeWeb> list = new ArrayList<MensajeWeb>(messages.getLength());
 		for (int i = 0; i < messages.getLength(); i++) {
 			Node message = messages.item(i);
-			list.add(message.getTextContent());
+			NamedNodeMap attrs = message.getAttributes();
+			Node fromAttr = attrs.getNamedItem("from");
+			Node timestampAttr = attrs.getNamedItem("timestamp");
+			list.add(new MensajeWeb(fromAttr.getNodeValue(), timestampAttr
+					.getNodeValue(), message.getTextContent()));
 		}
 
 		return list;
