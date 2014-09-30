@@ -16,6 +16,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
+import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 /**
@@ -156,7 +157,7 @@ public class HistorialActivity extends ListActivity implements
 					return new Database(
 							HistorialActivity.this.getApplicationContext())
 							.searchSentWebMessages(getPreferenceFiltro(), null,
-									contactName);
+									UtilesContactos.formatUsername(contactName));
 
 				} else {
 
