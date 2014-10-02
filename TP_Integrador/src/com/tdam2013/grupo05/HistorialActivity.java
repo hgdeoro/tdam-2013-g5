@@ -83,8 +83,7 @@ public class HistorialActivity extends ListActivity implements
 			SimpleCursorAdapter.ViewBinder {
 
 		private String getNombreOwnerTelefono() {
-			// FIXME: implementar!
-			return "Horacio";
+			return "Usted";
 		}
 
 		@Override
