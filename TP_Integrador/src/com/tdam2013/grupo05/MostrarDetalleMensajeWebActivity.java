@@ -81,8 +81,11 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 			db.deleteSentMessage(msgId);
 
 			String contactName = intent.getExtras().getString(CONTACT_NAME);
-			this.startActivity(UtilesIntents
-					.getHistorialDeContactoActivityIntent(this, contactName));
+
+			Intent intentNewActivity = UtilesIntents
+					.getHistorialDeContactoActivityIntent(this, contactName);
+			intentNewActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			this.startActivity(intentNewActivity);
 
 		}
 
