@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
-import com.tdam2013.grupo05.db.MensajeWebDto;
 import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesFecha;
@@ -78,7 +78,8 @@ public class HistorialActivity extends ListActivity implements
 						R.id.historial_item_fecha_hora,
 						R.id.historial_item_dato_mensaje }, 0);
 
-		mCursorAdapter.setViewBinder(new ViewBinderItemHistorialActivity());
+		mCursorAdapter.setViewBinder(new ViewBinderItemHistorialActivity(this
+				.getApplicationContext()));
 
 		setListAdapter(mCursorAdapter);
 
@@ -86,6 +87,12 @@ public class HistorialActivity extends ListActivity implements
 
 	static public class ViewBinderItemHistorialActivity implements
 			SimpleCursorAdapter.ViewBinder {
+
+		private final Context ctx;
+
+		public ViewBinderItemHistorialActivity(Context ctx) {
+			this.ctx = ctx;
+		}
 
 		private String getNombreOwnerTelefono() {
 			return "Usted";
@@ -109,9 +116,10 @@ public class HistorialActivity extends ListActivity implements
 			if (view.getId() == R.id.historial_item_fecha_hora) {
 				String fechaFromDb = cursor.getString(columnIndex);
 				try {
-					Date fecha = UtilesFecha.parsearFecha(fechaFromDb);
-					String fechaFormateada = UtilesFecha.formatearFecha(fecha);
-					((TextView) view).setText(fechaFormateada);
+
+					((TextView) view).setText(UtilesFecha
+							.formatearFechaHoraConMediumDateFormat(fechaFromDb,
+									this.ctx));
 					return true;
 
 				} catch (ParseException e) {

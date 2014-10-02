@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.text.format.DateFormat;
 
 public class UtilesFecha {
 
@@ -20,7 +22,21 @@ public class UtilesFecha {
 		return sdfParseo.parse(fecha);
 	}
 
-	public static String formatearFecha(Date fecha) {
+	public static String formatearFechaHora(Date fecha) {
 		return sdfFormato.format(fecha);
 	}
+
+	public static String formatearFechaHoraConMediumDateFormat(Date fecha,
+			Context ctx) {
+		return DateFormat.getMediumDateFormat(ctx).format(fecha) + " a las "
+				+ DateFormat.getTimeFormat(ctx).format(fecha);
+	}
+
+	public static String formatearFechaHoraConMediumDateFormat(String fecha,
+			Context ctx) throws ParseException {
+		Date fechaAsDate = UtilesFecha.parsearFecha(fecha);
+		return UtilesFecha.formatearFechaHoraConMediumDateFormat(fechaAsDate,
+				ctx);
+	}
+
 }
