@@ -1,5 +1,8 @@
 package com.tdam2013.grupo05;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -17,8 +20,10 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
+import com.tdam2013.grupo05.db.MensajeWebDto;
 import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
+import com.tdam2013.grupo05.utiles.UtilesFecha;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 /**
@@ -99,6 +104,21 @@ public class HistorialActivity extends ListActivity implements
 					return true;
 				}
 				return false;
+			}
+
+			if (view.getId() == R.id.historial_item_fecha_hora) {
+				String fechaFromDb = cursor.getString(columnIndex);
+				try {
+					Date fecha = UtilesFecha.parsearFecha(fechaFromDb);
+					String fechaFormateada = UtilesFecha.formatearFecha(fecha);
+					((TextView) view).setText(fechaFormateada);
+					return true;
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return false;
+				}
+
 			}
 
 			return false;
