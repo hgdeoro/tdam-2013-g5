@@ -13,9 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
+import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
@@ -71,8 +73,37 @@ public class HistorialActivity extends ListActivity implements
 						R.id.historial_item_fecha_hora,
 						R.id.historial_item_dato_mensaje }, 0);
 
-		// Sets the adapter for the ListView
+		mCursorAdapter.setViewBinder(new ViewBinderItemHistorialActivity());
+
 		setListAdapter(mCursorAdapter);
+
+	}
+
+	static public class ViewBinderItemHistorialActivity implements
+			SimpleCursorAdapter.ViewBinder {
+
+		private String getNombreOwnerTelefono() {
+			// FIXME: implementar!
+			return "Horacio";
+		}
+
+		@Override
+		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+
+			final int COLUMNA_DIRECCION = 4;
+
+			if (view.getId() == R.id.historial_item_contacto) {
+				int direccionMensaje = cursor.getInt(COLUMNA_DIRECCION);
+				// Si mensaje fue enviado, mostramos owner del celular
+				if (direccionMensaje == TABLE_WEB_MESSAGES.DIRECTION_MESSAGE_SENT) {
+					((TextView) view).setText(getNombreOwnerTelefono());
+					return true;
+				}
+				return false;
+			}
+
+			return false;
+		}
 
 	}
 
