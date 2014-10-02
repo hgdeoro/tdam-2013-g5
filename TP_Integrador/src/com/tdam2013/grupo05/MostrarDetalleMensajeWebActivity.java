@@ -84,6 +84,9 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 
 			Intent intentNewActivity = UtilesIntents
 					.getHistorialDeContactoActivityIntent(this, contactName);
+			// Necesitamos FLAG_ACTIVITY_CLEAR_TOP para que el back stack quede
+			// bien seteado, y no quede en el back stack la activity que muestra
+			// el detalle del mensaje recien borrado!
 			intentNewActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			this.startActivity(intentNewActivity);
 
