@@ -49,7 +49,7 @@ public class EnviarMensajeWebActivity extends Activity {
 		/*
 		 * Listeners
 		 */
-		getButton(R.id.enviar_mensaje_web_button).setOnClickListener(
+		getEnviarMensajeWebButton().setOnClickListener(
 				new EnviarMensajeWebOnClickListener());
 
 		if (!UtilesNetwork.isConnected(this.getApplicationContext())) {
@@ -169,7 +169,7 @@ public class EnviarMensajeWebActivity extends Activity {
 	/*
 	 * Utiles
 	 */
-	public Button getButton(int id) {
+	protected Button getEnviarMensajeWebButton() {
 		return (Button) this.findViewById(R.id.enviar_mensaje_web_button);
 	}
 
