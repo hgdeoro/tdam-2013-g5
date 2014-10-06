@@ -52,8 +52,9 @@ public class AccionesSobreContactoActivity extends ListActivity {
 		}
 
 		for (String valor : UtilesContactos.getEmails(
-				this.getApplicationContext(), contactId))
+				this.getApplicationContext(), contactId)) {
 			infoList.add(new Info(EMAIL, valor));
+		}
 
 		// FIXME: esta OK usar el contact id? Sino, usar el nombre del contacto
 		infoList.add(new Info(MSGWEB, displayName));

@@ -17,25 +17,25 @@ public class UtilesContactos {
 	 */
 	public static class TelefonoDto {
 
-		public TelefonoDto(String telefono, String type, String label) {
+		public TelefonoDto(String telefono, String type, String label,
+				String labelAsString) {
 			this.telefono = telefono;
 			this.type = type;
 			this.label = label;
+			this.labelAsString = labelAsString;
 		}
 
-		private String telefono;
+		private final String telefono;
 
-		private String type;
+		private final String type;
 
-		private String label;
+		private final String label;
 
-		public String getLabelAsString() {
-			return "" + this.type + "/" + this.label;
-		}
+		private final String labelAsString;
 
 		public String toString() {
 			return "" + this.telefono + "(" + this.type + "/" + this.label
-					+ ")";
+					+ "/" + labelAsString + ")";
 		}
 
 		// -----
@@ -44,24 +44,16 @@ public class UtilesContactos {
 			return telefono;
 		}
 
-		public void setTelefono(String telefono) {
-			this.telefono = telefono;
-		}
-
 		public String getType() {
 			return type;
-		}
-
-		public void setType(String type) {
-			this.type = type;
 		}
 
 		public String getLabel() {
 			return label;
 		}
 
-		public void setLabel(String label) {
-			this.label = label;
+		public String getLabelAsString() {
+			return labelAsString;
 		}
 
 	}
@@ -104,8 +96,14 @@ public class UtilesContactos {
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LABEL));
 				Log.i("getTelefonos()", "contactLabel: " + contactLabel);
 
+				int contactTypeInt = Integer.parseInt(contactType);
+
+				String resolvedLabel = ContactsContract.CommonDataKinds.Phone
+						.getTypeLabel(ctx.getResources(), contactTypeInt,
+								contactLabel).toString();
+
 				telefonos.add(new TelefonoDto(telefono, contactType,
-						contactLabel));
+						contactLabel, resolvedLabel));
 			}
 
 		} finally {
