@@ -36,12 +36,16 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	public static final int DIALOG_EMPTY_MESSAGE = 1;
 
+	public static final int DIALOG_ENTER_CONTACTS_USERNAME = 2;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.enviar_mensaje_web_activity);
+
+		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
 
 		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
 				.setText(this.getIntent().getExtras().getString(MSG_TO));
@@ -83,6 +87,26 @@ public class EnviarMensajeWebActivity extends Activity {
 					.setTitle(R.string.dialog_message_empty_title)
 					.setMessage(R.string.dialog_message_empty_message).create();
 			return dialog;
+
+		} else if (id == DIALOG_ENTER_CONTACTS_USERNAME) {
+			// CAMBIAR -> dialog_message_empty_title
+			// CAMBIAR -> dialog_message_empty_message
+
+			Dialog dialog = new AlertDialog.Builder(this)
+					.setView(new EditText(this))
+					.setTitle(R.string.dialog_enter_contact_username_title)
+					.setMessage(R.string.dialog_enter_contact_username_message)
+					.setPositiveButton(
+							R.string.dialog_enter_contact_username_ok,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+
+								}
+							}).create();
+
+			return dialog;
+
 		} else {
 			return super.onCreateDialog(id);
 		}
