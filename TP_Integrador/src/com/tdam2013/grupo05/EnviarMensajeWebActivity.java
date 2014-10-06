@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
@@ -46,6 +47,9 @@ public class EnviarMensajeWebActivity extends Activity {
 		setContentView(R.layout.enviar_mensaje_web_activity);
 
 		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
+
+		this.startActivity(UtilesIntents
+				.getIngresarUsuarioDeContactoActivity(this));
 
 		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
 				.setText(this.getIntent().getExtras().getString(MSG_TO));

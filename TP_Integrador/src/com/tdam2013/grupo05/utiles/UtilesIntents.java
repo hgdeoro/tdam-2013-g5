@@ -8,6 +8,7 @@ import android.net.Uri;
 import com.tdam2013.grupo05.AccionesSobreContactoActivity;
 import com.tdam2013.grupo05.EnviarMensajeWebActivity;
 import com.tdam2013.grupo05.HistorialActivity;
+import com.tdam2013.grupo05.IngresarUsuarioDeContactoActivity;
 import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
 import com.tdam2013.grupo05.RegistrarUsuarioActivity;
 import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
@@ -88,6 +89,13 @@ public class UtilesIntents {
 				messageId);
 		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_NAME,
 				contactName);
+		return intent;
+	}
+
+	public static Intent getIngresarUsuarioDeContactoActivity(Context ctx) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx,
+				IngresarUsuarioDeContactoActivity.class.getCanonicalName()));
 		return intent;
 	}
 

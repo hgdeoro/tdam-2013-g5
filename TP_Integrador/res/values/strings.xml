@@ -9,6 +9,7 @@
     <string name="title_activity_historial">Historial</string>
     <string name="title_activity_enviar_mensaje_web">Enviar Mensaje Web</string>
     <string name="title_activity_registrar_usuario">Registrar Usuario</string>
+    <string name="title_activity_ingresar_nombre_usuario_contacto">Ingresar Usuario de Contacto</string>
 
     <!-- Dialog: sin conectividad -->
     <string name="dialog_no_connectivity_title">Sin conectividad</string>
