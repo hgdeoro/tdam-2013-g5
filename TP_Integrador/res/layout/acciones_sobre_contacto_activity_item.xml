@@ -19,10 +19,21 @@
         android:id="@+id/acciones_sobre_contacto_item_valor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:text="011-5555-5555"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/acciones_sobre_contacto_item_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="10dp"
-        android:text="011-5555-5555"
+        android:text="Casa"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>

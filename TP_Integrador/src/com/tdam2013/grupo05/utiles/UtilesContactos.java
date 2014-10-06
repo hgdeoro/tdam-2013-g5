@@ -6,10 +6,65 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 
 public class UtilesContactos {
+
+	/**
+	 * Encapsula la informacion de un telefono de un contacto
+	 */
+	public static class TelefonoDto {
+
+		public TelefonoDto(String telefono, String type, String label) {
+			this.telefono = telefono;
+			this.type = type;
+			this.label = label;
+		}
+
+		private String telefono;
+
+		private String type;
+
+		private String label;
+
+		public String getLabelAsString() {
+			return "" + this.type + "/" + this.label;
+		}
+
+		public String toString() {
+			return "" + this.telefono + "(" + this.type + "/" + this.label
+					+ ")";
+		}
+
+		// -----
+
+		public String getTelefono() {
+			return telefono;
+		}
+
+		public void setTelefono(String telefono) {
+			this.telefono = telefono;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		public void setLabel(String label) {
+			this.label = label;
+		}
+
+	}
 
 	/**
 	 * Devuelve lista de nros. telefonicos
@@ -17,23 +72,40 @@ public class UtilesContactos {
 	 * @param contactId
 	 * @return
 	 */
-	public static List<String> getTelefonos(Context ctx, Long contactId) {
+	public static List<TelefonoDto> getTelefonos(Context ctx, Long contactId) {
 
-		List<String> telefonos = new ArrayList<String>();
+		List<TelefonoDto> telefonos = new ArrayList<TelefonoDto>();
 		Cursor cursor = null;
 
 		try {
-			cursor = ctx.getContentResolver().query(
-					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-					ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-					new String[] { contactId.toString() }, null);
+			Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+			String[] projection = new String[] {};
+			String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+					+ " = ?";
+			String[] selectionArgs = new String[] { contactId.toString() };
+			String sortOrder = null;
+
+			cursor = ctx.getContentResolver().query(uri, projection, selection,
+					selectionArgs, sortOrder);
 			while (cursor.moveToNext()) {
+
 				String telefono = cursor
 						.getString(cursor
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 				Log.i("getTelefonos()", "Telefono: " + telefono);
 
-				telefonos.add(telefono);
+				String contactType = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+				Log.i("getTelefonos()", "contactType: " + contactType);
+
+				String contactLabel = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LABEL));
+				Log.i("getTelefonos()", "contactLabel: " + contactLabel);
+
+				telefonos.add(new TelefonoDto(telefono, contactType,
+						contactLabel));
 			}
 
 		} finally {

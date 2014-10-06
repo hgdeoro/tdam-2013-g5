@@ -42,10 +42,13 @@ public class AccionesSobreContactoActivity extends ListActivity {
 
 		Log.i("AccionesSobreContactoActivity", "contactId: " + contactId);
 
-		for (String valor : UtilesContactos.getTelefonos(
-				this.getApplicationContext(), contactId)) {
-			infoList.add(new Info(LLAMAR, valor));
-			infoList.add(new Info(SMS, valor));
+		for (UtilesContactos.TelefonoDto telefono : UtilesContactos
+				.getTelefonos(this.getApplicationContext(), contactId)) {
+
+			infoList.add(new Info(LLAMAR, telefono.getTelefono(), telefono
+					.getLabelAsString()));
+			infoList.add(new Info(SMS, telefono.getTelefono(), telefono
+					.getLabelAsString()));
 		}
 
 		for (String valor : UtilesContactos.getEmails(
@@ -97,15 +100,40 @@ public class AccionesSobreContactoActivity extends ListActivity {
 
 		/** Valor a usar para la accion: telefono, email, etc. */
 		TextView valor;
+
+		/**
+		 * Tipo de contacto, solo para nros telefonicos. Ej: casa, trabajo, etc.
+		 */
+		TextView contactType;
+
 	}
 
+	/**
+	 * Encapsula datos a mostrar en un item de la lista
+	 */
 	class Info {
-		String accion;
-		String valor;
+
+		/** Accion a realiar (llamar, enviar sms, etc.) */
+		final String accion;
+
+		/** Numero telefonico o email */
+		final String valor;
+
+		/**
+		 * Tipo de contacto, solo para nros telefonicos. Ej: casa, trabajo, etc.
+		 */
+		final String contactType;
 
 		public Info(String accion, String valor) {
 			this.accion = accion;
 			this.valor = valor;
+			this.contactType = null;
+		}
+
+		public Info(String accion, String valor, String contactType) {
+			this.accion = accion;
+			this.valor = valor;
+			this.contactType = contactType;
 		}
 	}
 
@@ -143,6 +171,8 @@ public class AccionesSobreContactoActivity extends ListActivity {
 						.findViewById(R.id.acciones_sobre_contacto_item_accion);
 				holder.valor = (TextView) convertView
 						.findViewById(R.id.acciones_sobre_contacto_item_valor);
+				holder.contactType = (TextView) convertView
+						.findViewById(R.id.acciones_sobre_contacto_item_label);
 				convertView.setTag(holder);
 			} else {
 				holder = (Holder) convertView.getTag();
@@ -151,6 +181,18 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			Info info = (Info) getItem(position);
 			holder.accion.setText(info.accion);
 			holder.valor.setText(info.valor);
+
+			if (info.contactType == null) {
+				convertView.findViewById(
+						R.id.acciones_sobre_contacto_item_label).setVisibility(
+						View.INVISIBLE);
+				holder.contactType.setText("(null)");
+			} else {
+				convertView.findViewById(
+						R.id.acciones_sobre_contacto_item_label).setVisibility(
+						View.VISIBLE);
+				holder.contactType.setText(info.contactType);
+			}
 
 			return convertView;
 		}
