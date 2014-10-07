@@ -2,8 +2,6 @@ package com.tdam2013.grupo05.utiles;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
@@ -132,7 +130,7 @@ public class UtilesNotifications {
 			// This ensures that navigating backward from the Activity leads out
 			// of your application to the Home screen.
 
-			TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+			// TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
 
 			// Adds the back stack for the Intent (but not the Intent itself)
 			// stackBuilder.addParentStack(ResultActivity.class);
@@ -140,9 +138,11 @@ public class UtilesNotifications {
 			// Adds the Intent that starts the Activity to the top of the stack
 			// stackBuilder.addNextIntent(resultIntent);
 
-			PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
-					0, PendingIntent.FLAG_UPDATE_CURRENT);
-			mBuilder.setContentIntent(resultPendingIntent);
+			// PendingIntent resultPendingIntent =
+			// stackBuilder.getPendingIntent(
+			// 0, PendingIntent.FLAG_UPDATE_CURRENT);
+			// mBuilder.setContentIntent(resultPendingIntent);
+
 			NotificationManager mNotificationManager = (NotificationManager) ctx
 					.getSystemService(Context.NOTIFICATION_SERVICE);
 
