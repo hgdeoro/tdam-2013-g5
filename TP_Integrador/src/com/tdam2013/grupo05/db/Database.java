@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,7 +18,7 @@ import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class Database extends SQLiteOpenHelper {
 
-	public static int DB_VERSION = 2;
+	public static int DB_VERSION = 4;
 
 	public static final String DB_NAME = "database.db";
 
@@ -49,6 +48,22 @@ public class Database extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+		if (newVersion == 4)
+			upgradeToVersion4(db);
+
+	}
+
+	private void upgradeToVersion4(SQLiteDatabase db) {
+		db.execSQL("DROP TABLE " + TABLE_CONTACT_USERNAME.T_NAME);
+
+		db.execSQL(String.format("CREATE TABLE %s (   " /* T_NAME */
+				+ "%s INTEGER PRIMARY KEY,            " /* F_ID */
+				+ "%s LONG NOT NULL UNIQUE,           " /* F_CONTACT_ID */
+				+ "%s TEXT NOT NULL                   " /* F_USERNAME */
+				+ ")", TABLE_CONTACT_USERNAME.T_NAME,
+				TABLE_CONTACT_USERNAME.F_ID,
+				TABLE_CONTACT_USERNAME.F_CONTACT_ID,
+				TABLE_CONTACT_USERNAME.F_USERNAME));
 	}
 
 	public void insertSentMessage(String toUser, String text) {
@@ -219,33 +234,56 @@ public class Database extends SQLiteOpenHelper {
 		}
 	}
 
-	/*
-	 * Este es un HACK TEMPORAL, para permitir chequear el workflow de
-	 * activities, etc. Es obvio que los datos no estan siendo persistidos, pero
-	 * con esto puedo probar el resto del sistema hasta implemetnar estos dos
-	 * metodos
-	 */
-	private static Map<Long, String> contactIdToUsernameMapHACK = new HashMap<Long, String>();
-
 	/**
 	 * Devuelve username de contacto. Devuelve null si no lo tenemos registrado
 	 * al username para dicho contacto
 	 */
 	public String getUsernameDeContacto(Long contactId) {
-		// FIXME: IMPLEMENTAR!
 
-		return contactIdToUsernameMapHACK.get(contactId);
+		SQLiteDatabase db = null;
+		Cursor cursor = null;
+
+		try {
+			db = this.getReadableDatabase();
+
+			String[] columns = new String[] { TABLE_CONTACT_USERNAME.F_USERNAME };
+
+			String selection = TABLE_CONTACT_USERNAME.F_CONTACT_ID + " == ?";
+
+			String[] selectionArgs = new String[] { "" + contactId };
+
+			cursor = db.query(TABLE_CONTACT_USERNAME.T_NAME, columns,
+					selection, selectionArgs, null, null, null);
+
+			if (cursor.moveToNext()) {
+				return cursor.getString(cursor
+						.getColumnIndex(TABLE_CONTACT_USERNAME.F_USERNAME));
+			} else {
+				return null;
+			}
+
+		} finally {
+			if (cursor != null)
+				cursor.close();
+			if (db != null)
+				db.close();
+		}
+
 	}
 
-	public void updateInsertUsernameDeContacto(Long contactId, String username) {
+	public void insertUsernameDeContacto(Long contactId, String username) {
 
 		if (!UtilesMensajesWeb.usernameIsValid(username))
 			throw (new RuntimeException("Nombre de usuario no valido: "
 					+ username));
 
-		// FIXME: implementar update/insert
+		ContentValues cv = new ContentValues();
+		cv.put(TABLE_CONTACT_USERNAME.F_CONTACT_ID, contactId);
+		cv.put(TABLE_CONTACT_USERNAME.F_USERNAME, username);
 
-		contactIdToUsernameMapHACK.put(contactId, username);
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.insert(TABLE_CONTACT_USERNAME.T_NAME, null, cv);
+		db.close();
 	}
 
 	/**
@@ -288,5 +326,20 @@ public class Database extends SQLiteOpenHelper {
 			ALL, DAY, WEEK
 		};
 	};
+
+	public static final class TABLE_CONTACT_USERNAME {
+		/*
+		 * Table
+		 */
+		public static final String T_NAME = "web_messages";
+
+		/*
+		 * Fields
+		 */
+		public static final String F_ID = "_id";
+
+		public static final String F_CONTACT_ID = "contact_id";
+		public static final String F_USERNAME = "username";
+	}
 
 }
