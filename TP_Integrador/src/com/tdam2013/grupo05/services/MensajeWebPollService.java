@@ -62,6 +62,12 @@ public class MensajeWebPollService extends Service {
 			MensajeWebPollService.this.info("pollWebService(): buscando "
 					+ "mensajes para usuario '" + username + "'");
 
+			if (username == null) {
+				MensajeWebPollService.this
+						.info("No se buscaran mensajes. Usuario es null.");
+				return;
+			}
+
 			try {
 				List<MensajeWeb> mensajes = utilesHttp.getAllMessages(username,
 						obtenerUltimoTimestamp());
