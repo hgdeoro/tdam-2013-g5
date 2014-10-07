@@ -68,7 +68,6 @@ public class EnviarMensajeWebActivity extends Activity {
 					.getIngresarUsuarioDeContactoActivity(this, contactId,
 							displayName));
 
-			// FIXME: esta bien hacer el return aca?
 			return;
 
 		}
@@ -76,7 +75,7 @@ public class EnviarMensajeWebActivity extends Activity {
 		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
 
 		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
-				.setText(this.getIntent().getExtras().getString(MSG_TO));
+				.setText(displayName);
 
 		/*
 		 * Listeners
