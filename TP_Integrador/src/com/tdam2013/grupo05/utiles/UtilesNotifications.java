@@ -65,91 +65,37 @@ public class UtilesNotifications {
 		// ----------
 		//
 
-		if (false) {
+		/*
+		 * PRIMERA IMPLEMENTACION. La barra se bloquea
+		 */
 
-			/*
-			 * PRIMERA IMPLEMENTACION. La barra se bloquea
-			 */
+		// Notification notification = new Notification(
+		// R.drawable.ic_launcher, tickerText,
+		// System.currentTimeMillis());
+		//
+		// notification.setLatestEventInfo(ctx, contentTitle, contentText,
+		// null);
+		// notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		//
+		// getManager(ctx).notify(notificationId, notification);
 
-			Notification notification = new Notification(
-					R.drawable.ic_launcher, tickerText,
-					System.currentTimeMillis());
+		/*
+		 * SEGUNDA IMPLEMENTACION. La barra se bloquea
+		 */
 
-			notification.setLatestEventInfo(ctx, contentTitle, contentText,
-					null);
-			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setTicker(tickerText);
+		builder.setContentTitle(contentTitle);
+		builder.setContentText(contentText);
+		builder.setAutoCancel(true);
 
-			getManager(ctx).notify(notificationId, notification);
+		builder.setProgress(progressMax, progressCurrent, progressIndeterminate);
 
-		}
+		Notification notification = builder.build();
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-		if (false) {
-
-			/*
-			 * SEGUNDA IMPLEMENTACION. La barra se bloquea
-			 */
-
-			NotificationCompat.Builder builder = new NotificationCompat.Builder(
-					ctx);
-			builder.setSmallIcon(R.drawable.ic_launcher);
-			builder.setTicker(tickerText);
-			builder.setContentTitle(contentTitle);
-			builder.setContentText(contentText);
-			builder.setAutoCancel(true);
-
-			builder.setProgress(progressMax, progressCurrent,
-					progressIndeterminate);
-
-			Notification notification = builder.build();
-			notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-			getManager(ctx).notify(notificationId, notification);
-		}
-
-		if (true) {
-
-			/*
-			 * TERCERA IMPLEMENTACION. La barra se bloquea.
-			 */
-
-			// NotificationCompat.Builder mBuilder = new
-			// NotificationCompat.Builder(
-			// ctx).setSmallIcon(R.drawable.notification_icon)
-			// .setContentTitle("My notification")
-			// .setContentText("Hello World!");
-
-			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-					ctx).setContentTitle(contentTitle).setContentText(
-					contentText);
-
-			// Creates an explicit intent for an Activity in your app
-			// Intent resultIntent = new Intent(ctx, ResultActivity.class);
-
-			// The stack builder object will contain an artificial back stack
-			// for the started Activity.
-			// This ensures that navigating backward from the Activity leads out
-			// of your application to the Home screen.
-
-			// TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
-
-			// Adds the back stack for the Intent (but not the Intent itself)
-			// stackBuilder.addParentStack(ResultActivity.class);
-
-			// Adds the Intent that starts the Activity to the top of the stack
-			// stackBuilder.addNextIntent(resultIntent);
-
-			// PendingIntent resultPendingIntent =
-			// stackBuilder.getPendingIntent(
-			// 0, PendingIntent.FLAG_UPDATE_CURRENT);
-			// mBuilder.setContentIntent(resultPendingIntent);
-
-			NotificationManager mNotificationManager = (NotificationManager) ctx
-					.getSystemService(Context.NOTIFICATION_SERVICE);
-
-			// mId allows you to update the notification later on.
-			mNotificationManager.notify(notificationId, mBuilder.build());
-
-		}
+		getManager(ctx).notify(notificationId, notification);
 
 	}
 
