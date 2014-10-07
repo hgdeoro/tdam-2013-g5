@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -188,9 +189,17 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 
 			if (ok) {
-				Database.getDatabase(
-						EnviarMensajeWebActivity.this.getApplicationContext())
-						.insertSentMessage(destinatario, mensaje);
+
+				try {
+					Database.getDatabase(
+							EnviarMensajeWebActivity.this
+									.getApplicationContext())
+							.insertSentMessage(destinatario, mensaje);
+
+				} catch (SQLiteException sqle) {
+
+					sqle.printStackTrace();
+				}
 
 				runOnUiThread(new Runnable() {
 

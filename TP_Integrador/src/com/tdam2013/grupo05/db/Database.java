@@ -49,15 +49,20 @@ public class Database extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		db.execSQL(String.format("CREATE TABLE %s (   " /* T_NAME */
-				+ "%s INTEGER PRIMARY KEY,            " /* F_ID */
-				+ "%s TEXT NOT NULL,                  " /* F_USERNAME */
-				+ "%s INTEGER NOT NULL,               " /* F_DIRECTION */
-				+ "%s TIMESTAMP NOT NULL DEFAULT current_timestamp, " /* F_TIME */
-				+ "%s TEXT NOT NULL                   " /* F_TEXT */
-				+ ")", TABLE_WEB_MESSAGES.T_NAME, TABLE_WEB_MESSAGES.F_ID,
-				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_DIRECTION,
-				TABLE_WEB_MESSAGES.F_TIME, TABLE_WEB_MESSAGES.F_TEXT));
+		db.execSQL(String.format("CREATE TABLE %s ( " /* T_NAME */
+				+ " %s INTEGER PRIMARY KEY,         " /* F_ID */
+				+ " %s TEXT NOT NULL,               " /* F_USERNAME */
+				+ " %s INTEGER NOT NULL,            " /* F_DIRECTION */
+				+ " %s TIMESTAMP NOT NULL DEFAULT current_timestamp, " /* F_TIME */
+				+ " %s TEXT NOT NULL                " /* F_TEXT */
+				+ ")", /* fin de sql, siguen parametros de format() */
+				TABLE_WEB_MESSAGES.T_NAME, /* T_NAME */
+				TABLE_WEB_MESSAGES.F_ID, /* F_ID */
+				TABLE_WEB_MESSAGES.F_USERNAME, /* F_USERNAME */
+				TABLE_WEB_MESSAGES.F_DIRECTION, /* F_DIRECTION */
+				TABLE_WEB_MESSAGES.F_TIME, /* F_TIME */
+				TABLE_WEB_MESSAGES.F_TEXT /* F_TEXT */
+		));
 
 		upgradeToVersion4(db);
 
@@ -65,23 +70,21 @@ public class Database extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
 		if (newVersion == 4)
 			upgradeToVersion4(db);
-
 	}
 
 	private void upgradeToVersion4(SQLiteDatabase db) {
-		db.execSQL("DROP TABLE " + TABLE_CONTACT_USERNAME.T_NAME);
-
-		db.execSQL(String.format("CREATE TABLE %s (   " /* T_NAME */
-				+ "%s INTEGER PRIMARY KEY,            " /* F_ID */
-				+ "%s LONG NOT NULL UNIQUE,           " /* F_CONTACT_ID */
-				+ "%s TEXT NOT NULL                   " /* F_USERNAME */
-				+ ")", TABLE_CONTACT_USERNAME.T_NAME,
-				TABLE_CONTACT_USERNAME.F_ID,
-				TABLE_CONTACT_USERNAME.F_CONTACT_ID,
-				TABLE_CONTACT_USERNAME.F_USERNAME));
+		db.execSQL(String.format("CREATE TABLE %s (" /* T_NAME */
+				+ " %s INTEGER PRIMARY KEY,        " /* F_ID */
+				+ " %s LONG NOT NULL UNIQUE,       " /* F_CONTACT_ID */
+				+ " %s TEXT NOT NULL               " /* F_USERNAME */
+				+ ")", /* fin de sql, siguen parametros de format() */
+				TABLE_CONTACT_USERNAME.T_NAME, /* T_NAME */
+				TABLE_CONTACT_USERNAME.F_ID, /* F_ID */
+				TABLE_CONTACT_USERNAME.F_CONTACT_ID,/* F_CONTACT_ID */
+				TABLE_CONTACT_USERNAME.F_USERNAME/* F_USERNAME */
+		));
 	}
 
 	public void insertSentMessage(String toUser, String text) {
