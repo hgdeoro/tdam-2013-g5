@@ -4,11 +4,13 @@
     <item
         android:id="@+id/action_ldcc_ver_historial"
         android:icon="@android:drawable/ic_menu_recent_history"
+        android:showAsAction="ifRoom"
         android:title="@string/ver_historial">
     </item>
     <item
         android:id="@+id/action_ldcc_editar_contacto"
         android:icon="@android:drawable/ic_menu_edit"
+        android:showAsAction="ifRoom"
         android:title="@string/editar_contacto">
     </item>
 

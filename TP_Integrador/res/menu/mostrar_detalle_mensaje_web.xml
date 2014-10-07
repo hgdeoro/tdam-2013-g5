@@ -3,6 +3,7 @@
     <item
         android:id="@+id/action_borrar_item_historial"
         android:icon="@android:drawable/ic_menu_recent_history"
+        android:showAsAction="ifRoom"
         android:title="@string/borrar_item_historial">
     </item>
 
