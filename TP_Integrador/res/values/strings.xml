@@ -23,12 +23,6 @@
     <string name="dialog_message_empty_message">Ud. no ha especificado
         ningún mensaje.</string>
 
-    <!-- Dialog: ingrese nombre de usuario -->
-    <string name="dialog_enter_contact_username_title">Mensaje vacío</string>
-    <string name="dialog_enter_contact_username_message">Ud. no ha especificado
-        ningún mensaje.</string>
-    <string name="dialog_enter_contact_username_ok">ok</string>
-
     <!-- Otros strings -->
     <string name="enviar_mensaje_web_a">A:</string>
     <string name="enviar_mensaje_web_button_enviar">Enviar</string>

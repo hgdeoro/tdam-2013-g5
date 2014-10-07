@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
@@ -38,8 +36,6 @@ public class EnviarMensajeWebActivity extends Activity {
 	public static final int DIALOG_NO_CONNECTIVITY = 0;
 
 	public static final int DIALOG_EMPTY_MESSAGE = 1;
-
-	public static final int DIALOG_ENTER_CONTACTS_USERNAME = 2;
 
 	// Datos para poder volver a AccionesSobreContactoActivity
 	private Long contactId = null;
@@ -74,10 +70,7 @@ public class EnviarMensajeWebActivity extends Activity {
 
 		}
 
-		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
-
-		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
-				.setText(displayName);
+		getTextViewDestinatario().setText(displayName);
 
 		/*
 		 * Listeners
@@ -89,6 +82,10 @@ public class EnviarMensajeWebActivity extends Activity {
 			this.showDialog(DIALOG_NO_CONNECTIVITY);
 		}
 
+	}
+
+	private TextView getTextViewDestinatario() {
+		return ((TextView) findViewById(R.id.enviar_mensaje_web_destinatario));
 	}
 
 	@Override
@@ -115,25 +112,6 @@ public class EnviarMensajeWebActivity extends Activity {
 			Dialog dialog = new AlertDialog.Builder(this)
 					.setTitle(R.string.dialog_message_empty_title)
 					.setMessage(R.string.dialog_message_empty_message).create();
-			return dialog;
-
-		} else if (id == DIALOG_ENTER_CONTACTS_USERNAME) {
-			// CAMBIAR -> dialog_message_empty_title
-			// CAMBIAR -> dialog_message_empty_message
-
-			Dialog dialog = new AlertDialog.Builder(this)
-					.setView(new EditText(this))
-					.setTitle(R.string.dialog_enter_contact_username_title)
-					.setMessage(R.string.dialog_enter_contact_username_message)
-					.setPositiveButton(
-							R.string.dialog_enter_contact_username_ok,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-
-								}
-							}).create();
-
 			return dialog;
 
 		} else {
@@ -185,23 +163,21 @@ public class EnviarMensajeWebActivity extends Activity {
 			final String destinatario = (String) params[2];
 			final String mensaje = (String) params[3];
 
-			{
-				// TODO: use better texts
-				final String msg = getString(R.string.enviando_mensaje_web);
-				runOnUiThread(new Runnable() {
+			runOnUiThread(new Runnable() {
 
-					@Override
-					public void run() {
+				@Override
+				public void run() {
 
-						UtilesNotifications.notifyWithIndeterminateProgress(
-								ctx, msg, msg, msg,
-								UtilesNotifications.SEND_MESSAGE);
+					// TODO: use better texts
+					UtilesNotifications.notifyWithIndeterminateProgress(ctx,
+							getString(R.string.enviando_mensaje_web),
+							getString(R.string.enviando_mensaje_web),
+							getString(R.string.enviando_mensaje_web),
+							UtilesNotifications.SEND_MESSAGE);
 
-					}
+				}
 
-				});
-
-			}
+			});
 
 			boolean ok;
 			try {
@@ -216,14 +192,16 @@ public class EnviarMensajeWebActivity extends Activity {
 						EnviarMensajeWebActivity.this.getApplicationContext())
 						.insertSentMessage(destinatario, mensaje);
 
-				// TODO: use better texts
-				final String msg = getString(R.string.mensaje_web_enviado_ok);
 				runOnUiThread(new Runnable() {
 
 					@Override
 					public void run() {
 
-						UtilesNotifications.notify(ctx, msg, msg, msg,
+						// TODO: use better texts
+						UtilesNotifications.notify(ctx,
+								getString(R.string.mensaje_web_enviado_ok),
+								getString(R.string.mensaje_web_enviado_ok),
+								getString(R.string.mensaje_web_enviado_ok),
 								UtilesNotifications.SEND_MESSAGE);
 
 					}
@@ -231,15 +209,17 @@ public class EnviarMensajeWebActivity extends Activity {
 				});
 
 			} else {
-				// TODO: use better texts
-				final String msg = getString(R.string.mensaje_web_enviado_error);
 
 				runOnUiThread(new Runnable() {
 
 					@Override
 					public void run() {
 
-						UtilesNotifications.notify(ctx, msg, msg, msg,
+						// TODO: use better texts
+						UtilesNotifications.notify(ctx,
+								getString(R.string.mensaje_web_enviado_error),
+								getString(R.string.mensaje_web_enviado_error),
+								getString(R.string.mensaje_web_enviado_error),
 								UtilesNotifications.SEND_MESSAGE);
 
 					}
@@ -249,7 +229,6 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 			return null;
 		}
-
 	}
 
 	/*
