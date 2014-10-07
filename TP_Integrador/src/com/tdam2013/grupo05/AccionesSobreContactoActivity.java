@@ -95,7 +95,7 @@ public class AccionesSobreContactoActivity extends ListActivity {
 
 		} else {
 
-			Toast.makeText(getBaseContext(), "Accion desconocida",
+			Toast.makeText(getApplicationContext(), "Accion desconocida",
 					Toast.LENGTH_SHORT).show();
 		}
 	}

@@ -190,7 +190,7 @@ public class MensajeWebPollService extends Service {
 		pollThread = new Thread(pollRunnable);
 		pollThread.start();
 
-		Toast.makeText(getBaseContext(),
+		Toast.makeText(getApplicationContext(),
 				"MensajeWebPollService.onStartCommand()", Toast.LENGTH_SHORT)
 				.show();
 

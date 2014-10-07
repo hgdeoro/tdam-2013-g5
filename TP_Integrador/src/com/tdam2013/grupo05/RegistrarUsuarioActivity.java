@@ -30,8 +30,8 @@ public class RegistrarUsuarioActivity extends Activity {
 		if (UtilesMensajesWeb.getUsername(this) != null)
 			editText.setText(UtilesMensajesWeb.getUsername(this));
 
-		((Button) findViewById(R.id.registrar_usuario_button))
-				.setOnClickListener(new View.OnClickListener() {
+		getRegistrarUsuarioButton().setOnClickListener(
+				new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -52,6 +52,10 @@ public class RegistrarUsuarioActivity extends Activity {
 
 					}
 				});
+	}
+
+	protected Button getRegistrarUsuarioButton() {
+		return ((Button) findViewById(R.id.registrar_usuario_button));
 	}
 
 	protected class RegisterUserTask extends AsyncTask<Object, Void, Void> {
