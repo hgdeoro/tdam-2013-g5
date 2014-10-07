@@ -36,7 +36,6 @@ public class UtilesNotifications {
 
 	}
 
-	@SuppressWarnings({ "deprecation", "unused" })
 	public static void notify(Context ctx, String tickerText,
 			String contentTitle, String contentText, int notificationId,
 			int progressMax, int progressCurrent, boolean progressIndeterminate) {
