@@ -10,10 +10,23 @@ public class UtilesMensajesWeb {
 	public static final String PREF_USERNAME = "pref_ldc_nombre_usuario_web";
 
 	public static boolean usernameIsValid(String username) {
-		// FIXME: mejorare esta logica
-		if (username != null && username.trim().length() > 0)
-			return true;
-		return false;
+
+		if (username == null) {
+			new NullPointerException("username es null").printStackTrace();
+			return false;
+		}
+
+		username = username.trim();
+
+		// TODO: se hizo "ingenieria reversa", y se encontro que lo unico que se
+		// controla es el largo del username. Aceptó:
+		//
+		// '12345'
+		// '123456789012'
+		// 'CON ESPACIO'
+		// 'CON@RROBA'
+		//
+		return username.length() >= 5 && username.length() <= 12;
 	}
 
 	/**
