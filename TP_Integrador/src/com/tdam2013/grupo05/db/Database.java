@@ -59,6 +59,8 @@ public class Database extends SQLiteOpenHelper {
 				TABLE_WEB_MESSAGES.F_USERNAME, TABLE_WEB_MESSAGES.F_DIRECTION,
 				TABLE_WEB_MESSAGES.F_TIME, TABLE_WEB_MESSAGES.F_TEXT));
 
+		upgradeToVersion4(db);
+
 	}
 
 	@Override
