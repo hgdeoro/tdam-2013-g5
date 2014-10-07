@@ -126,7 +126,7 @@ public class MensajeWebPollService extends Service {
 			// FIXME: enviar notificacion de mensaje recibido
 			MensajeWebPollService.this.info("Mensaje: " + mensaje.getMensaje());
 
-			Database db = new Database(MensajeWebPollService.this);
+			Database db = Database.getDatabase(MensajeWebPollService.this);
 			Date timestamp;
 			try {
 				timestamp = mensaje.getTimestampAsDate();

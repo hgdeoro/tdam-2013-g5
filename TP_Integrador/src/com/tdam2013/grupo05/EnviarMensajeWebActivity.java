@@ -197,7 +197,7 @@ public class EnviarMensajeWebActivity extends Activity {
 			}
 
 			if (ok) {
-				new Database(
+				Database.getDatabase(
 						EnviarMensajeWebActivity.this.getApplicationContext())
 						.insertSentMessage(destinatario, mensaje);
 

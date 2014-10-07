@@ -44,7 +44,7 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 
 					// FIXME: esto se hace en main-thread. Pero solo un
 					// select + update/insert
-					new Database(IngresarUsuarioDeContactoActivity.this)
+					Database.getDatabase(IngresarUsuarioDeContactoActivity.this)
 							.insertUsernameDeContacto(contactId, username);
 
 					Intent intentNewActivity = UtilesIntents

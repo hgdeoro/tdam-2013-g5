@@ -208,22 +208,17 @@ public class HistorialActivity extends ListActivity implements
 			@Override
 			protected Cursor buildCursor() {
 
+				Database db = Database.getDatabase(HistorialActivity.this);
 				if (contactName != null) {
 
 					// Filtramos x contacto
-					return new Database(
-							HistorialActivity.this.getApplicationContext())
-							.searchSentWebMessages(getPreferenceFiltro(), null,
-									UtilesContactos.formatUsername(contactName));
+					return db.searchSentWebMessages(getPreferenceFiltro(),
+							null, UtilesContactos.formatUsername(contactName));
 
 				} else {
 
-					return new Database(
-							HistorialActivity.this.getApplicationContext())
-							.searchSentWebMessages(
-									getPreferenceFiltro(),
-									HistorialActivity.this.getPreferenceOrden(),
-									null);
+					return db.searchSentWebMessages(getPreferenceFiltro(),
+							HistorialActivity.this.getPreferenceOrden(), null);
 
 				}
 

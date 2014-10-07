@@ -43,7 +43,7 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 
 		Intent intent = getIntent();
 		long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
-		Database db = new Database(this.getApplicationContext());
+		Database db = Database.getDatabase(this.getApplicationContext());
 		MensajeWebDto dto = db.getMensajeById(msgId);
 
 		((TextView) findViewById(R.id.mostrar_detalle_mensaje_web_contacto))
@@ -77,7 +77,7 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 
 			Intent intent = getIntent();
 			long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
-			Database db = new Database(this.getApplicationContext());
+			Database db = Database.getDatabase(this.getApplicationContext());
 			db.deleteSentMessage(msgId);
 
 			String contactName = intent.getExtras().getString(CONTACT_NAME);

@@ -3,9 +3,7 @@ package com.tdam2013.grupo05.db;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,12 +18,30 @@ public class Database extends SQLiteOpenHelper {
 
 	public static int DB_VERSION = 4;
 
+	protected static Database SINGLETON = null;
+
 	public static final String DB_NAME = "database.db";
 
 	@SuppressWarnings("unused")
 	private Context context = null;
 
-	public Database(Context context) {
+	public static Database getDatabase(Context context) {
+		if (SINGLETON == null) {
+			// Usamos 'getApplicationContext()' para evitar leakear contextos de
+			// Activities
+			setupSingleton(context.getApplicationContext());
+		}
+		return SINGLETON;
+	}
+
+	synchronized protected static void setupSingleton(Context context) {
+		// Solo sincronizamos este metodo porque para evitar sincronizar CADA
+		// llamado de getDatabase(). Si por una cuestion de concurrencia, se
+		// crean 2 instancias de SINGLETON, esto no es nada grave
+		SINGLETON = new Database(context);
+	}
+
+	protected Database(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		this.context = context;
 	}

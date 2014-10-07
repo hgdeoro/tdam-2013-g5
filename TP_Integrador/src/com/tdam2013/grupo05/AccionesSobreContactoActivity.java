@@ -86,7 +86,7 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			// FIXME: esta bien que hagamos la busqueda en el main-thread?
 			// Es un simple select...
 
-			String contactUsername = new Database(this)
+			String contactUsername = Database.getDatabase(this)
 					.getUsernameDeContacto(contactId);
 
 			this.startActivity(UtilesIntents.getEnviarMensajeWebActivityIntent(
