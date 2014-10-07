@@ -178,7 +178,20 @@ public class ListaDeContactosActivity extends ListActivity implements
 		if (requestCode == ACTIVITY_REQUEST_CODE__REGISTER_USERNAME) {
 
 			if (resultCode != RESULT_OK) {
-				finish();
+
+				// Return de 'RegistrarUsuarioActivity' fallo. Puede ser:
+				// 1. registracion inicial del usuario (1ra vez q' se ejecuta la
+				// app)
+				// 2. modificacion de usuarios
+
+				if (UtilesMensajesWeb.getUsername(this) == null) {
+					// No esta seteado el nombre de usuario, por lo tanto se
+					// trata de la situacion '1' => SALIMOS
+					finish();
+				}
+				// SI esta seteado el nombre de usuario, por lo tanto se
+				// trata de la situacion '2' => NO SALIMOS
+
 			}
 
 		}
