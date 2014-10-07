@@ -18,7 +18,7 @@ public class UtilesMensajesWeb {
 
 		username = username.trim();
 
-		// TODO: se hizo "ingenieria reversa", y se encontro que lo unico que se
+		// Se hizo "ingenieria reversa", y se encontro que lo unico que se
 		// controla es el largo del username. Aceptó:
 		//
 		// '12345'

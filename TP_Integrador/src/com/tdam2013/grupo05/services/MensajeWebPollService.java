@@ -129,7 +129,7 @@ public class MensajeWebPollService extends Service {
 		}
 
 		private void procesarMensaje(MensajeWeb mensaje) {
-			// FIXME: enviar notificacion de mensaje recibido
+			// TODO: hace falta enviar notificacion de mensaje recibido?
 			MensajeWebPollService.this.info("Mensaje: " + mensaje.getMensaje());
 
 			Database db = Database.getDatabase(MensajeWebPollService.this);
@@ -182,10 +182,6 @@ public class MensajeWebPollService extends Service {
 				pollRunnable = null;
 				pollThread = null;
 			} else {
-				// If we get killed, after returning from here, restart
-				// TODO: esta bien devolver START_STICKY cuando el servicio ya
-				// esta andando? En realidad, en estos casos, simplemente
-				// hay que ignorar la llamada a este metodo
 				return START_STICKY;
 			}
 		}

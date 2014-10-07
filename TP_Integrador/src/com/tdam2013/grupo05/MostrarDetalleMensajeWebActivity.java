@@ -29,13 +29,6 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 	/** "Name", para putExtra() de Intent */
 	public static final String CONTACT_NAME = "CONTACT_NAME";
 
-	// FIXME: esta activity queda en el stack. Luego de borrar el item del
-	// historial, si se hace back, se vuelve a mostrar el mensaje, ya borrado!
-	// ¿Como se saca esto del stack de activities?
-	//
-	// Ver, por ejemplo:
-	// https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_CLEAR_TOP
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,8 +65,6 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		Log.i("onMenuItemSelected()", "item: " + item);
 
 		if (item.getItemId() == R.id.action_borrar_item_historial) {
-
-			// TODO: pedir confirmacion?
 
 			Intent intent = getIntent();
 			long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
