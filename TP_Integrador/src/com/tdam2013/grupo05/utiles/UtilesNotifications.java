@@ -12,7 +12,7 @@ public class UtilesNotifications {
 	public static final int SEND_MESSAGE = 1;
 	public static final int REGISTER_USER = 2;
 	public static final int NETWORK_STATUS_CHANGE = 3;
-	
+
 	public static NotificationManager getManager(Context context) {
 		NotificationManager mNotificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -40,6 +40,19 @@ public class UtilesNotifications {
 	public static void notify(Context ctx, String tickerText,
 			String contentTitle, String contentText, int notificationId,
 			int progressMax, int progressCurrent, boolean progressIndeterminate) {
+
+		ctx = ctx.getApplicationContext();
+
+		//
+		// Hay 2 implementaciones porque con la implementación inicial, luego de
+		// mostrar y ocultar la notification bar un par de veces, esta se
+		// bloquea oculta, y no puede volver a mostrarse.
+		//
+		// Al parecer, es un bug conocido:
+		// - https://code.google.com/p/android/issues/detail?id=57129
+		// -
+		// https://stackoverflow.com/questions/17291699/android-emulator-only-opens-notification-bar-once
+		//
 
 		if (false) {
 
