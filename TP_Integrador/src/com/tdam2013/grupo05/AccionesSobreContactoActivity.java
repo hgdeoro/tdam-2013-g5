@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
@@ -81,8 +82,16 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			this.startActivity(UtilesIntents.getSendEmailIntent(info.valor));
 
 		} else if (MSGWEB.equals(info.accion)) {
+
+			// FIXME: esta bien que hagamos la busqueda en el main-thread?
+			// Es un simple select...
+
+			String contactUsername = new Database(this)
+					.getUsernameDeContacto(contactId);
+
 			this.startActivity(UtilesIntents.getEnviarMensajeWebActivityIntent(
-					getApplicationContext(), displayName));
+					getApplicationContext(), contactUsername, contactId,
+					displayName));
 
 		} else {
 
