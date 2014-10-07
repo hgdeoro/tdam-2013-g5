@@ -39,17 +39,41 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	public static final int DIALOG_ENTER_CONTACTS_USERNAME = 2;
 
+	// Datos para poder volver a AccionesSobreContactoActivity
+	private Long contactId = null;
+	private String displayName = null;
+
+	// Nombre de usuario del destinatario del mensaje
+	private String msgTo = null;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.enviar_mensaje_web_activity);
 
-		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
+		msgTo = this.getIntent().getExtras()
+				.getString(EnviarMensajeWebActivity.MSG_TO);
 
-		this.startActivity(UtilesIntents
-				.getIngresarUsuarioDeContactoActivity(this));
+		// Reusamos constantes de AccionesSobreContactoActivity
+		contactId = this.getIntent().getExtras()
+				.getLong(AccionesSobreContactoActivity.CONTACT_ID);
+		displayName = this.getIntent().getExtras()
+				.getString(AccionesSobreContactoActivity.DISPLAY_NAME);
+
+		if (msgTo == null) {
+			// No conocemos el username del contacto. Lo solicitamos
+
+			this.startActivity(UtilesIntents
+					.getIngresarUsuarioDeContactoActivity(this, contactId,
+							displayName));
+
+			// FIXME: esta bien hacer el return aca?
+			return;
+
+		}
+
+		// this.showDialog(DIALOG_ENTER_CONTACTS_USERNAME);
 
 		((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
 				.setText(this.getIntent().getExtras().getString(MSG_TO));
