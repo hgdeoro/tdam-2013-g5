@@ -58,11 +58,13 @@ public class UtilesIntents {
 	}
 
 	public static Intent getEnviarMensajeWebActivityIntent(Context ctx,
-			String to) {
+			String to, Long contactId, String displayName) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				EnviarMensajeWebActivity.class.getCanonicalName()));
 		intent.putExtra(EnviarMensajeWebActivity.MSG_TO, to);
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
 		return intent;
 	}
 
@@ -92,10 +94,16 @@ public class UtilesIntents {
 		return intent;
 	}
 
-	public static Intent getIngresarUsuarioDeContactoActivity(Context ctx) {
+	public static Intent getIngresarUsuarioDeContactoActivity(Context ctx,
+			long contactId, String displayName) {
 		Intent intent = new Intent();
+
 		intent.setComponent(new ComponentName(ctx,
 				IngresarUsuarioDeContactoActivity.class.getCanonicalName()));
+
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
+
 		return intent;
 	}
 
