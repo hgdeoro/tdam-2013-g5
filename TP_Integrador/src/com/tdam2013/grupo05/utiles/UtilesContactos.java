@@ -147,15 +147,4 @@ public class UtilesContactos {
 		return emails;
 	}
 
-	/**
-	 * Formatea username desde display name. Esto es un workaround temporal.
-	 */
-	public static String formatUsername(String displayName) {
-		String usernameFormatted = displayName.toString().replace(" ", "_")
-				.toUpperCase(Locale.getDefault());
-		if (usernameFormatted.length() > 12)
-			usernameFormatted = usernameFormatted.substring(0, 12);
-		return usernameFormatted;
-	}
-
 }

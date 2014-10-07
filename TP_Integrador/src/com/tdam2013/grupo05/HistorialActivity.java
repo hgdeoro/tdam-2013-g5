@@ -24,6 +24,7 @@ import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesFecha;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 /**
  * Muestra el historial de mensajes web.
@@ -213,7 +214,8 @@ public class HistorialActivity extends ListActivity implements
 
 					// Filtramos x contacto
 					return db.searchSentWebMessages(getPreferenceFiltro(),
-							null, UtilesContactos.formatUsername(contactName));
+							null, UtilesMensajesWeb
+									.getUsername(HistorialActivity.this));
 
 				} else {
 

@@ -130,10 +130,8 @@ public class EnviarMensajeWebActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			// FIXME: on usar el "display name" del usuario!
-			String destinatario = UtilesContactos
-					.formatUsername(((TextView) findViewById(R.id.enviar_mensaje_web_destinatario))
-							.getText().toString());
+			String destinatario = UtilesMensajesWeb
+					.getUsername(EnviarMensajeWebActivity.this);
 
 			final String mensaje = ((EditText) findViewById(R.id.enviar_mensaje_web_text))
 					.getText().toString();
