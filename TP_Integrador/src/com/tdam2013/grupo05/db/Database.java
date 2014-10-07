@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +12,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -212,6 +215,26 @@ public class Database extends SQLiteOpenHelper {
 			if (db != null)
 				db.close();
 		}
+	}
+
+	public String getUsernameDeContacto(Long contactId) {
+
+		// FIXME: implementar!
+
+		if (new Random().nextBoolean())
+			return "USERNAME";
+		else
+			return null;
+	}
+
+	public void updateInsertUsernameDeContacto(Long contactId, String username) {
+
+		if (!UtilesMensajesWeb.usernameIsValid(username))
+			throw (new RuntimeException("Nombre de usuario no valido: "
+					+ username));
+
+		// FIXME: implementar update/insert
+
 	}
 
 	/**
