@@ -38,6 +38,8 @@ public class AccionesSobreContactoActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acciones_sobre_contacto_activity);
 
+		// FIXME: Esto hace 2 busquedas. Hace falta moverlo al background?
+
 		contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
 		displayName = this.getIntent().getExtras().getString(DISPLAY_NAME);
 
@@ -57,7 +59,7 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			infoList.add(new Info(EMAIL, valor));
 		}
 
-		// FIXME: esta OK usar el contact id? Sino, usar el nombre del contacto
+		// TODO: esta OK usar el contact id? Sino, usar el nombre del contacto
 		infoList.add(new Info(MSGWEB, displayName));
 
 		this.setListAdapter(new CustomAdapter());

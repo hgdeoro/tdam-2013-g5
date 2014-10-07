@@ -27,8 +27,9 @@ public class RegistrarUsuarioActivity extends Activity {
 		setContentView(R.layout.registrar_usuario_activity);
 
 		final EditText editText = (EditText) findViewById(R.id.registrar_usuario_text);
-		if (UtilesMensajesWeb.getUsername(this) != null)
-			editText.setText(UtilesMensajesWeb.getUsername(this));
+		final String username = UtilesMensajesWeb.getUsername(this);
+		if (username != null)
+			editText.setText(username);
 
 		getRegistrarUsuarioButton().setOnClickListener(
 				new View.OnClickListener() {

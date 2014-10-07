@@ -2,7 +2,6 @@ package com.tdam2013.grupo05.utiles;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
 import android.database.Cursor;

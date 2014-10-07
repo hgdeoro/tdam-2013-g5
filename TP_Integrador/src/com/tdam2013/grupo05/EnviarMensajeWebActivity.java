@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tdam2013.grupo05.db.Database;
-import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
@@ -85,10 +84,6 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	}
 
-	private TextView getTextViewDestinatario() {
-		return ((TextView) findViewById(R.id.enviar_mensaje_web_destinatario));
-	}
-
 	@Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id) {
@@ -123,36 +118,34 @@ public class EnviarMensajeWebActivity extends Activity {
 	/**
 	 * OnClickListener
 	 */
-	public class EnviarMensajeWebOnClickListener implements
+	private class EnviarMensajeWebOnClickListener implements
 			View.OnClickListener {
 
 		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
 
-			String destinatario = UtilesMensajesWeb
-					.getUsername(EnviarMensajeWebActivity.this);
-
-			final String mensaje = ((EditText) findViewById(R.id.enviar_mensaje_web_text))
-					.getText().toString();
+			final String mensaje = getMensajeWeb();
 
 			if (mensaje.length() == 0) {
 				showDialog(DIALOG_EMPTY_MESSAGE);
 				return;
 			}
 
-			AsyncTask<Object, Void, Void> task = new SendMessageTask();
-			task.execute(EnviarMensajeWebActivity.this.getApplicationContext(),
-					UtilesMensajesWeb
-							.getUsername(EnviarMensajeWebActivity.this),
-					destinatario, mensaje);
+			final AsyncTask<Object, Void, Void> task = new SendMessageTask();
+			final Context ctx = EnviarMensajeWebActivity.this
+					.getApplicationContext();
+			final String from = UtilesMensajesWeb
+					.getUsername(EnviarMensajeWebActivity.this);
+
+			task.execute(ctx, from, msgTo, mensaje);
 
 			finish();
 
 		}
 	}
 
-	protected class SendMessageTask extends AsyncTask<Object, Void, Void> {
+	private class SendMessageTask extends AsyncTask<Object, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Object... params) {
@@ -241,8 +234,18 @@ public class EnviarMensajeWebActivity extends Activity {
 	/*
 	 * Utiles
 	 */
-	protected Button getEnviarMensajeWebButton() {
+	private Button getEnviarMensajeWebButton() {
 		return (Button) this.findViewById(R.id.enviar_mensaje_web_button);
+	}
+
+	/** Devuelve string en EditText, o sea, el texto del mensaje a enviar */
+	private String getMensajeWeb() {
+		return ((EditText) findViewById(R.id.enviar_mensaje_web_text))
+				.getText().toString().trim();
+	}
+
+	private TextView getTextViewDestinatario() {
+		return ((TextView) findViewById(R.id.enviar_mensaje_web_destinatario));
 	}
 
 }

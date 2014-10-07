@@ -150,17 +150,21 @@ public class MensajeWebPollService extends Service {
 			MensajeWebPollService.this.info("PollRunnable.run(): inicianndo");
 			while (running
 					&& UtilesNetwork.isConnected(MensajeWebPollService.this)) {
+
+				MensajeWebPollService.this
+						.info("PollRunnable.run(): Iniciando poll");
+				pollWebService();
+				MensajeWebPollService.this
+						.info("PollRunnable.run(): Poll finalizado");
+
 				try {
-					pollWebService();
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					// FIXME: será lo correcto salir del loop en caso que se
-					// produzca esta excepcion?
+					MensajeWebPollService.this
+							.info("PollRunnable.run(): Poll genero error");
 					e.printStackTrace();
 				}
 			}
-			// Ya que podemos estar saliendo porque no hay conectividad, por las
-			// dudas seteamos running
 			running = false;
 			MensajeWebPollService.this.info("PollRunnable.run(): saliendo");
 		}
@@ -179,7 +183,7 @@ public class MensajeWebPollService extends Service {
 				pollThread = null;
 			} else {
 				// If we get killed, after returning from here, restart
-				// FIXME: esta bien devolver START_STICKY cuando el servicio ya
+				// TODO: esta bien devolver START_STICKY cuando el servicio ya
 				// esta andando? En realidad, en estos casos, simplemente
 				// hay que ignorar la llamada a este metodo
 				return START_STICKY;
@@ -190,6 +194,7 @@ public class MensajeWebPollService extends Service {
 		pollThread = new Thread(pollRunnable);
 		pollThread.start();
 
+		// FIXME: eliminar esto antes de presentacion final
 		Toast.makeText(getApplicationContext(),
 				"MensajeWebPollService.onStartCommand()", Toast.LENGTH_SHORT)
 				.show();
