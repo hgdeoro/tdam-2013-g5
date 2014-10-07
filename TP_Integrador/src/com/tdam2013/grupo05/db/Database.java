@@ -352,7 +352,7 @@ public class Database extends SQLiteOpenHelper {
 		/*
 		 * Table
 		 */
-		public static final String T_NAME = "web_messages";
+		public static final String T_NAME = "contact_username";
 
 		/*
 		 * Fields
