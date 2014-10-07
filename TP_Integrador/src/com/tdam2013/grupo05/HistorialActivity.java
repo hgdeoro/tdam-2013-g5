@@ -1,7 +1,6 @@
 package com.tdam2013.grupo05;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
