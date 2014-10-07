@@ -3,7 +3,9 @@ package com.tdam2013.grupo05.db;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import android.content.ContentValues;
@@ -217,14 +219,22 @@ public class Database extends SQLiteOpenHelper {
 		}
 	}
 
+	/*
+	 * Este es un HACK TEMPORAL, para permitir chequear el workflow de
+	 * activities, etc. Es obvio que los datos no estan siendo persistidos, pero
+	 * con esto puedo probar el resto del sistema hasta implemetnar estos dos
+	 * metodos
+	 */
+	private static Map<Long, String> contactIdToUsernameMapHACK = new HashMap<Long, String>();
+
+	/**
+	 * Devuelve username de contacto. Devuelve null si no lo tenemos registrado
+	 * al username para dicho contacto
+	 */
 	public String getUsernameDeContacto(Long contactId) {
+		// FIXME: IMPLEMENTAR!
 
-		// FIXME: implementar!
-
-		if (new Random().nextBoolean())
-			return "USERNAME";
-		else
-			return null;
+		return contactIdToUsernameMapHACK.get(contactId);
 	}
 
 	public void updateInsertUsernameDeContacto(Long contactId, String username) {
@@ -235,6 +245,7 @@ public class Database extends SQLiteOpenHelper {
 
 		// FIXME: implementar update/insert
 
+		contactIdToUsernameMapHACK.put(contactId, username);
 	}
 
 	/**
