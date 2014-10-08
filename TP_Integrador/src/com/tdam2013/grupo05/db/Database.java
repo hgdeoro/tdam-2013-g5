@@ -158,8 +158,15 @@ public class Database extends SQLiteOpenHelper {
 		if (username != null) {
 			Log.i("Database.searchSentWebMessages()",
 					"Filtrando mensajes para usuario " + username);
+			if (!UtilesMensajesWeb.usernameIsValid(username))
+				Log.w("Database.searchSentWebMessages()",
+						"username es invalido: " + username);
+
 			selection += TABLE_WEB_MESSAGES.F_USERNAME + " = ?";
 			selectionList.add(username);
+		} else {
+			Log.i("Database.searchSentWebMessages()",
+					"Filtrando mensajes para todos los usuarios");
 		}
 
 		if (filtro != null)
