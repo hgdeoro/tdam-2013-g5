@@ -2,8 +2,11 @@ package com.tdam2013.grupo05;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
@@ -91,9 +93,9 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			String contactUsername = Database.getDatabase(this)
 					.getUsernameDeContacto(contactId);
 
-			this.startActivity(UtilesIntents.getEnviarMensajeWebActivityIntent(
-					getApplicationContext(), contactUsername, contactId,
-					displayName));
+			this.startActivity(EnviarMensajeWebActivity
+					.getEnviarMensajeWebActivityIntent(getApplicationContext(),
+							contactUsername, contactId, displayName));
 
 		} else {
 
@@ -172,6 +174,7 @@ public class AccionesSobreContactoActivity extends ListActivity {
 			return position;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int position, View convertView, ViewGroup viewGroup) {
 			Holder holder;
@@ -210,4 +213,15 @@ public class AccionesSobreContactoActivity extends ListActivity {
 		}
 
 	}
+
+	public static Intent getAccionesSobreContactoActivityIntent(Context ctx,
+			long contactId, String displayName) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx,
+				AccionesSobreContactoActivity.class.getCanonicalName()));
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
+		return intent;
+	}
+
 }

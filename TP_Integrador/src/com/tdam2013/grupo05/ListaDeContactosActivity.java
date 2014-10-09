@@ -22,7 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
+import com.tdam2013.grupo05.services.MensajeWebPollService;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class ListaDeContactosActivity extends ListActivity implements
@@ -166,7 +167,8 @@ public class ListaDeContactosActivity extends ListActivity implements
 				.getUsername(this))) {
 
 			startActivityForResult(
-					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
+					RegistrarUsuarioActivity
+							.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__REGISTER_USERNAME);
 		}
 	}
@@ -213,7 +215,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 		getLoaderManager().restartLoader(0, null, this);
 		// getLoaderManager().initLoader(0, null, this);
 
-		this.startService(UtilesIntents
+		this.startService(MensajeWebPollService
 				.getMensajeWebPollServiceForStartPolling(this));
 
 	}
@@ -234,7 +236,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Move to the selected contact
 		cursor.moveToPosition(position);
 
-		this.startActivity(UtilesIntents
+		this.startActivity(AccionesSobreContactoActivity
 				.getAccionesSobreContactoActivityIntent(this,
 						cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID),
 						cursor.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
@@ -287,14 +289,15 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 		} else if (item.getItemId() == R.id.action_ldc_settings) {
 			Log.i("onMenuItemSelected()", "action_ldc_settings");
-			this.startActivity(UtilesIntents
+			this.startActivity(ListaDeContactosSettingsActivity
 					.getListaDeContactosSettingsActivity(this));
 			return true;
 
 		} else if (item.getItemId() == R.id.action_ldc_usuario_web) {
 			Log.i("onMenuItemSelected()", "action_ldc_usuario_web");
 			startActivityForResult(
-					UtilesIntents.getRegistrarUsuarioActivityIntent(this),
+					RegistrarUsuarioActivity
+							.getRegistrarUsuarioActivityIntent(this),
 					ACTIVITY_REQUEST_CODE__REGISTER_USERNAME);
 			return true;
 

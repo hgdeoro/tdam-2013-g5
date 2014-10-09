@@ -1,6 +1,8 @@
 package com.tdam2013.grupo05;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tdam2013.grupo05.db.Database;
-import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 public class IngresarUsuarioDeContactoActivity extends Activity {
@@ -47,7 +48,7 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 					Database.getDatabase(IngresarUsuarioDeContactoActivity.this)
 							.insertUsernameDeContacto(contactId, username);
 
-					Intent intentNewActivity = UtilesIntents
+					Intent intentNewActivity = EnviarMensajeWebActivity
 							.getEnviarMensajeWebActivityIntent(
 									IngresarUsuarioDeContactoActivity.this,
 									username, contactId, displayName);
@@ -81,6 +82,19 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 
 	private EditText getEditText() {
 		return ((EditText) findViewById(R.id.ingresar_nombre_usuario_contacto_edit_text));
+	}
+
+	public static Intent getIngresarUsuarioDeContactoActivity(Context ctx,
+			long contactId, String displayName) {
+		Intent intent = new Intent();
+
+		intent.setComponent(new ComponentName(ctx,
+				IngresarUsuarioDeContactoActivity.class.getCanonicalName()));
+
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
+
+		return intent;
 	}
 
 }

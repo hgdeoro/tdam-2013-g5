@@ -12,6 +12,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.xml.sax.SAXException;
 
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
@@ -223,6 +225,14 @@ public class MensajeWebPollService extends Service {
 	public boolean onUnbind(Intent intent) {
 		this.info("onUnbind() llamado");
 		return super.onUnbind(intent);
+	}
+
+	public static Intent getMensajeWebPollServiceForStartPolling(Context ctx) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx, MensajeWebPollService.class
+				.getCanonicalName()));
+		// FIXME: agregar dato extra para indicar que es para INICIAR POLLING
+		return intent;
 	}
 
 }

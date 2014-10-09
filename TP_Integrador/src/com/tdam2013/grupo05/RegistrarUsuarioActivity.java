@@ -2,6 +2,7 @@ package com.tdam2013.grupo05;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -137,4 +138,12 @@ public class RegistrarUsuarioActivity extends Activity {
 		}
 
 	}
+
+	public static Intent getRegistrarUsuarioActivityIntent(Context ctx) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx,
+				RegistrarUsuarioActivity.class.getCanonicalName()));
+		return intent;
+	}
+
 }

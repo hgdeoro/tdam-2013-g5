@@ -23,8 +23,8 @@ import android.widget.TextView;
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
+import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
 import com.tdam2013.grupo05.utiles.UtilesFecha;
-import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 /**
  * Muestra el historial de mensajes web.
@@ -192,7 +192,8 @@ public class HistorialActivity extends ListActivity implements
 
 		if (item.getItemId() == R.id.action_settings) {
 			Log.i("onMenuItemSelected()", "action_settings");
-			this.startActivity(UtilesIntents.getHistorialSettingsActivity(this));
+			this.startActivity(HistorialSettingsActivity
+					.getHistorialSettingsActivity(this));
 			return true;
 		}
 

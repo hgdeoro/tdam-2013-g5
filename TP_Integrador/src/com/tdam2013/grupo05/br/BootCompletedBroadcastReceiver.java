@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.services.MensajeWebPollService;
 
 public class BootCompletedBroadcastReceiver extends BroadcastReceiver {
 
@@ -15,7 +15,7 @@ public class BootCompletedBroadcastReceiver extends BroadcastReceiver {
 		Toast.makeText(context, "BootCompletedBroadcastReceiver.onReceive()",
 				Toast.LENGTH_SHORT).show();
 
-		context.startService(UtilesIntents
+		context.startService(MensajeWebPollService
 				.getMensajeWebPollServiceForStartPolling(context));
 
 	}

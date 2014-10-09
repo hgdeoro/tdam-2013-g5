@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.tdam2013.grupo05.utiles.UtilesIntents;
+import com.tdam2013.grupo05.services.MensajeWebPollService;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
@@ -29,7 +29,7 @@ public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
 					"Hay conectividad", "Hay conectividad",
 					UtilesNotifications.NETWORK_STATUS_CHANGE);
 
-			context.startService(UtilesIntents
+			context.startService(MensajeWebPollService
 					.getMensajeWebPollServiceForStartPolling(context));
 
 		} else {

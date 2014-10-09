@@ -3,8 +3,10 @@ package com.tdam2013.grupo05;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ import android.widget.TextView;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
-import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
 import com.tdam2013.grupo05.utiles.UtilesNotifications;
@@ -62,7 +63,7 @@ public class EnviarMensajeWebActivity extends Activity {
 		if (msgTo == null) {
 			// No conocemos el username del contacto. Lo solicitamos
 
-			this.startActivity(UtilesIntents
+			this.startActivity(IngresarUsuarioDeContactoActivity
 					.getIngresarUsuarioDeContactoActivity(this, contactId,
 							displayName));
 
@@ -246,6 +247,17 @@ public class EnviarMensajeWebActivity extends Activity {
 
 	private TextView getTextViewDestinatario() {
 		return ((TextView) findViewById(R.id.enviar_mensaje_web_destinatario));
+	}
+
+	public static Intent getEnviarMensajeWebActivityIntent(Context ctx,
+			String to, Long contactId, String displayName) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx,
+				EnviarMensajeWebActivity.class.getCanonicalName()));
+		intent.putExtra(EnviarMensajeWebActivity.MSG_TO, to);
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
+		return intent;
 	}
 
 }
