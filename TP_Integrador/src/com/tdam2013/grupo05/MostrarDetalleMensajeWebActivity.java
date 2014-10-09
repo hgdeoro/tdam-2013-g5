@@ -1,6 +1,8 @@
 package com.tdam2013.grupo05;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,6 @@ import android.widget.TextView;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.db.MensajeWebDto;
-import com.tdam2013.grupo05.utiles.UtilesIntents;
 
 /**
  * Muestra el detalle de un mensaje web.
@@ -27,7 +28,10 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 	public static final String MESSAGE_WEB_ID = "MESSAGE_WEB_ID";
 
 	/** "Name", para putExtra() de Intent */
-	public static final String CONTACT_NAME = "CONTACT_NAME";
+	public static final String CONTACT_USERNAME = "CONTACT_USERNAME";
+
+	private Long msgId = null;
+	private String contactUsername = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,10 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		setContentView(R.layout.mostrar_detalle_mensaje_web_activity);
 
 		Intent intent = getIntent();
-		long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
+		msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
+		contactUsername = intent.getExtras().getString(CONTACT_USERNAME);
+
+		// FIXME: user try/finally para llamar a db.close()
 		Database db = Database.getDatabase(this.getApplicationContext());
 		MensajeWebDto dto = db.getMensajeById(msgId);
 
@@ -66,15 +73,13 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 
 		if (item.getItemId() == R.id.action_borrar_item_historial) {
 
-			Intent intent = getIntent();
-			long msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
 			Database db = Database.getDatabase(this.getApplicationContext());
 			db.deleteSentMessage(msgId);
 
-			String contactName = intent.getExtras().getString(CONTACT_NAME);
+			Intent intentNewActivity = HistorialActivity
+					.getHistorialDeContactoActivityIntent(this,
+							contactUsername, null);
 
-			Intent intentNewActivity = UtilesIntents
-					.getHistorialDeContactoActivityIntent(this, contactName);
 			// Necesitamos FLAG_ACTIVITY_CLEAR_TOP para que el back stack quede
 			// bien seteado, y no quede en el back stack la activity que muestra
 			// el detalle del mensaje recien borrado!
@@ -88,4 +93,17 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		return super.onMenuItemSelected(featureId, item);
 
 	}
+
+	public static Intent getMostrarDetalleMensajeWebActivity(Context ctx,
+			long messageId, String contactUsername) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx,
+				MostrarDetalleMensajeWebActivity.class.getCanonicalName()));
+		intent.putExtra(MostrarDetalleMensajeWebActivity.MESSAGE_WEB_ID,
+				messageId);
+		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_USERNAME,
+				contactUsername);
+		return intent;
+	}
+
 }

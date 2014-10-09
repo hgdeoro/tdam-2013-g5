@@ -8,7 +8,6 @@ import android.net.Uri;
 import com.tdam2013.grupo05.AccionesSobreContactoActivity;
 import com.tdam2013.grupo05.EnviarMensajeWebActivity;
 import com.tdam2013.grupo05.IngresarUsuarioDeContactoActivity;
-import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
 import com.tdam2013.grupo05.RegistrarUsuarioActivity;
 import com.tdam2013.grupo05.preferences.HistorialSettingsActivity;
 import com.tdam2013.grupo05.preferences.ListaDeContactosSettingsActivity;
@@ -61,18 +60,6 @@ public class UtilesIntents {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
 				HistorialSettingsActivity.class.getCanonicalName()));
-		return intent;
-	}
-
-	public static Intent getMostrarDetalleMensajeWebActivity(Context ctx,
-			long messageId, String contactName) {
-		Intent intent = new Intent();
-		intent.setComponent(new ComponentName(ctx,
-				MostrarDetalleMensajeWebActivity.class.getCanonicalName()));
-		intent.putExtra(MostrarDetalleMensajeWebActivity.MESSAGE_WEB_ID,
-				messageId);
-		intent.putExtra(MostrarDetalleMensajeWebActivity.CONTACT_NAME,
-				contactName);
 		return intent;
 	}
 
