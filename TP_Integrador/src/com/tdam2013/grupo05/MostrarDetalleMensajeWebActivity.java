@@ -42,9 +42,8 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		msgId = intent.getExtras().getLong(MESSAGE_WEB_ID);
 		contactUsername = intent.getExtras().getString(CONTACT_USERNAME);
 
-		// FIXME: user try/finally para llamar a db.close()
-		Database db = Database.getDatabase(this.getApplicationContext());
-		MensajeWebDto dto = db.getMensajeById(msgId);
+		MensajeWebDto dto = Database.getDatabase(this.getApplicationContext())
+				.getMensajeById(msgId);
 
 		((TextView) findViewById(R.id.mostrar_detalle_mensaje_web_contacto))
 				.setText(dto.username);
@@ -55,7 +54,6 @@ public class MostrarDetalleMensajeWebActivity extends Activity {
 		editText.setText(dto.text);
 		editText.setEnabled(false);
 
-		db.close();
 	}
 
 	@Override

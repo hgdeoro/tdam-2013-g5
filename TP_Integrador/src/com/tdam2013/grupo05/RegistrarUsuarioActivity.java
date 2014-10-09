@@ -56,11 +56,11 @@ public class RegistrarUsuarioActivity extends Activity {
 				});
 	}
 
-	protected Button getRegistrarUsuarioButton() {
+	private Button getRegistrarUsuarioButton() {
 		return ((Button) findViewById(R.id.registrar_usuario_button));
 	}
 
-	protected class RegisterUserTask extends AsyncTask<Object, Void, Void> {
+	private class RegisterUserTask extends AsyncTask<Object, Void, Void> {
 
 		private final Context ctx;
 
