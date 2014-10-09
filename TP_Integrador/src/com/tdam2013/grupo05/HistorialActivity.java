@@ -4,7 +4,9 @@ import java.text.ParseException;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -21,10 +23,8 @@ import android.widget.TextView;
 import com.commonsware.cwac.loaderex.AbstractCursorLoader;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.db.Database.TABLE_WEB_MESSAGES;
-import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesFecha;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
-import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 
 /**
  * Muestra el historial de mensajes web.
@@ -39,7 +39,8 @@ import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 public class HistorialActivity extends ListActivity implements
 		LoaderCallbacks<Cursor> {
 
-	public static final String INTENT_EXTRA__CONTACT_NAME = "CONTACT_NAME";
+	public static final String INTENT_EXTRA__CONTACT_USERNAME = "CONTACT_USERNAME";
+	public static final String INTENT_EXTRA__CONTACT_ID = "CONTACT_ID";
 
 	public static final String PREF_ORDEN__ALFABETICO = "ALFA";
 	public static final String PREF_ORDEN__CRONOLOGICO = "CRONO";
@@ -50,19 +51,24 @@ public class HistorialActivity extends ListActivity implements
 
 	private SimpleCursorAdapter mCursorAdapter;
 
-	/**
-	 * Si contactName es != null, solo mostramos historial de dicho contacto,
-	 * sino mostramos todo el historial
-	 */
-	private String contactName = null;
+	// Si contactUsername es == null, mostramos historial de todos los contacto.
+	private String contactUsername = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.historial_activity);
 
-		contactName = getIntent().getExtras() == null ? null : getIntent()
-				.getExtras().getString(INTENT_EXTRA__CONTACT_NAME);
+		contactUsername = getIntent().getExtras().getString(
+				INTENT_EXTRA__CONTACT_USERNAME);
+
+		if (contactUsername == null) {
+			Long contactId = getIntent().getExtras().getLong(
+					INTENT_EXTRA__CONTACT_ID);
+			if (contactId != null)
+				contactUsername = Database.getDatabase(this)
+						.getUsernameDeContacto(contactId);
+		}
 
 		/*
 		 * Cursor
@@ -148,7 +154,7 @@ public class HistorialActivity extends ListActivity implements
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		this.startActivity(UtilesIntents.getMostrarDetalleMensajeWebActivity(
-				this, id, contactName));
+				this, id, contactUsername));
 	}
 
 	/**
@@ -210,19 +216,9 @@ public class HistorialActivity extends ListActivity implements
 			protected Cursor buildCursor() {
 
 				Database db = Database.getDatabase(HistorialActivity.this);
-				if (contactName != null) {
-
-					// Filtramos x contacto
-					return db.searchSentWebMessages(getPreferenceFiltro(),
-							null, UtilesMensajesWeb
-									.getUsername(HistorialActivity.this));
-
-				} else {
-
-					return db.searchSentWebMessages(getPreferenceFiltro(),
-							HistorialActivity.this.getPreferenceOrden(), null);
-
-				}
+				return db.searchSentWebMessages(getPreferenceFiltro(),
+						HistorialActivity.this.getPreferenceOrden(),
+						contactUsername);
 
 			}
 
@@ -274,6 +270,23 @@ public class HistorialActivity extends ListActivity implements
 		} else {
 			return Database.TABLE_WEB_MESSAGES.Filter.ALL;
 		}
+	}
+
+	/**
+	 * Devuelve Intent para lanzar activity. contactName/contactId puede ser
+	 * null (para mostrar historial de todos los contactos).
+	 * 
+	 * Si no se especifica contactName, se puede utilizar contactId.
+	 */
+	public static Intent getHistorialDeContactoActivityIntent(Context ctx,
+			String contactName, Long contactId) {
+		Intent intent = new Intent();
+		intent.setComponent(new ComponentName(ctx, HistorialActivity.class
+				.getCanonicalName()));
+		intent.putExtra(HistorialActivity.INTENT_EXTRA__CONTACT_USERNAME,
+				contactName);
+		intent.putExtra(HistorialActivity.INTENT_EXTRA__CONTACT_ID, contactId);
+		return intent;
 	}
 
 }

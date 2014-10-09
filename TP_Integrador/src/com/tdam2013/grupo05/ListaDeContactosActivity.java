@@ -281,7 +281,8 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 		if (item.getItemId() == R.id.action_ldc_ver_historial) {
 			Log.i("onMenuItemSelected()", "action_ldc_ver_historial");
-			this.startActivity(UtilesIntents.getHistorialActivityIntent(this));
+			this.startActivity(HistorialActivity
+					.getHistorialDeContactoActivityIntent(this, null, null));
 			return true;
 
 		} else if (item.getItemId() == R.id.action_ldc_settings) {
@@ -333,9 +334,9 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 			cursor.moveToPosition(info.position);
 
-			this.startActivity(UtilesIntents
-					.getHistorialDeContactoActivityIntent(this, cursor
-							.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
+			this.startActivity(HistorialActivity
+					.getHistorialDeContactoActivityIntent(this, null,
+							cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID)));
 
 			return true;
 

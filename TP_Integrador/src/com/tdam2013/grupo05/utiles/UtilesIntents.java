@@ -7,7 +7,6 @@ import android.net.Uri;
 
 import com.tdam2013.grupo05.AccionesSobreContactoActivity;
 import com.tdam2013.grupo05.EnviarMensajeWebActivity;
-import com.tdam2013.grupo05.HistorialActivity;
 import com.tdam2013.grupo05.IngresarUsuarioDeContactoActivity;
 import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
 import com.tdam2013.grupo05.RegistrarUsuarioActivity;
@@ -22,23 +21,6 @@ import com.tdam2013.grupo05.services.MensajeWebPollService;
  *
  */
 public class UtilesIntents {
-
-	public static Intent getHistorialActivityIntent(Context ctx) {
-		Intent intent = new Intent();
-		intent.setComponent(new ComponentName(ctx, HistorialActivity.class
-				.getCanonicalName()));
-		return intent;
-	}
-
-	public static Intent getHistorialDeContactoActivityIntent(Context ctx,
-			String contactName) {
-		Intent intent = new Intent();
-		intent.putExtra(HistorialActivity.INTENT_EXTRA__CONTACT_NAME,
-				contactName);
-		intent.setComponent(new ComponentName(ctx, HistorialActivity.class
-				.getCanonicalName()));
-		return intent;
-	}
 
 	public static Intent getRegistrarUsuarioActivityIntent(Context ctx) {
 		Intent intent = new Intent();
