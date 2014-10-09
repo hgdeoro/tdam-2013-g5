@@ -65,7 +65,7 @@ public class UtilesNotifications {
 		//
 
 		/*
-		 * PRIMERA IMPLEMENTACION. La barra se bloquea
+		 * PRIMERA IMPLEMENTACION
 		 */
 
 		// Notification notification = new Notification(
@@ -79,7 +79,7 @@ public class UtilesNotifications {
 		// getManager(ctx).notify(notificationId, notification);
 
 		/*
-		 * SEGUNDA IMPLEMENTACION. La barra se bloquea
+		 * SEGUNDA IMPLEMENTACION
 		 */
 
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx);

@@ -74,7 +74,9 @@ public class UtilesHttp {
 			IOException {
 
 		try {
-			Thread.sleep(3000);
+			// FIXME: quitar esto antes de la presentación... o preguntar al
+			// profe si lo dejamos o no
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
 
