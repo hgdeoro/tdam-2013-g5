@@ -19,7 +19,7 @@ import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesContactos.TelefonoDto;
 
-public class AccionesSobreContactoFragmentReal extends ListFragment {
+public class AccionesSobreContactoFragment extends ListFragment {
 
 	public static final String CONTACT_ID = "CONTACT_ID";
 	public static final String DISPLAY_NAME = "DISPLAY_NAME";
@@ -36,10 +36,10 @@ public class AccionesSobreContactoFragmentReal extends ListFragment {
 	private List<Info> infoList = new ArrayList<Info>();
 
 	// @241
-	public static AccionesSobreContactoFragmentReal newInstance(Long contactId,
+	public static AccionesSobreContactoFragment newInstance(Long contactId,
 			String displayName) {
 
-		AccionesSobreContactoFragmentReal fragment = new AccionesSobreContactoFragmentReal();
+		AccionesSobreContactoFragment fragment = new AccionesSobreContactoFragment();
 		Bundle args = new Bundle();
 		args.putLong(CONTACT_ID, contactId);
 		args.putString(DISPLAY_NAME, displayName);
@@ -207,7 +207,7 @@ public class AccionesSobreContactoFragmentReal extends ListFragment {
 	class CustomAdapter extends BaseAdapter {
 
 		private LayoutInflater inflater = LayoutInflater
-				.from(AccionesSobreContactoFragmentReal.this.getActivity());
+				.from(AccionesSobreContactoFragment.this.getActivity());
 
 		public CustomAdapter() {
 		}

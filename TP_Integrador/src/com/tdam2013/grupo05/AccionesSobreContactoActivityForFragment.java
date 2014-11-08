@@ -27,7 +27,7 @@ public class AccionesSobreContactoActivityForFragment extends Activity {
 		contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
 		displayName = this.getIntent().getExtras().getString(DISPLAY_NAME);
 
-		AccionesSobreContactoFragmentReal fragment = AccionesSobreContactoFragmentReal
+		AccionesSobreContactoFragment fragment = AccionesSobreContactoFragment
 				.newInstance(contactId, displayName);
 
 		getFragmentManager().beginTransaction()

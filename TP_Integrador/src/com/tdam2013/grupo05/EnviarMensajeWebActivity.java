@@ -56,9 +56,9 @@ public class EnviarMensajeWebActivity extends Activity {
 
 		// Reusamos constantes de AccionesSobreContactoActivity
 		contactId = this.getIntent().getExtras()
-				.getLong(AccionesSobreContactoFragmentReal.CONTACT_ID);
+				.getLong(AccionesSobreContactoFragment.CONTACT_ID);
 		displayName = this.getIntent().getExtras()
-				.getString(AccionesSobreContactoFragmentReal.DISPLAY_NAME);
+				.getString(AccionesSobreContactoFragment.DISPLAY_NAME);
 
 		if (msgTo == null) {
 			// No conocemos el username del contacto. Lo solicitamos
@@ -255,8 +255,8 @@ public class EnviarMensajeWebActivity extends Activity {
 		intent.setComponent(new ComponentName(ctx,
 				EnviarMensajeWebActivity.class.getCanonicalName()));
 		intent.putExtra(EnviarMensajeWebActivity.MSG_TO, to);
-		intent.putExtra(AccionesSobreContactoFragmentReal.CONTACT_ID, contactId);
-		intent.putExtra(AccionesSobreContactoFragmentReal.DISPLAY_NAME,
+		intent.putExtra(AccionesSobreContactoFragment.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoFragment.DISPLAY_NAME,
 				displayName);
 		return intent;
 	}

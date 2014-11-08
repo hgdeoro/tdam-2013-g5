@@ -26,9 +26,9 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 
 		// Reusamos constantes de AccionesSobreContactoActivity
 		contactId = this.getIntent().getExtras()
-				.getLong(AccionesSobreContactoFragmentReal.CONTACT_ID);
+				.getLong(AccionesSobreContactoFragment.CONTACT_ID);
 		displayName = this.getIntent().getExtras()
-				.getString(AccionesSobreContactoFragmentReal.DISPLAY_NAME);
+				.getString(AccionesSobreContactoFragment.DISPLAY_NAME);
 
 		getButton().setOnClickListener(new View.OnClickListener() {
 
@@ -91,8 +91,8 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 		intent.setComponent(new ComponentName(ctx,
 				IngresarUsuarioDeContactoActivity.class.getCanonicalName()));
 
-		intent.putExtra(AccionesSobreContactoFragmentReal.CONTACT_ID, contactId);
-		intent.putExtra(AccionesSobreContactoFragmentReal.DISPLAY_NAME,
+		intent.putExtra(AccionesSobreContactoFragment.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoFragment.DISPLAY_NAME,
 				displayName);
 
 		return intent;
