@@ -236,7 +236,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Move to the selected contact
 		cursor.moveToPosition(position);
 
-		this.startActivity(AccionesSobreContactoFragment
+		this.startActivity(AccionesSobreContactoActivity
 				.getAccionesSobreContactoActivityIntent(this,
 						cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID),
 						cursor.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));

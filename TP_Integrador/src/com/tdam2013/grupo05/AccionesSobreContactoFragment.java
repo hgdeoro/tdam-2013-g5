@@ -45,7 +45,7 @@ public class AccionesSobreContactoFragment extends ListActivity {
 		contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
 		displayName = this.getIntent().getExtras().getString(DISPLAY_NAME);
 
-		Log.i("AccionesSobreContactoFragment", "contactId: " + contactId);
+		Log.i("AccionesSobreContactoActivity", "contactId: " + contactId);
 
 		for (UtilesContactos.TelefonoDto telefono : UtilesContactos
 				.getTelefonos(this.getApplicationContext(), contactId)) {
