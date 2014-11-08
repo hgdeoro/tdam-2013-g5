@@ -127,7 +127,7 @@ public class ListaDeContactosActivity extends ListActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista_de_contactos_activity);
+		this.setupUiLayout();
 
 		/*
 		 * Cursor
@@ -162,7 +162,19 @@ public class ListaDeContactosActivity extends ListActivity implements
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+		this.setupUiLayout();
+	}
+
+	private void setupUiLayout() {
 		setContentView(R.layout.lista_de_contactos_activity);
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			View view = findViewById(R.id.layout_lista_de_contactos_frame_layout);
+			if (view != null) {
+				view.setVisibility(View.GONE);
+			}
+		} else {
+			// pass
+		}
 	}
 
 	/**
@@ -250,6 +262,11 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 		// Fragment @240
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+			View view = findViewById(R.id.layout_lista_de_contactos_frame_layout);
+			if (view != null) {
+				view.setVisibility(View.VISIBLE);
+			}
 
 			Log.i("onListItemClick()", "Mostrando fragmento");
 			AccionesSobreContactoFragment fragment = (AccionesSobreContactoFragment) getFragmentManager()
