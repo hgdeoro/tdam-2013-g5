@@ -159,6 +159,12 @@ public class ListaDeContactosActivity extends ListActivity implements
 
 	}
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		setContentView(R.layout.lista_de_contactos_activity);
+	}
+
 	/**
 	 * Checks if the username exists in preferences. If doesn't exists, a new
 	 * activity is launched to let the user enter his/her username.
