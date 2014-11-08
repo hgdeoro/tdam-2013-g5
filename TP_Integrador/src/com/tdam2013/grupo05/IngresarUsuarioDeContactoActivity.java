@@ -43,8 +43,8 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 							"Guardando nombre de usuario:  " + username
 									+ " para contacto: " + contactId);
 
-					// FIXME: esto se hace en main-thread. Pero solo un
-					// select + update/insert
+					// Solo hacemos un simple INSERT... lo hacemos en main
+					// thread
 					Database.getDatabase(IngresarUsuarioDeContactoActivity.this)
 							.insertUsernameDeContacto(contactId, username);
 
@@ -92,8 +92,7 @@ public class IngresarUsuarioDeContactoActivity extends Activity {
 				IngresarUsuarioDeContactoActivity.class.getCanonicalName()));
 
 		intent.putExtra(AccionesSobreContactoFragment.CONTACT_ID, contactId);
-		intent.putExtra(AccionesSobreContactoFragment.DISPLAY_NAME,
-				displayName);
+		intent.putExtra(AccionesSobreContactoFragment.DISPLAY_NAME, displayName);
 
 		return intent;
 	}

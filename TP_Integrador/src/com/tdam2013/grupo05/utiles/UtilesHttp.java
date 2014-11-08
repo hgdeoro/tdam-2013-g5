@@ -74,8 +74,8 @@ public class UtilesHttp {
 			IOException {
 
 		try {
-			// FIXME: quitar esto antes de la presentación... o preguntar al
-			// profe si lo dejamos o no
+			Log.d("post()", "ESPERAMOS 1 seg."
+					+ " para simular acceso a red mas lento");
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}

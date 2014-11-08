@@ -266,7 +266,7 @@ public class MensajeWebPollService extends Service {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx, MensajeWebPollService.class
 				.getCanonicalName()));
-		// FIXME: agregar dato extra para indicar que es para INICIAR POLLING
+		// TODO: agregar dato extra para indicar que es para INICIAR POLLING
 		return intent;
 	}
 

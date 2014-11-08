@@ -105,8 +105,7 @@ public class AccionesSobreContactoFragment extends ListFragment {
 
 		} else if (MSGWEB.equals(info.accion)) {
 
-			// FIXME: esta bien que hagamos la busqueda en el main-thread?
-			// Es un simple select...
+			// Es una busqueda MUY simple, la hacemos desde la UI...
 
 			String contactUsername = Database.getDatabase(getActivity())
 					.getUsernameDeContacto(contactId);
@@ -152,7 +151,6 @@ public class AccionesSobreContactoFragment extends ListFragment {
 
 		}
 
-		// TODO: esta OK usar el contact id? Sino, usar el nombre del contacto
 		infoList.add(new Info(MSGWEB, displayName));
 
 	}

@@ -161,7 +161,6 @@ public class EnviarMensajeWebActivity extends Activity {
 				@Override
 				public void run() {
 
-					// TODO: use better texts
 					UtilesNotifications.notifyWithIndeterminateProgress(ctx,
 							getString(R.string.enviando_mensaje_web),
 							getString(R.string.enviando_mensaje_web),
@@ -198,7 +197,6 @@ public class EnviarMensajeWebActivity extends Activity {
 					@Override
 					public void run() {
 
-						// TODO: use better texts
 						UtilesNotifications.notify(ctx,
 								getString(R.string.mensaje_web_enviado_ok),
 								getString(R.string.mensaje_web_enviado_ok),
@@ -216,7 +214,6 @@ public class EnviarMensajeWebActivity extends Activity {
 					@Override
 					public void run() {
 
-						// TODO: use better texts
 						UtilesNotifications.notify(ctx,
 								getString(R.string.mensaje_web_enviado_error),
 								getString(R.string.mensaje_web_enviado_error),
