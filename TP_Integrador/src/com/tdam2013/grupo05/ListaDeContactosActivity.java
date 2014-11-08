@@ -236,10 +236,25 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Move to the selected contact
 		cursor.moveToPosition(position);
 
-		this.startActivity(AccionesSobreContactoActivity
-				.getAccionesSobreContactoActivityIntent(this,
-						cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID),
-						cursor.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
+		if (true) {
+
+			// FRAGMENT
+
+			Intent intent = AccionesSobreContactoActivityForFragment
+					.getActivityIntent(this, cursor
+							.getLong(COLUMN_INDEX_FOR_CONTACT_ID), cursor
+							.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY));
+
+			this.startActivity(intent);
+
+		} else {
+
+			this.startActivity(AccionesSobreContactoActivity
+					.getAccionesSobreContactoActivityIntent(this, cursor
+							.getLong(COLUMN_INDEX_FOR_CONTACT_ID), cursor
+							.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
+
+		}
 
 		//
 		// You now have the key pieces of an app that matches a search string to

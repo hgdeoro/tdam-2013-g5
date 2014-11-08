@@ -35,6 +35,11 @@
             android:label="@string/title_activity_acciones_sobre_contacto" >
         </activity>
         <activity
+            android:name="com.tdam2013.grupo05.AccionesSobreContactoActivityForFragment"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_acciones_sobre_contacto" >
+        </activity>
+        <activity
             android:name="com.tdam2013.grupo05.HistorialActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_historial" >
@@ -69,7 +74,7 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_ingresar_nombre_usuario_contacto" >
         </activity>
-        
+
         <receiver
             android:name="com.tdam2013.grupo05.br.NetworkChangeBroadcastReceiver"
             android:label="NetworkChangeBroadcastReceiver" >
