@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 /**
@@ -23,6 +24,11 @@ public class AccionesSobreContactoActivityForFragment extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			finish();
+			return;
+		}
 
 		contactId = this.getIntent().getExtras().getLong(CONTACT_ID);
 		displayName = this.getIntent().getExtras().getString(DISPLAY_NAME);
