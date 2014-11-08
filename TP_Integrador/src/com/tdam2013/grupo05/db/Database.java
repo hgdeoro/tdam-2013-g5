@@ -95,9 +95,16 @@ public class Database extends SQLiteOpenHelper {
 		// TABLE_WEB_MESSAGES.F_TIME -> default CURRENT
 		cv.put(TABLE_WEB_MESSAGES.F_TEXT, text);
 
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
-		db.close();
+		SQLiteDatabase db = null;
+
+		try {
+			db = this.getWritableDatabase();
+			db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
+		} finally {
+			if (db != null)
+				db.close();
+		}
+
 	}
 
 	/**
@@ -119,19 +126,29 @@ public class Database extends SQLiteOpenHelper {
 		cv.put(TABLE_WEB_MESSAGES.F_TIME, formatDateParaConsultaSql(timestamp));
 		cv.put(TABLE_WEB_MESSAGES.F_TEXT, text);
 
-		SQLiteDatabase db = this.getWritableDatabase();
-		long id = db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
-		db.close();
-		return id;
+		SQLiteDatabase db = null;
+		try {
+			db = this.getWritableDatabase();
+			long id = db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
+			return id;
+		} finally {
+			if (db != null)
+				db.close();
+		}
 	}
 
 	public void deleteSentMessage(long messageId) {
-		SQLiteDatabase db = this.getWritableDatabase();
 		String where = "" + TABLE_WEB_MESSAGES.F_ID + " = ?";
 		String[] whereArgs = new String[] { Long.toString(messageId) };
 
-		db.delete(TABLE_WEB_MESSAGES.T_NAME, where, whereArgs);
-		db.close();
+		SQLiteDatabase db = null;
+		try {
+			db = this.getWritableDatabase();
+			db.delete(TABLE_WEB_MESSAGES.T_NAME, where, whereArgs);
+		} finally {
+			if (db != null)
+				db.close();
+		}
 
 		Log.i("deleteSentMessage()", "Item borrado: " + messageId);
 
@@ -310,9 +327,16 @@ public class Database extends SQLiteOpenHelper {
 		cv.put(TABLE_CONTACT_USERNAME.F_CONTACT_ID, contactId);
 		cv.put(TABLE_CONTACT_USERNAME.F_USERNAME, username);
 
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.insert(TABLE_CONTACT_USERNAME.T_NAME, null, cv);
-		db.close();
+		SQLiteDatabase db = null;
+
+		try {
+			db = this.getWritableDatabase();
+			db.insert(TABLE_CONTACT_USERNAME.T_NAME, null, cv);
+		} finally {
+			if (db != null)
+				db.close();
+		}
+
 	}
 
 	/**
