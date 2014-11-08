@@ -10,10 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.tdam2013.grupo05.AccionesSobreContactoActivity.Info;
+import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
+import com.tdam2013.grupo05.utiles.UtilesIntents;
 import com.tdam2013.grupo05.utiles.UtilesContactos.TelefonoDto;
 
 public class AccionesSobreContactoFragmentReal extends ListFragment {
@@ -85,7 +88,45 @@ public class AccionesSobreContactoFragmentReal extends ListFragment {
 		return v;
 	}
 
-	// DSL
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+
+		Info info = infoList.get(position);
+
+		if (LLAMAR.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getCallPhoneIntent(info.valor));
+
+		} else if (SMS.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getSendSmsIntent(info.valor));
+
+		} else if (EMAIL.equals(info.accion)) {
+			this.startActivity(UtilesIntents.getSendEmailIntent(info.valor));
+
+		} else if (MSGWEB.equals(info.accion)) {
+
+			// FIXME: esta bien que hagamos la busqueda en el main-thread?
+			// Es un simple select...
+
+			String contactUsername = Database.getDatabase(getActivity())
+					.getUsernameDeContacto(contactId);
+
+			this.startActivity(EnviarMensajeWebActivity
+					.getEnviarMensajeWebActivityIntent(getActivity()
+							.getApplicationContext(), contactUsername,
+							contactId, displayName));
+
+		} else {
+
+			Toast.makeText(getActivity().getApplicationContext(),
+					"Accion desconocida", Toast.LENGTH_SHORT).show();
+		}
+
+	}
+
+	// ----------------------------------------------------------------------
+	// FIN manejo de API de Android
+	// ----------------------------------------------------------------------
 
 	private void cargarLista() {
 
