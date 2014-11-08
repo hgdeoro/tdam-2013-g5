@@ -89,9 +89,9 @@ public class AccionesSobreContactoFragmentReal extends ListFragment {
 
 	private void cargarLista() {
 
-		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
-		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
-		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+		// infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+		// infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+		// infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
 
 		List<TelefonoDto> telefonos = UtilesContactos.getTelefonos(this
 				.getActivity().getApplicationContext(), contactId);
