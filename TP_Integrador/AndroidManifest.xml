@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tdam2013.grupo05.AccionesSobreContactoActivity"
+            android:name="com.tdam2013.grupo05.AccionesSobreContactoFragment"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_acciones_sobre_contacto" >
         </activity>
