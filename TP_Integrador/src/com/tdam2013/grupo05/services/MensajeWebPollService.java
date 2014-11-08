@@ -19,7 +19,6 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.modelos.MensajeWeb;
@@ -193,10 +192,9 @@ public class MensajeWebPollService extends Service {
 		pollThread = new Thread(pollRunnable);
 		pollThread.start();
 
-		// FIXME: eliminar esto antes de presentacion final
-		Toast.makeText(getApplicationContext(),
-				"MensajeWebPollService.onStartCommand()", Toast.LENGTH_SHORT)
-				.show();
+		// Toast.makeText(getApplicationContext(),
+		// "MensajeWebPollService.onStartCommand()", Toast.LENGTH_SHORT)
+		// .show();
 
 		// If we get killed, after returning from here, restart
 		return START_STICKY;
