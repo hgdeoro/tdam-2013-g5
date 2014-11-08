@@ -1,5 +1,6 @@
 package com.tdam2013.grupo05;
 
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentUris;
@@ -7,6 +8,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -236,11 +238,33 @@ public class ListaDeContactosActivity extends ListActivity implements
 		// Move to the selected contact
 		cursor.moveToPosition(position);
 
-		// FRAGMENT
-		this.startActivity(AccionesSobreContactoActivityForFragment
-				.getActivityIntent(this,
-						cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID),
-						cursor.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY)));
+		final long contactId = cursor.getLong(COLUMN_INDEX_FOR_CONTACT_ID);
+		final String displayName = cursor
+				.getString(COLUMN_INDEX_FOR_DISPLAY_NAME_PRIMARY);
+
+		// Fragment @240
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+			Log.i("onListItemClick()", "Mostrando fragmento");
+			AccionesSobreContactoFragment fragment = (AccionesSobreContactoFragment) getFragmentManager()
+					.findFragmentById(
+							R.id.layout_lista_de_contactos_frame_layout);
+
+			fragment = AccionesSobreContactoFragment.newInstance(contactId,
+					displayName);
+
+			FragmentTransaction tx = getFragmentManager().beginTransaction();
+			tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+			tx.replace(R.id.layout_lista_de_contactos_frame_layout, fragment);
+			tx.commit();
+
+		} else {
+
+			Log.i("onListItemClick()", "Lanzando Activity");
+			this.startActivity(AccionesSobreContactoActivityForFragment
+					.getActivityIntent(this, contactId, displayName));
+
+		}
 
 		//
 		// You now have the key pieces of an app that matches a search string to
