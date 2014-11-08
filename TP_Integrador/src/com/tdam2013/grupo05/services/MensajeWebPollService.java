@@ -11,6 +11,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.client.ClientProtocolException;
 import org.xml.sax.SAXException;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,13 +20,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.tdam2013.grupo05.MostrarDetalleMensajeWebActivity;
+import com.tdam2013.grupo05.R;
 import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.modelos.MensajeWeb;
 import com.tdam2013.grupo05.utiles.UtilesHttp;
 import com.tdam2013.grupo05.utiles.UtilesMensajesWeb;
 import com.tdam2013.grupo05.utiles.UtilesNetwork;
+import com.tdam2013.grupo05.utiles.UtilesNotifications;
 
 //
 // https://developer.android.com/guide/components/services.html
@@ -130,7 +136,7 @@ public class MensajeWebPollService extends Service {
 		}
 
 		private void procesarMensaje(MensajeWeb mensaje) {
-			// TODO: hace falta enviar notificacion de mensaje recibido?
+
 			MensajeWebPollService.this
 					.debug("Mensaje: " + mensaje.getMensaje());
 
@@ -143,8 +149,38 @@ public class MensajeWebPollService extends Service {
 				e.printStackTrace();
 				timestamp = new Date();
 			}
-			db.insertReceivedMessage(mensaje.getUser(), mensaje.getMensaje(),
-					timestamp);
+
+			Long messageId = db.insertReceivedMessage(mensaje.getUser(),
+					mensaje.getMensaje(), timestamp);
+
+			notifyNewMessage(mensaje, messageId);
+
+		}
+
+		private void notifyNewMessage(MensajeWeb mensaje, Long messageId) {
+
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+					MensajeWebPollService.this)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setContentTitle("Nuevo mensaje")
+					.setContentText("Nuevo mensaje de " + mensaje.getUser());
+
+			Intent intent = MostrarDetalleMensajeWebActivity
+					.getMostrarDetalleMensajeWebActivity(
+							MensajeWebPollService.this, messageId,
+							mensaje.getUser());
+
+			mBuilder.setContentIntent(PendingIntent.getActivity(
+					getApplicationContext(), 0, intent, 0));
+			mBuilder.setAutoCancel(true);
+			mBuilder.setProgress(100, 100, false);
+
+			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+			// mId allows you to update the notification later on.
+			mNotificationManager.notify(
+					UtilesNotifications.NEW_MESSAGE_RECEIVED, mBuilder.build());
+
 		}
 
 		@Override

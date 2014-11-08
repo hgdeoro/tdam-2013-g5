@@ -110,7 +110,7 @@ public class Database extends SQLiteOpenHelper {
 		return dateFormat.format(date);
 	}
 
-	public void insertReceivedMessage(String fromUser, String text,
+	public long insertReceivedMessage(String fromUser, String text,
 			Date timestamp) {
 		ContentValues cv = new ContentValues();
 		cv.put(TABLE_WEB_MESSAGES.F_USERNAME, fromUser);
@@ -120,8 +120,9 @@ public class Database extends SQLiteOpenHelper {
 		cv.put(TABLE_WEB_MESSAGES.F_TEXT, text);
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
+		long id = db.insert(TABLE_WEB_MESSAGES.T_NAME, null, cv);
 		db.close();
+		return id;
 	}
 
 	public void deleteSentMessage(long messageId) {

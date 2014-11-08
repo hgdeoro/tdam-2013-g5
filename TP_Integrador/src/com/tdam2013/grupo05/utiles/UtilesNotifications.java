@@ -12,6 +12,7 @@ public class UtilesNotifications {
 	public static final int SEND_MESSAGE = 1;
 	public static final int REGISTER_USER = 2;
 	public static final int NETWORK_STATUS_CHANGE = 3;
+	public static final int NEW_MESSAGE_RECEIVED = 4;
 
 	public static NotificationManager getManager(Context context) {
 		NotificationManager mNotificationManager = (NotificationManager) context
