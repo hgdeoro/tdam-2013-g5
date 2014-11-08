@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.tdam2013.grupo05.AccionesSobreContactoActivity.Info;
+import com.tdam2013.grupo05.utiles.UtilesContactos;
+import com.tdam2013.grupo05.utiles.UtilesContactos.TelefonoDto;
+
 public class AccionesSobreContactoFragmentReal extends ListFragment {
 
 	public static final String CONTACT_ID = "CONTACT_ID";
@@ -85,30 +89,30 @@ public class AccionesSobreContactoFragmentReal extends ListFragment {
 
 	private void cargarLista() {
 
-		if (true) {
-			infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
-			infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
-			infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
-			return;
+		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+		infoList.add(new Info(LLAMAR, "0123456789", "HOME"));
+
+		List<TelefonoDto> telefonos = UtilesContactos.getTelefonos(this
+				.getActivity().getApplicationContext(), contactId);
+
+		for (UtilesContactos.TelefonoDto telefono : telefonos) {
+
+			infoList.add(new Info(LLAMAR, telefono.getTelefono(), telefono
+					.getLabelAsString()));
+			infoList.add(new Info(SMS, telefono.getTelefono(), telefono
+					.getLabelAsString()));
 		}
 
-		// List<TelefonoDto> telefonos = UtilesContactos.getTelefonos(this
-		// .getActivity().getApplicationContext(), contactId);
-		//
-		// for (UtilesContactos.TelefonoDto telefono : telefonos) {
-		//
-		// infoList.add(new Info(LLAMAR, telefono.getTelefono(), telefono
-		// .getLabelAsString()));
-		// infoList.add(new Info(SMS, telefono.getTelefono(), telefono
-		// .getLabelAsString()));
-		// }
-		//
-		// for (String valor : UtilesContactos.getEmails(this.getActivity()
-		// .getApplicationContext(), contactId)) {
-		//
-		// infoList.add(new Info(EMAIL, valor));
-		//
-		// }
+		for (String valor : UtilesContactos.getEmails(this.getActivity()
+				.getApplicationContext(), contactId)) {
+
+			infoList.add(new Info(EMAIL, valor));
+
+		}
+
+		// TODO: esta OK usar el contact id? Sino, usar el nombre del contacto
+		infoList.add(new Info(MSGWEB, displayName));
 
 	}
 
