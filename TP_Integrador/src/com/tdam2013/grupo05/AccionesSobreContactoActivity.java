@@ -20,7 +20,7 @@ import com.tdam2013.grupo05.db.Database;
 import com.tdam2013.grupo05.utiles.UtilesContactos;
 import com.tdam2013.grupo05.utiles.UtilesIntents;
 
-public class AccionesSobreContactoFragment extends ListActivity {
+public class AccionesSobreContactoActivity extends ListActivity {
 
 	public static final String CONTACT_ID = "CONTACT_ID";
 	public static final String DISPLAY_NAME = "DISPLAY_NAME";
@@ -154,7 +154,7 @@ public class AccionesSobreContactoFragment extends ListActivity {
 	class CustomAdapter extends BaseAdapter {
 
 		private LayoutInflater inflater = LayoutInflater
-				.from(AccionesSobreContactoFragment.this);
+				.from(AccionesSobreContactoActivity.this);
 
 		public CustomAdapter() {
 		}
@@ -218,9 +218,9 @@ public class AccionesSobreContactoFragment extends ListActivity {
 			long contactId, String displayName) {
 		Intent intent = new Intent();
 		intent.setComponent(new ComponentName(ctx,
-				AccionesSobreContactoFragment.class.getCanonicalName()));
-		intent.putExtra(AccionesSobreContactoFragment.CONTACT_ID, contactId);
-		intent.putExtra(AccionesSobreContactoFragment.DISPLAY_NAME, displayName);
+				AccionesSobreContactoActivity.class.getCanonicalName()));
+		intent.putExtra(AccionesSobreContactoActivity.CONTACT_ID, contactId);
+		intent.putExtra(AccionesSobreContactoActivity.DISPLAY_NAME, displayName);
 		return intent;
 	}
 
