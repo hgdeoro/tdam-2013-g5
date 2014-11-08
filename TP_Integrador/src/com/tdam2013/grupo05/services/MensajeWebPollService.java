@@ -43,8 +43,8 @@ public class MensajeWebPollService extends Service {
 	private PollRunnable pollRunnable;
 	private UtilesHttp utilesHttp = new UtilesHttp();
 
-	private void info(String msg) {
-		Log.i("MensajeWebPollService", msg);
+	private void debug(String msg) {
+		Log.d("MensajeWebPollService", msg);
 	}
 
 	class PollRunnable implements Runnable {
@@ -56,17 +56,17 @@ public class MensajeWebPollService extends Service {
 		}
 
 		private void pollWebService() {
-			MensajeWebPollService.this.info("Iniciando pollWebService()");
+			MensajeWebPollService.this.debug("Iniciando pollWebService()");
 
 			final String username = UtilesMensajesWeb
 					.getUsername(MensajeWebPollService.this);
 
-			MensajeWebPollService.this.info("pollWebService(): buscando "
+			MensajeWebPollService.this.debug("pollWebService(): buscando "
 					+ "mensajes para usuario '" + username + "'");
 
 			if (username == null) {
 				MensajeWebPollService.this
-						.info("No se buscaran mensajes. Usuario es null.");
+						.debug("No se buscaran mensajes. Usuario es null.");
 				return;
 			}
 
@@ -88,11 +88,11 @@ public class MensajeWebPollService extends Service {
 			} catch (SAXException e) {
 				e.printStackTrace();
 			}
-			MensajeWebPollService.this.info("FIN: pollWebService()");
+			MensajeWebPollService.this.debug("FIN: pollWebService()");
 		}
 
 		private void procesarMensajes(List<MensajeWeb> mensajes) {
-			MensajeWebPollService.this.info("Se recibieron " + mensajes.size()
+			MensajeWebPollService.this.debug("Se recibieron " + mensajes.size()
 					+ " mensajes");
 			for (MensajeWeb mensaje : mensajes) {
 				procesarMensaje(mensaje);
@@ -113,7 +113,7 @@ public class MensajeWebPollService extends Service {
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putString(PREFERENCE_ULTIMO_TIMESTAMP, ultimoTimestamp);
 			editor.commit();
-			Log.i("guardarUltimoTimestamp()", "" + ultimoTimestamp);
+			Log.d("guardarUltimoTimestamp()", "" + ultimoTimestamp);
 		}
 
 		/**
@@ -126,13 +126,14 @@ public class MensajeWebPollService extends Service {
 					.getDefaultSharedPreferences(MensajeWebPollService.this);
 			String ultimoTimestamp = sharedPref.getString(
 					PREFERENCE_ULTIMO_TIMESTAMP, "01/01/1970 00:00:00");
-			Log.i("obtenerUltimoTimestamp()", "" + ultimoTimestamp);
+			Log.d("obtenerUltimoTimestamp()", "" + ultimoTimestamp);
 			return ultimoTimestamp;
 		}
 
 		private void procesarMensaje(MensajeWeb mensaje) {
 			// TODO: hace falta enviar notificacion de mensaje recibido?
-			MensajeWebPollService.this.info("Mensaje: " + mensaje.getMensaje());
+			MensajeWebPollService.this
+					.debug("Mensaje: " + mensaje.getMensaje());
 
 			Database db = Database.getDatabase(MensajeWebPollService.this);
 			Date timestamp;
@@ -149,26 +150,26 @@ public class MensajeWebPollService extends Service {
 
 		@Override
 		public void run() {
-			MensajeWebPollService.this.info("PollRunnable.run(): inicianndo");
+			MensajeWebPollService.this.debug("PollRunnable.run(): inicianndo");
 			while (running
 					&& UtilesNetwork.isConnected(MensajeWebPollService.this)) {
 
 				MensajeWebPollService.this
-						.info("PollRunnable.run(): Iniciando poll");
+						.debug("PollRunnable.run(): Iniciando poll");
 				pollWebService();
 				MensajeWebPollService.this
-						.info("PollRunnable.run(): Poll finalizado");
+						.debug("PollRunnable.run(): Poll finalizado");
 
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					MensajeWebPollService.this
-							.info("PollRunnable.run(): Poll genero error");
+							.debug("PollRunnable.run(): Poll genero error");
 					e.printStackTrace();
 				}
 			}
 			running = false;
-			MensajeWebPollService.this.info("PollRunnable.run(): saliendo");
+			MensajeWebPollService.this.debug("PollRunnable.run(): saliendo");
 		}
 
 	}
@@ -176,7 +177,7 @@ public class MensajeWebPollService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
-		info("onStartCommand()");
+		debug("onStartCommand()");
 
 		if (pollThread != null) {
 			// Si el servicio/thread ya esta andando, salimos.
@@ -203,13 +204,13 @@ public class MensajeWebPollService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		this.info("onBind() llamado");
+		this.debug("onBind() llamado");
 		return null;
 	}
 
 	@Override
 	public void onCreate() {
-		this.info("onCreate() llamado");
+		this.debug("onCreate() llamado");
 	}
 
 	@Override
@@ -218,12 +219,12 @@ public class MensajeWebPollService extends Service {
 		if (pollRunnable != null)
 			pollRunnable.stop();
 
-		this.info("onDestroy() llamado");
+		this.debug("onDestroy() llamado");
 	}
 
 	@Override
 	public boolean onUnbind(Intent intent) {
-		this.info("onUnbind() llamado");
+		this.debug("onUnbind() llamado");
 		return super.onUnbind(intent);
 	}
 
